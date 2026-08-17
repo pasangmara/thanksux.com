@@ -86,6 +86,14 @@ export function ProjectCard({
       <PortfolioMedia
         media={project.thumbnail ?? project.coverImage}
         aspectRatio={aspectRatio ?? (isPrimary ? ASPECT.wide : ASPECT.card)}
+        // [Mobile media adaptation — Featured Work portrait fix] Only the
+        // primary card's own *default* wide frame (no caller-supplied
+        // `aspectRatio` override) adapts on mobile — an explicit override
+        // is a deliberate editorial choice elsewhere (e.g. WorkGrid's lead
+        // card) that this doesn't second-guess. Desktop/tablet always keep
+        // the wide collage shape; see PortfolioMedia.tsx / layout.css for
+        // how mobile-only adaptation is guaranteed structurally.
+        autoMobileAspect={isPrimary && !aspectRatio}
         radius={radius ?? (isPrimary ? "lg" : "md")}
         hoverHighlight
       />

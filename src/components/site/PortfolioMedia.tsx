@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, type CSSProperties } from "react";
 import type { CoverMedia, MediaFit } from "@/types/project";
+import { ASPECT_FOR_MEDIA_ASPECT } from "@/content/media";
 import { PlaceholderMedia } from "./PlaceholderMedia";
 
 const radiusClass = {
@@ -64,6 +65,8 @@ const AUTO_CONTAIN_THRESHOLD = 0.35;
 export function PortfolioMedia({
   media,
   aspectRatio,
+  mobileAspectRatio,
+  autoMobileAspect = false,
   radius = "md",
   sizes = "(min-width: 1200px) 33vw, (min-width: 768px) 50vw, 100vw",
   priority = false,
@@ -73,6 +76,32 @@ export function PortfolioMedia({
 }: {
   media: CoverMedia;
   aspectRatio: string;
+  /**
+   * [Mobile media adaptation — Featured Work portrait fix] Explicit
+   * aspect-ratio override used only below the `tablet` breakpoint (768px)
+   * — `aspectRatio` always applies at `tablet` and up, unconditionally
+   * (see layout.css's `.portfolio-media-frame` rule), so passing this can
+   * never change anything above mobile. Unset (every existing caller)
+   * means mobile silently uses the exact same ratio as everywhere else —
+   * zero behavior change. Takes priority over both the CMS `media.aspect`
+   * field and `autoMobileAspect` below when given explicitly.
+   */
+  mobileAspectRatio?: string;
+  /**
+   * [Mobile media adaptation] Opt-in, defaults to `false` — every existing
+   * caller (Hero tiles, About photo, case-study gallery, secondary project
+   * cards) renders byte-identical to before this prop existed. When
+   * `true` and `mobileAspectRatio` wasn't given, the mobile frame ratio is
+   * decided from the actual artwork instead of the fixed `aspectRatio`
+   * everywhere else uses: the CMS's per-image `media.aspect` tag
+   * (portrait/landscape/square) when set, via ASPECT_FOR_MEDIA_ASPECT — or,
+   * when that's unset too, the image's own *loaded* natural ratio, so an
+   * untagged image still gets a shape that matches its real content rather
+   * than a guess (there's necessarily a brief moment before it loads where
+   * it shows the same ratio as `aspectRatio`, unavoidable without knowing
+   * real dimensions ahead of time).
+   */
+  autoMobileAspect?: boolean;
   radius?: keyof typeof radiusClass;
   sizes?: string;
   priority?: boolean;
@@ -96,19 +125,46 @@ export function PortfolioMedia({
 
   const frameRatio = parseRatio(aspectRatio);
 
+  // [Mobile media adaptation] `media.aspect` (CMS-tagged, known at render
+  // time — no flash) wins over the client-detected natural ratio (only
+  // known once the image has actually loaded).
+  const knownAspect = media.kind === "image" ? media.aspect : undefined;
+  const [detectedMobileRatio, setDetectedMobileRatio] = useState<string | null>(null);
+  const effectiveMobileAspectRatio =
+    mobileAspectRatio ??
+    (knownAspect
+      ? ASPECT_FOR_MEDIA_ASPECT[knownAspect]
+      : autoMobileAspect
+        ? (detectedMobileRatio ?? undefined)
+        : undefined);
+
   function handleLoad(img: HTMLImageElement) {
+    if (!img.naturalWidth || !img.naturalHeight) return;
+    const naturalRatio = img.naturalWidth / img.naturalHeight;
     // An explicit per-image `fit` always wins — never override an
     // intentional content-author choice with auto-detection.
-    if (explicitFit || !frameRatio || !img.naturalWidth || !img.naturalHeight) return;
-    const naturalRatio = img.naturalWidth / img.naturalHeight;
-    const diff = Math.abs(naturalRatio - frameRatio) / frameRatio;
-    setAutoFit(diff > AUTO_CONTAIN_THRESHOLD ? "contain" : "cover");
+    if (!explicitFit && frameRatio) {
+      const diff = Math.abs(naturalRatio - frameRatio) / frameRatio;
+      setAutoFit(diff > AUTO_CONTAIN_THRESHOLD ? "contain" : "cover");
+    }
+    // [Mobile media adaptation] Only reached when the caller opted in and
+    // no CMS orientation tag exists — the real natural ratio becomes the
+    // mobile frame's own ratio, so the frame ends up matching the image
+    // almost exactly (no meaningful cropping/letterboxing left either way).
+    if (autoMobileAspect && !mobileAspectRatio && !knownAspect) {
+      setDetectedMobileRatio(String(naturalRatio));
+    }
   }
 
   return (
     <div
-      className={`relative w-full overflow-hidden border border-border bg-background-alt ${radiusClass[radius]} ${className}`}
-      style={{ aspectRatio }}
+      className={`portfolio-media-frame relative w-full overflow-hidden border border-border bg-background-alt ${radiusClass[radius]} ${className}`}
+      style={
+        {
+          "--pm-aspect": aspectRatio,
+          ...(effectiveMobileAspectRatio ? { "--pm-aspect-mobile": effectiveMobileAspectRatio } : {}),
+        } as CSSProperties
+      }
     >
       {media.kind === "image" ? (
         <Image

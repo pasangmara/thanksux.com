@@ -1,3 +1,5 @@
+import type { MediaAspect } from "@/types/project";
+
 /**
  * Shared aspect-ratio constants for portfolio media.
  *
@@ -24,3 +26,18 @@ export const ASPECT = {
   /** Project detail gallery's full-width tier — gentler than `wide`/`spotlight` (21:9 is a banner ratio; a full-width gallery shot reads better at a standard photographic ratio). */
   galleryFull: "16 / 9",
 } as const;
+
+/**
+ * [Mobile media adaptation — Featured Work portrait fix] Maps a CMS-tagged
+ * image orientation to a concrete frame ratio, for contexts that adapt
+ * their frame shape to the actual artwork instead of forcing every image
+ * into one fixed shape (see PortfolioMedia.tsx's `mobileAspectRatio` /
+ * `autoMobileAspect`). Same three values CaseStudyGallery.tsx's own
+ * (separately maintained) ASPECT_FOR_ASPECT already uses for the same
+ * three categories — not a new, arbitrary set of ratios.
+ */
+export const ASPECT_FOR_MEDIA_ASPECT: Record<MediaAspect, string> = {
+  portrait: ASPECT.tall,
+  landscape: ASPECT.galleryFull,
+  square: ASPECT.square,
+};

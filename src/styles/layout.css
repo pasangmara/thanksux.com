@@ -59,4 +59,23 @@
       gap: 24px; /* desktop gutter */
     }
   }
+
+  /* [Mobile media adaptation — Featured Work portrait fix] `--pm-aspect` /
+     `--pm-aspect-mobile` are set inline, per-instance, by
+     PortfolioMedia.tsx. Below `tablet` (768px), a caller-supplied mobile
+     ratio wins when set (`--pm-aspect-mobile` is declared); otherwise the
+     `var()` fallback means mobile silently uses the exact same ratio as
+     everywhere else — zero behavior change for every existing caller that
+     doesn't opt in. At `tablet` and up, `--pm-aspect` always applies,
+     unconditionally — this is what guarantees desktop/tablet composition
+     can never regress from this mechanism, structurally, not by any
+     caller remembering to pass a matching override. */
+  .portfolio-media-frame {
+    aspect-ratio: var(--pm-aspect-mobile, var(--pm-aspect));
+  }
+  @media (min-width: 768px) {
+    .portfolio-media-frame {
+      aspect-ratio: var(--pm-aspect);
+    }
+  }
 }
