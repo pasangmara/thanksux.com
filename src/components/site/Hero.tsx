@@ -81,12 +81,24 @@ function HeroVisualTile({
   radius,
   className = "",
   priority = false,
+  autoMobileAspect = false,
 }: {
   visual: HeroVisual;
   aspectRatio: string;
   radius?: "sm" | "md" | "lg";
   className?: string;
   priority?: boolean;
+  /**
+   * [Mobile media adaptation — Hero single-tile portrait fix] Opt-in,
+   * defaults to `false` — the tablet 2-tile row and desktop 4-tile
+   * exhibition grid (both >=768px) render unchanged. Only the mobile
+   * single-tile (`tileA` below `tablet:hidden`) opts in, so a portrait
+   * hero visual gets a portrait-shaped frame on mobile instead of being
+   * squeezed into the fixed `ASPECT.card` (4:3) frame every tile uses —
+   * same mechanism ProjectCard's primary Featured Work card already uses,
+   * see PortfolioMedia.tsx.
+   */
+  autoMobileAspect?: boolean;
 }) {
   const media = (
     <PortfolioMedia
@@ -96,6 +108,7 @@ function HeroVisualTile({
       className={className}
       priority={priority}
       placeholderLabel={visual.title || undefined}
+      autoMobileAspect={autoMobileAspect}
     />
   );
   return visual.href ? (
@@ -185,7 +198,7 @@ export async function Hero() {
             {/* Mobile: single strongest tile */}
             <div className="tablet:hidden">
               <Animated config={tileA.animation} index={0}>
-                <HeroVisualTile visual={tileA} aspectRatio={ASPECT.card} radius="lg" priority />
+                <HeroVisualTile visual={tileA} aspectRatio={ASPECT.card} radius="lg" priority autoMobileAspect />
               </Animated>
             </div>
 
