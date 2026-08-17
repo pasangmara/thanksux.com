@@ -41,8 +41,12 @@ function parallaxDepth(visual: HeroVisual, fallback: number): number {
  * site's own type-craft signature piece.
  *
  * Three distinct compositions per breakpoint (not one layout scaled down):
- * mobile shows a single strongest tile, tablet a condensed 2-tile row,
- * desktop the full 4-tile exhibition grid beside the headline.
+ * mobile shows all 4 assets as a linearized collage (lead tile, a paired
+ * row, a closing wide tile — mirroring the desktop grid's own hierarchy),
+ * tablet a condensed 2-tile row, desktop the full 4-tile exhibition grid
+ * beside the headline. [Mobile collage fix] Mobile previously showed only
+ * the single lead tile (tileA) — revised so every visible hero asset
+ * participates on every breakpoint, only the arrangement changes.
  *
  * [CMS architecture correction] Headline/description/both CTAs now render
  * `HeroContent` (data/hero.json, edited at /admin/hero) — its own
@@ -195,10 +199,32 @@ export async function Hero() {
           </HeroEntrance>
 
           <HeroParallax className="desktop:col-span-5">
-            {/* Mobile: single strongest tile */}
-            <div className="tablet:hidden">
+            {/* Mobile: full 4-asset collage, mirroring the desktop grid's own
+                visual hierarchy (A = lead/tall, B+C = paired supporting
+                tiles, D = wide/full) linearized top-to-bottom instead of
+                arranged in a 2-column grid — same four source assets as
+                tablet/desktop, only the arrangement changes. Every tile
+                opts into `autoMobileAspect` individually (not one shared
+                ratio) so each asset's own real orientation decides its
+                frame shape on mobile — a portrait asset (e.g. tileA) gets a
+                portrait frame, a landscape one (e.g. tileD) gets a
+                landscape frame, same generic mechanism ProjectCard's
+                Featured Work card and the single-tile version of this block
+                already used. See PortfolioMedia.tsx. */}
+            <div className="flex flex-col gap-4 tablet:hidden">
               <Animated config={tileA.animation} index={0}>
                 <HeroVisualTile visual={tileA} aspectRatio={ASPECT.card} radius="lg" priority autoMobileAspect />
+              </Animated>
+              <div className="grid grid-cols-2 gap-4">
+                <Animated config={tileB.animation} index={1}>
+                  <HeroVisualTile visual={tileB} aspectRatio={ASPECT.square} radius="md" autoMobileAspect />
+                </Animated>
+                <Animated config={tileC.animation} index={2}>
+                  <HeroVisualTile visual={tileC} aspectRatio={ASPECT.square} radius="md" autoMobileAspect />
+                </Animated>
+              </div>
+              <Animated config={tileD.animation} index={3}>
+                <HeroVisualTile visual={tileD} aspectRatio={ASPECT.wide} radius="lg" autoMobileAspect />
               </Animated>
             </div>
 
