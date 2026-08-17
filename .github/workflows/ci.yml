@@ -1,0 +1,33 @@
+name: CI
+
+# [Production prep — thanksux.com] Verification only — no deployment step.
+# This project's actual hosting target (the office developer's existing
+# server) isn't known yet, so this workflow intentionally stops at "does it
+# typecheck/lint/build" rather than inventing SSH hosts, deploy keys, or a
+# hosting-specific deploy step. Add a deploy job once that information is
+# available — see README.md's Deployment section.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.9.0"
+          cache: "npm"
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - name: Build
+        run: npm run build
+        env:
+          # Optional at build time (see .env.example) — populate as repo
+          # secrets once real values exist; the build/type-check itself
+          # does not require them.
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}

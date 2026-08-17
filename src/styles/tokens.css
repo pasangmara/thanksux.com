@@ -1,0 +1,279 @@
+/**
+ * Design tokens — mirrors docs/DESIGN_SYSTEM.md v2 §1–§5 token-for-token.
+ * Every custom property name below matches the doc's token name so the
+ * mapping is traceable in both directions. Per Principle 6 ("no token
+ * ships without a named use case"), unused parts of Tailwind's default
+ * theme are explicitly cleared rather than left as unused inventory.
+ */
+
+@theme {
+  /* ---- Breakpoints — DESIGN_SYSTEM.md §12 ----
+     Replaces Tailwind's default sm/md/lg/xl/2xl. "mobile" is the
+     unprefixed base state (0–767px); the other three are named exactly
+     as documented. */
+  --breakpoint-*: initial;
+  --breakpoint-tablet: 768px; /* tablet: 768–1199px */
+  --breakpoint-desktop: 1200px; /* desktop: 1200–1599px */
+  --breakpoint-wide: 1600px; /* wide: ≥1600px — container-wide still caps at 1280px, see layout.css */
+
+  /* ---- Color tokens — DESIGN_SYSTEM.md §1, revised for the "premium
+     editorial" visual-refinement pass (see docs/DESIGN_SYSTEM.md §1
+     changelog note). Background/border shifted from a warm off-white to a
+     cool neutral; brand colors (ink, accent) are unchanged. Default
+     Tailwind palette removed; only the documented colors plus base
+     keywords exist. Using an off-palette color (e.g. bg-red-500) will not
+     generate a utility at all. */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-background: #f6f7f9; /* color-background — cool-neutral page background (was #fafaf7, warm) */
+  --color-background-alt: #edeff3; /* color-background-alt — section-break background (was #f2f1ec, warm) */
+  --color-surface: #ffffff; /* color-surface — pure white, cards/form fields sit above background */
+  --color-ink: #0e1b33; /* color-ink — deep blue: primary brand/action, text, structural rule token */
+  --color-ink-hover: #16274a; /* color-ink-hover — primary button hover; keeps hover feedback on-brand (blue) rather than spending the accent color on a routine interaction */
+  --color-text-secondary: #4a5568; /* color-text-secondary — supporting copy, captions, metadata */
+  --color-text-tertiary: #8a93a3; /* color-text-tertiary — placeholders, disabled, timestamps */
+  --color-accent: #d9622b; /* color-accent — small, memorable highlight only: focus rings, active-state, secondary/text-link hover — never large fills */
+  --color-accent-hover: #b94e1e; /* color-accent-hover */
+  --color-border: #e1e4ea; /* color-border — cool-neutral, subtle (was #dcdad2, warm/beige) */
+  --color-error: #b3261e; /* color-error — inline form validation only */
+  --color-live: #2f9e5e; /* color-live — one deliberate addition outside the core palette, scoped to exactly one use: the admin "new signal" live status dot (Signal media attachments Part F/K). Never used for text, fills, or any other UI. */
+  --color-on-ink: #ffffff; /* [v5] color-on-ink — the text/icon color guaranteed legible on any bg-ink fill (primary button, critical severity badge, selected pill). A real, separate token from color-white: in dark mode color-ink flips to a light value (see the prefers-color-scheme block below), so "the color that sits on top of ink" and "white" stop being the same value — every existing `text-white`-on-`bg-ink` pairing was migrated to `text-on-ink` for exactly this reason. */
+
+  /* ---- Typefaces — DESIGN_SYSTEM.md §2 ----
+     Display: General Sans (medium/semibold only). Body: Inter (regular/medium only).
+     DESIGN_SYSTEM.md itself only lists candidate families (Söhne / General
+     Sans / Neue Montreal, and Inter / Aeonik / Suisse Int'l) — General
+     Sans + Inter was the concrete pick made when this foundation was set
+     up, because both are freely licensed and self-hostable. See layout.tsx
+     for how each is loaded. */
+  --font-display: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* ---- Spacing — DESIGN_SYSTEM.md §3 ----
+     8px base unit. Overriding Tailwind's default 4px unit means the
+     existing numeric spacing utilities resolve exactly to the documented
+     scale, with no new utility names invented:
+       space-1  8px   -> p-1 / gap-1 / m-1 ...
+       space-2  16px  -> p-2
+       space-3  24px  -> p-3
+       space-4  32px  -> p-4
+       space-6  48px  -> p-6
+       space-8  64px  -> p-8
+       space-12 96px  -> p-12
+       space-16 128px -> p-16
+     Any other multiple (p-5, p-7, p-9...) is off-scale and should not be used. */
+  --spacing: 8px;
+
+  /* ---- Radius — DESIGN_SYSTEM.md §5, revised for the "premium editorial"
+     visual-refinement pass. The original v2 system was intentionally
+     zero-radius ("no exceptions"); that read as too sharp/wireframe-like
+     for a designer portfolio and was deliberately revised, not patched
+     around. A controlled 3-step scale, each value a multiple of the 8px
+     spacing unit so radius stays tied to the same system rather than
+     introducing unrelated numbers:
+       radius-sm   8px  -> small UI elements (chips, icon hit-targets)
+       radius-md  16px  -> buttons, cards, inputs, standard image containers
+       radius-lg  24px  -> large/spotlight image containers
+     Only these three exist — rounded-none remains available (Tailwind's
+     static utility) but rounded-xl/2xl/3xl/full etc. do not, so nothing
+     drifts toward "pill-shaped." */
+  --radius-*: initial;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  /* [Mature Button Design System] One dedicated value for buttons only —
+     10–14px reads as "real UI control" (Linear/Stripe/Vercel), where the
+     content-container scale's 16px (radius-md) reads closer to a card.
+     Deliberately not folded into the 3-step content scale above (that
+     scale is for cards/images/inputs, a different visual role) and
+     deliberately still just ONE value, not several, so every button site-
+     wide shares one radius rather than drifting. */
+  --radius-button: 12px;
+
+  /* ---- Shadows — DESIGN_SYSTEM.md §5, extended v4 ----
+     shadow-none is Tailwind's built-in static utility (kept as-is).
+     `shadow-focus` is the v3 focus ring. `shadow-elevated`/`shadow-glass`
+     are v4 additions (see docs/DESIGN_SYSTEM.md v4 changelog) — both stay
+     single-layer and low-opacity, never the multi-layer skeuomorphic stacks
+     docs/21ST_COMPONENT_AUDIT.md flagged and rejected in the imported
+     candidate components. */
+  --shadow-*: initial;
+  --shadow-focus: 0 0 0 2px var(--color-accent);
+  --shadow-elevated: 0 8px 20px -8px rgb(14 27 51 / 0.18);
+  --shadow-glass: 0 8px 32px -12px rgb(14 27 51 / 0.16);
+
+  /* ---- Motion — v4 addition ----
+     One named easing curve for the expanded v4 motion vocabulary (glass
+     transitions, button elevation, scroll reveals) — a gentle
+     deceleration, deliberately not a spring/bounce curve (still explicitly
+     prohibited, see DESIGN_SYSTEM.md §13). `ease-out` stays the default for
+     every existing v2/v3 interaction; this is additive for the new,
+     slightly longer premium transitions only. */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/**
+ * [v5 — Visual Refinement Pass II] Dark theme. Automatic (`prefers-color-
+ * scheme: dark`, the visitor's OS/browser setting) — this pass didn't ask
+ * for a manual toggle UI, so none was added; every color token below is a
+ * real CSS custom property (not a build-time-only `@theme` value), so a
+ * future `:root[data-theme="dark"]` override could reuse this exact same
+ * block without restructuring anything, if a manual toggle is ever added.
+ *
+ * Redefines the *same* custom properties `@theme` above declares — Tailwind
+ * v4's `@theme` block itself compiles to a `:root { --color-*: ... }`
+ * declaration plus the utility classes that reference it via `var()`; this
+ * block only overrides the `:root` values, later in the cascade, guarded
+ * by the media query. Every `bg-ink`/`text-ink`/`border-border`/etc.
+ * utility anywhere in the app repaints automatically — no component
+ * changes needed for the base palette. Only places that hardcoded a raw
+ * color instead of a token (there were none found in public components
+ * except `text-white` paired with `bg-ink`, now `text-on-ink` — see above)
+ * needed an actual code change.
+ *
+ * Values keep every token's documented *role* identical (ink is still "the
+ * primary brand/text/structural color," accent is still "small, memorable
+ * highlight only") — only the literal color shifts, and each dark value is
+ * independently contrast-checked against its real usage, not a blind
+ * invert of the light value.
+ */
+/**
+ * [Theme toggle] Dark palette now applies two ways, kept textually in sync:
+ * (1) automatically via `prefers-color-scheme: dark` when the visitor has
+ * never made an explicit choice — guarded by `:not([data-theme="light"])`
+ * so an explicit light pick still overrides a dark system preference; and
+ * (2) unconditionally via `[data-theme="dark"]` once ThemeToggle has set
+ * that attribute (see src/lib/theme/ThemeProvider.tsx and the anti-flash
+ * inline script in layout.tsx's <head>, which sets the same attribute
+ * before first paint so there's no light->dark flash). Same values in both
+ * blocks — duplicated rather than shared via a preprocessor mixin, since
+ * this repo has no CSS preprocessor and Tailwind v4's `@theme` block can't
+ * itself be conditioned on an attribute selector.
+ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-background: #0a0f1c; /* deep near-black navy, not pure black — keeps the brand's "navy," never neutral gray/black */
+    --color-background-alt: #0f1728; /* section-break band — one step lighter than background, same relationship as light mode */
+    --color-surface: #16213a; /* cards/inputs — lighter still, so surfaces visibly lift off the page without needing a shadow to prove it */
+    --color-ink: #eef1f7; /* primary text/structural color — flips light-on-dark; ~14.7:1 against --color-background */
+    --color-ink-hover: #ffffff; /* primary button hover — shifts brighter, mirroring light mode's "hover shifts deeper" relationship inverted for a dark fill */
+    --color-text-secondary: #a9b2c4; /* ~8.97:1 against background — comfortably clears body-text contrast */
+    --color-text-tertiary: #707b93; /* placeholders/timestamps — deliberately quieter, ~4.5:1, matches this token's existing "recedes" role while still clearing normal-text contrast */
+    --color-accent: #ef8350; /* brightened from #d9622b — the light-mode value drops to well under the 3:1 large-text floor this token relies on when placed on a near-black background; this brighter value clears ~7.3:1, stronger than light mode's own ~3.4:1 */
+    --color-accent-hover: #ff9c66;
+    --color-border: #26314a; /* subtle but real separation from both background and surface */
+    --color-error: #f2867f; /* brightened for dark-background legibility (~7.7:1), stays in the same red family */
+    --color-live: #3ee089; /* brightened for dark-background legibility (~11:1), stays in the same green family */
+    --color-on-ink: #0a0f1c; /* ink is now light, so its contrast text flips to the dark background color — the inverse of light mode's white-on-navy */
+  }
+}
+
+:root[data-theme="dark"] {
+  --color-background: #0a0f1c;
+  --color-background-alt: #0f1728;
+  --color-surface: #16213a;
+  --color-ink: #eef1f7;
+  --color-ink-hover: #ffffff;
+  --color-text-secondary: #a9b2c4;
+  --color-text-tertiary: #707b93;
+  --color-accent: #ef8350;
+  --color-accent-hover: #ff9c66;
+  --color-border: #26314a;
+  --color-error: #f2867f;
+  --color-live: #3ee089;
+  --color-on-ink: #0a0f1c;
+}
+
+/**
+ * [Mature Button Design System v2 — CTA contrast fix] Button tokens.
+ * `--button-primary` previously just reused `--color-accent`, with a
+ * dedicated dark `--button-primary-text` because white text on
+ * `--color-accent` fails WCAG AA at button text size (16px/500 weight —
+ * not "large text" per WCAG's 18.66px-bold-or-24px floor): 3.66:1 in light
+ * mode, 2.61:1 in dark, both under the 4.5:1 normal-text minimum.
+ *
+ * Per explicit instruction the button now needs WHITE text, so the fix
+ * moves to the other side of the pairing: a dedicated, deliberately darker
+ * orange for `--button-primary` itself, NOT reused from `--color-accent`.
+ * `--color-accent` stays exactly as before — it's calibrated separately
+ * for headline emphasis / focus rings / link hover (see Accent.tsx), none
+ * of which pair it with white text, so it doesn't need to move.
+ *
+ * Verified contrast (same brand-orange hue family, just deeper):
+ *   light --button-primary #b94e1e (= --color-accent-hover's existing
+ *     value, reused rather than inventing a new one) + white = 5.03:1
+ *   dark  --button-primary #a75c38 + white = 4.96:1, and 3.85:1 against
+ *     dark mode's --color-background so the fill still visibly separates
+ *     from the page (well above the 3:1 non-text UI-component floor)
+ * Both clear AA with margin. Hover/active deepen further via color-mix
+ * toward black — contrast against white text only increases from there,
+ * never regresses.
+ */
+:root {
+  --button-primary: #b94e1e;
+  --button-primary-hover: color-mix(in srgb, var(--button-primary) 82%, black);
+  --button-primary-active: color-mix(in srgb, var(--button-primary) 70%, black);
+  --button-primary-text: #ffffff;
+  --button-icon: currentColor;
+  --button-border: color-mix(in srgb, var(--button-primary) 80%, black);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --button-primary: #a75c38;
+  }
+}
+
+:root[data-theme="dark"] {
+  --button-primary: #a75c38;
+}
+
+/**
+ * [Dark theme fix — PromoBanner "dark" variant] `PromoBanner.tsx`'s `dark`
+ * variant is a deliberately inverted block — solid `--color-ink` fill,
+ * `--color-on-ink` text — meant to read as a bold contrasting break against
+ * the surrounding page. That works in light mode (ink is navy, the page is
+ * light). But `--color-ink`/`--color-on-ink` are designed to flip *together*
+ * with the whole theme so ordinary body text stays readable once the page
+ * itself goes dark — ink becomes near-white, on-ink becomes near-black. Reused
+ * literally for this one already-inverted block, that flip double-inverts it:
+ * in dark mode the "bold navy block" turns into a near-white rectangle with
+ * dark text, breaking the dark theme rather than fitting into it.
+ *
+ * These tokens give that variant its own theme-aware "stays visually
+ * distinct/elevated from the page" role instead: in light mode, identical to
+ * ink/on-ink (unchanged appearance); in dark mode, the lighter `--color-
+ * surface` "elevated card" treatment (paired with regular `--color-ink`
+ * foreground) reads as the equivalent contrast-against-page move, since a
+ * literal navy fill would be indistinguishable from an already-dark page.
+ * Scoped to this one component/role — not a general ink/on-ink replacement.
+ */
+:root {
+  --promo-inverted-bg: var(--color-ink);
+  --promo-inverted-fg: var(--color-on-ink);
+  --promo-inverted-fg-secondary: color-mix(in srgb, var(--color-on-ink) 70%, transparent);
+  --promo-inverted-fg-tertiary: color-mix(in srgb, var(--color-on-ink) 60%, transparent);
+  --promo-inverted-border: color-mix(in srgb, var(--color-on-ink) 30%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --promo-inverted-bg: var(--color-surface);
+    --promo-inverted-fg: var(--color-ink);
+    --promo-inverted-fg-secondary: var(--color-text-secondary);
+    --promo-inverted-fg-tertiary: var(--color-text-tertiary);
+    --promo-inverted-border: var(--color-border);
+  }
+}
+
+:root[data-theme="dark"] {
+  --promo-inverted-bg: var(--color-surface);
+  --promo-inverted-fg: var(--color-ink);
+  --promo-inverted-fg-secondary: var(--color-text-secondary);
+  --promo-inverted-fg-tertiary: var(--color-text-tertiary);
+  --promo-inverted-border: var(--color-border);
+}

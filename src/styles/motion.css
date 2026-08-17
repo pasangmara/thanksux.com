@@ -1,0 +1,310 @@
+/**
+ * [Theme toggle] Cross-theme color transition. Scoped to exactly the
+ * properties tokens.css's light/dark blocks change — background, text,
+ * border, shadow — never layout (width/height/font-size/position), per
+ * the toggle spec's explicit "animate only visual properties" rule.
+ * Lives in `@layer base` deliberately: Tailwind v4 cascade layers rank
+ * base < components < utilities regardless of selector specificity, so
+ * this low-specificity `*` rule can never override a more specific
+ * transition a component already declares (e.g. buttons.css's 160ms
+ * `.btn-solid-primary` transition, or an inline `transition-colors
+ * duration-150` utility) — it only fills in elements that don't already
+ * animate their own colors.
+ */
+@layer base {
+  @media (prefers-reduced-motion: no-preference) {
+    *,
+    *::before,
+    *::after {
+      transition:
+        background-color 240ms ease-out,
+        color 240ms ease-out,
+        border-color 240ms ease-out,
+        box-shadow 240ms ease-out;
+    }
+  }
+}
+
+/**
+ * Scroll-triggered reveal — docs/DESIGN_SYSTEM.md v2 §13.
+ * Fade + 16px slide, 400ms ease-out, once per element. Reduced-motion
+ * fallback renders the final state immediately, per the spec's explicit
+ * per-component requirement (not a general footnote).
+ */
+
+@layer components {
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 400ms ease-out,
+      transform 400ms ease-out;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/**
+ * [Visual Design / Motion Phase — v4] Scroll-reveal variants — same
+ * IntersectionObserver-once mechanism as `.reveal` above (ScrollReveal.tsx
+ * toggles `.is-visible` identically for all of these; only the hidden-state
+ * transform/filter/duration differs per variant), so each homepage section
+ * can have a genuinely distinct entrance instead of one fade+slide
+ * everywhere — the deliberate goal of this phase's "scroll story," not
+ * decoration for its own sake. Every variant still respects
+ * `prefers-reduced-motion` (final state immediately, no transition) and
+ * still fires only once per element.
+ */
+@layer components {
+  .reveal-fade {
+    opacity: 0;
+    transition: opacity 600ms var(--ease-premium);
+  }
+  .reveal-fade.is-visible {
+    opacity: 1;
+  }
+
+  .reveal-scale {
+    opacity: 0;
+    transform: scale(0.97);
+    transition:
+      opacity 600ms var(--ease-premium),
+      transform 600ms var(--ease-premium);
+  }
+  .reveal-scale.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-blur {
+    opacity: 0;
+    filter: blur(8px);
+    transition:
+      opacity 700ms var(--ease-premium),
+      filter 700ms var(--ease-premium);
+  }
+  .reveal-blur.is-visible {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-24px);
+    transition:
+      opacity 600ms var(--ease-premium),
+      transform 600ms var(--ease-premium);
+  }
+  .reveal-left.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(24px);
+    transition:
+      opacity 600ms var(--ease-premium),
+      transform 600ms var(--ease-premium);
+  }
+  .reveal-right.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-fade,
+  .reveal-scale,
+  .reveal-blur,
+  .reveal-left,
+  .reveal-right {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+}
+
+/**
+ * [CMS Phase D3] Admin loading spinner — src/components/admin/fields.tsx's
+ * `Spinner`. A continuous rotation, not a one-shot transition, so it lives
+ * here alongside `.reveal` rather than as a Tailwind utility.
+ */
+@layer components {
+  .spinner {
+    animation: admin-spin 700ms linear infinite;
+  }
+}
+
+@keyframes admin-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Slowed, not stopped — a spinner conveys "still working"; removing its
+     motion entirely would misrepresent an in-progress save as finished or
+     stuck, unlike `.reveal`'s purely decorative entrance motion above. */
+  .spinner {
+    animation-duration: 1600ms;
+  }
+}
+
+/**
+ * [Motion continuation] Homepage Hero entrance — src/components/site/
+ * HeroEntrance.tsx / HeroParallax.tsx. Plays once on load (the Hero sits
+ * above the fold, so this isn't scroll-triggered like `.reveal`): eyebrow
+ * -> headline -> description -> CTA row -> visual grid, 90ms apart, same
+ * fade + 12px-slide language as `.reveal`. `animation-fill-mode: both`
+ * means each element sits at its 0% keyframe state (invisible) from first
+ * paint until its own delay elapses, so nothing flashes fully visible
+ * before animating in.
+ */
+@layer components {
+  .hero-entrance [data-hero-entrance] {
+    animation: hero-entrance-in 500ms ease-out both;
+  }
+  .hero-entrance [data-hero-entrance="1"] {
+    animation-delay: 0ms;
+  }
+  .hero-entrance [data-hero-entrance="2"] {
+    animation-delay: 90ms;
+  }
+  .hero-entrance [data-hero-entrance="3"] {
+    animation-delay: 180ms;
+  }
+  .hero-entrance [data-hero-entrance="4"] {
+    animation-delay: 270ms;
+  }
+  .hero-entrance [data-hero-entrance="5"] {
+    animation-delay: 360ms;
+  }
+}
+
+@keyframes hero-entrance-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-entrance [data-hero-entrance] {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/**
+ * [Motion continuation] Mobile nav overlay — src/components/site/
+ * SiteNav.tsx. A brief fade + 8px settle on open, matching the same
+ * fade/slide language used everywhere else on the site rather than an
+ * instant cut — the overlay is conditionally mounted (no exit animation
+ * needed for a "subtle micro-interaction," see docs/DESIGN_SYSTEM.md v2
+ * §13's own scope).
+ */
+@layer components {
+  .nav-mobile-enter {
+    animation: nav-mobile-enter-in 200ms ease-out both;
+  }
+}
+
+@keyframes nav-mobile-enter-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-mobile-enter {
+    animation: none;
+  }
+}
+
+/**
+ * [Phase J — CMS-controlled animation] `float` preset —
+ * src/components/site/Animated.tsx. The one preset that's a continuous
+ * loop rather than a single hidden->visible transition, so it needs a
+ * real `@keyframes` rather than an inline-style transition. Small and
+ * slow (8px, 3.2s) — a decorative idle motion, not attention-grabbing.
+ * `Animated.tsx` already skips applying this class under
+ * `prefers-reduced-motion: reduce`; the media query below is a second,
+ * redundant guard for the same reason `HeroParallax`/`.reveal` both
+ * already have their own CSS-level fallback in addition to their JS
+ * checks — belt and suspenders, not load-bearing on its own.
+ */
+@layer components {
+  .animated-float {
+    animation: animated-float-loop 3200ms ease-in-out infinite;
+  }
+}
+
+@keyframes animated-float-loop {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-float {
+    animation: none;
+  }
+}
+
+/**
+ * [Signal media attachments Part F/K] Admin "new signal" live status dot —
+ * AdminShell.tsx's Signals nav item. Soft opacity breathing, not a scale/
+ * size change (so it never nudges surrounding text/layout) — "visually
+ * noticeable but not distracting" per the explicit spec. The dim/static
+ * "no new signal" state renders the same dot with no animation class at
+ * all, not a second variant, so there is exactly one visual language for
+ * this indicator either way.
+ */
+@layer components {
+  .signal-live-dot-active {
+    animation: signal-live-pulse 1800ms ease-in-out infinite;
+  }
+}
+
+@keyframes signal-live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-live-dot-active {
+    animation: none;
+  }
+}

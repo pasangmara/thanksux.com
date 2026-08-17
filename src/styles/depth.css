@@ -1,0 +1,224 @@
+/**
+ * [Visual Design / Motion Phase — v4] Glass + atmospheric gradient system.
+ * See docs/DESIGN_SYSTEM.md v4 changelog for the full rationale — summary:
+ *
+ *  - Every color used below is `color-mix()`'d from the *existing* closed
+ *    palette (tokens.css) — ink, ink-hover, accent, accent-hover, live,
+ *    background, background-alt, surface. No new hex values, no new hues.
+ *    "Soft blue" / "soft violet-blue" in the brief are read as lighter
+ *    *tints* of `color-ink` (already a deep blue), not a new violet hue —
+ *    this system stays closed per Design Principle 6.
+ *  - Every gradient is large, soft-edged, and low-opacity — meant to read
+ *    as ambient light, not a painted panel. None exceed ~14% peak opacity
+ *    against the page background.
+ *  - Every atmosphere/glass layer here is decorative: `aria-hidden`,
+ *    `pointer-events-none` at the call site, and never the sole carrier of
+ *    real information (severity, score, state) — those still render via
+ *    text/borders per docs/DESIGN_SYSTEM.md's existing "don't rely on
+ *    color alone" posture.
+ */
+
+@layer components {
+  /* ---------------------------------------------------------------------
+     Glass surface — floating navbar, audit panel, quick-wins/priority
+     highlights, scroll-to-top, notification dropdown. Deliberately ONE
+     recipe (not per-component variants) so "glass" reads as one material
+     sitewide. Never applied to normal content cards (those stay
+     `color-surface` solid) — see DESIGN_SYSTEM.md v4 §5 for the allow-list.
+  --------------------------------------------------------------------- */
+  .glass-surface {
+    background: color-mix(in srgb, var(--color-surface) 62%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid color-mix(in srgb, var(--color-surface) 45%, var(--color-border));
+    box-shadow: var(--shadow-glass);
+  }
+
+  /* Graceful degradation (§5's explicit requirement): browsers without
+     backdrop-filter support get a solid, still-readable surface instead of
+     a translucent one sitting directly on top of whatever's behind it. */
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass-surface {
+      background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+    }
+  }
+
+  /* Darker glass for surfaces sitting on `color-background-alt` bands
+     (footer, CTA) where the lighter recipe above would read too close to
+     its own backdrop to be visible as "glass" at all. */
+  .glass-surface-alt {
+    background: color-mix(in srgb, var(--color-surface) 72%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid color-mix(in srgb, var(--color-surface) 55%, var(--color-border));
+    box-shadow: var(--shadow-glass);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .glass-surface-alt {
+      background: color-mix(in srgb, var(--color-surface) 96%, transparent);
+    }
+  }
+
+  /* Navbar-specific glass — same recipe as `.glass-surface` but a
+     bottom-only border (matches the sitewide nav convention: "1px border,
+     always visible," DESIGN_SYSTEM.md §8 — a full 4-side border on a
+     full-width sticky header would draw unwanted hairlines down the
+     viewport's left/right edges). */
+  .nav-glass {
+    background: color-mix(in srgb, var(--color-surface) 68%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-surface) 50%, var(--color-border));
+    box-shadow: var(--shadow-glass);
+  }
+  @supports not (backdrop-filter: blur(1px)) {
+    .nav-glass {
+      background: color-mix(in srgb, var(--color-surface) 96%, transparent);
+    }
+  }
+
+  /* ---------------------------------------------------------------------
+     Atmosphere layers — large, soft, low-opacity gradients meant to sit
+     behind content as a full-bleed decorative backdrop (absolutely
+     positioned by the caller, this class only supplies the gradient
+     image). "Light, not paint": every stop fades to fully transparent.
+  --------------------------------------------------------------------- */
+
+  /* Hero — layered radial glow, navy softening outward. */
+  .atmosphere-hero {
+    background:
+      radial-gradient(60% 55% at 18% 15%, color-mix(in srgb, var(--color-ink) 12%, transparent) 0%, transparent 70%),
+      radial-gradient(50% 50% at 88% 30%, color-mix(in srgb, var(--color-accent) 8%, transparent) 0%, transparent 70%);
+  }
+
+  /* CTA sections (HiringCTA) — controlled warm accent glow, used once. */
+  .atmosphere-cta {
+    background: radial-gradient(65% 80% at 85% 30%, color-mix(in srgb, var(--color-accent) 10%, transparent) 0%, transparent 72%),
+      linear-gradient(115deg, transparent 55%, color-mix(in srgb, var(--color-accent) 6%, transparent) 100%);
+  }
+
+  /* Audit — a slightly more technical language: a faint dot grid plus a
+     cool ink-blue radial, evoking "instrumentation" without literal icons. */
+  .atmosphere-audit {
+    background-image:
+      radial-gradient(55% 60% at 80% 0%, color-mix(in srgb, var(--color-ink) 10%, transparent) 0%, transparent 70%),
+      radial-gradient(circle, color-mix(in srgb, var(--color-ink) 14%, transparent) 1px, transparent 1px);
+    background-size:
+      100% 100%,
+      22px 22px;
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  /* Signals — soft green/blue notification atmosphere. */
+  .atmosphere-signals {
+    background: radial-gradient(55% 60% at 12% 10%, color-mix(in srgb, var(--color-live) 9%, transparent) 0%, transparent 72%),
+      radial-gradient(50% 55% at 90% 80%, color-mix(in srgb, var(--color-ink) 8%, transparent) 0%, transparent 70%);
+  }
+
+  /* Footer — soft upward glow, orange fading to the page's own background. */
+  .atmosphere-footer {
+    background: radial-gradient(70% 100% at 50% 100%, color-mix(in srgb, var(--color-accent) 7%, transparent) 0%, transparent 75%);
+  }
+
+  /* [Dark theme gradient fix] `.atmosphere-hero`/`-audit`/`-signals` above
+     each mix `--color-ink` into their glow layers. That reads as a soft
+     navy vignette in light mode (ink = deep navy #0e1b33) — but `--color-
+     ink` is the one token that *flips* in dark mode (it becomes near-white,
+     ~#eef1f7, so body text stays readable on a dark page). The exact same
+     mix formula then paints a washed-out white haze instead of atmosphere,
+     which is what made dark mode feel like the gradient language had gone
+     missing. Fix: dark-mode-only overrides that swap the ink-based layer
+     for `--color-surface` instead — already a blue-navy in dark mode
+     (#16213a), so it reads as the intended "blue atmospheric tint" without
+     introducing any color outside the existing closed palette. Each
+     section keeps its own distinct character (hero = navy + orange warmth,
+     audit = navy + dot grid, signals = green + navy) rather than a single
+     gradient forced onto everything — same rhythm as light mode, just
+     recalibrated per-token for which value actually reads as "atmosphere"
+     on a dark background. `.atmosphere-cta`/`-footer` aren't touched here:
+     both are accent-only (no ink), and `--color-accent` already self-adapts
+     (brighter orange in dark mode), so they carry over correctly as-is. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      .atmosphere-hero {
+        background:
+          radial-gradient(60% 55% at 18% 15%, color-mix(in srgb, var(--color-surface) 60%, transparent) 0%, transparent 70%),
+          radial-gradient(55% 55% at 88% 30%, color-mix(in srgb, var(--color-accent) 16%, transparent) 0%, transparent 72%);
+      }
+      .atmosphere-audit {
+        background-image:
+          radial-gradient(55% 60% at 80% 0%, color-mix(in srgb, var(--color-surface) 55%, transparent) 0%, transparent 70%),
+          radial-gradient(circle, color-mix(in srgb, var(--color-surface) 65%, transparent) 1px, transparent 1px);
+      }
+      .atmosphere-signals {
+        background: radial-gradient(55% 60% at 12% 10%, color-mix(in srgb, var(--color-live) 16%, transparent) 0%, transparent 72%),
+          radial-gradient(50% 55% at 90% 80%, color-mix(in srgb, var(--color-surface) 55%, transparent) 0%, transparent 70%);
+      }
+    }
+  }
+
+  :root[data-theme="dark"] {
+    .atmosphere-hero {
+      background:
+        radial-gradient(60% 55% at 18% 15%, color-mix(in srgb, var(--color-surface) 60%, transparent) 0%, transparent 70%),
+        radial-gradient(55% 55% at 88% 30%, color-mix(in srgb, var(--color-accent) 16%, transparent) 0%, transparent 72%);
+    }
+    .atmosphere-audit {
+      background-image:
+        radial-gradient(55% 60% at 80% 0%, color-mix(in srgb, var(--color-surface) 55%, transparent) 0%, transparent 70%),
+        radial-gradient(circle, color-mix(in srgb, var(--color-surface) 65%, transparent) 1px, transparent 1px);
+    }
+    .atmosphere-signals {
+      background: radial-gradient(55% 60% at 12% 10%, color-mix(in srgb, var(--color-live) 16%, transparent) 0%, transparent 72%),
+        radial-gradient(50% 55% at 90% 80%, color-mix(in srgb, var(--color-surface) 55%, transparent) 0%, transparent 70%);
+    }
+  }
+
+  /* [Promotional Banner System — §10 optional decorative layer] A single
+     small, extremely soft blurred orb behind the banner's image column —
+     "extremely subtle... do not create visual clutter" taken literally: one
+     shape, low opacity, heavily blurred, decorative only (aria-hidden at
+     the call site). Not reused elsewhere; kept distinct from the larger
+     full-bleed atmosphere-* layers above since it needs to sit compactly
+     behind one image frame, not a whole section. */
+  .banner-glow-orb {
+    background: radial-gradient(circle, color-mix(in srgb, var(--color-accent) 22%, transparent) 0%, transparent 70%);
+    filter: blur(32px);
+  }
+
+  /* ---------------------------------------------------------------------
+     Elevation — button/card hover lift. Small, single-layer, never the
+     multi-layer skeuomorphic stack docs/21ST_COMPONENT_AUDIT.md rejected.
+  --------------------------------------------------------------------- */
+  .lift-on-hover {
+    transition:
+      transform 200ms var(--ease-premium),
+      box-shadow 200ms var(--ease-premium);
+  }
+  .lift-on-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-elevated);
+  }
+  .lift-on-hover:active {
+    transform: translateY(0);
+    box-shadow: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* Shadow feedback stays (a static visual cue, not motion) — only the
+       translateY movement is removed, matching every other per-component
+       reduced-motion fallback in this system (instant/simplified, not
+       entirely silent). */
+    .lift-on-hover {
+      transition: box-shadow 150ms ease-out;
+    }
+    .lift-on-hover:hover {
+      transform: none;
+    }
+    .lift-on-hover:active {
+      transform: none;
+    }
+  }
+}

@@ -1,0 +1,57 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files — .env.example is a template (variable names only, no real
+# values) and is intentionally tracked; everything else holds real secrets.
+.env*
+!.env.example
+
+# local JSON-backend data — contains real leads/admin sessions/password
+# hashes (see src/lib/cms/fileStore.ts). Self-seeds on first read/write,
+# so a fresh clone regenerates empty defaults; nothing to restore.
+/data/*.json
+
+# supabase CLI local cache (project ref, pooler URL, tool versions) and
+# downloaded CLI binaries
+/supabase/.temp/
+/.supabase-cli/
+
+# Claude Code local-only settings/state (settings.json, if added, stays tracked)
+/.claude/settings.local.json
+/.claude/scheduled_tasks.lock
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

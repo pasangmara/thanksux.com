@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/typography.css";
+@import "../styles/layout.css";
+@import "../styles/motion.css";
+@import "../styles/depth.css";
+@import "../styles/buttons.css";
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+  }
+}

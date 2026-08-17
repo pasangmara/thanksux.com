@@ -1,0 +1,99 @@
+/**
+ * [Mature Button Design System] Restrained, "real product UI" button
+ * recipe — replaces the earlier "premium 3D/glossy" pass entirely (no
+ * gradient, no glow, no lift-on-hover, no scale). Consumes the
+ * `--button-*` tokens from tokens.css (Background -> Button surface ->
+ * Accent -> Text -> Icon), so light/dark never need two separate recipes,
+ * only the token values differ.
+ *
+ * Exactly one or two micro-interactions per state, per the brief's
+ * explicit rule: REST is a flat fill + a small shadow. HOVER only shifts
+ * the fill to `--button-primary-hover` and slightly strengthens the
+ * shadow — nothing moves. ACTIVE moves the button 1px down and shrinks
+ * the shadow back — the "physical press," not a bounce. The icon nudge
+ * (`.btn-icon`) is the one motion that lives outside the fill/shadow pair,
+ * since the brief explicitly calls it out as its own affordance.
+ */
+
+@layer components {
+  .btn-solid-primary {
+    background: var(--button-primary);
+    color: var(--button-primary-text);
+    border-color: var(--button-border);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-ink) 16%, transparent);
+    transition:
+      background-color 160ms ease-out,
+      box-shadow 160ms ease-out,
+      transform 100ms ease-out;
+  }
+  .btn-solid-primary:hover {
+    background: var(--button-primary-hover);
+    box-shadow: 0 3px 8px color-mix(in srgb, var(--color-ink) 20%, transparent);
+  }
+  .btn-solid-primary:active {
+    background: var(--button-primary-active);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-ink) 14%, transparent);
+    transform: translateY(1px);
+  }
+  .btn-solid-primary:disabled {
+    background: var(--color-text-tertiary);
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  .btn-solid-secondary {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-ink) 8%, transparent);
+    transition:
+      background-color 160ms ease-out,
+      border-color 160ms ease-out,
+      box-shadow 160ms ease-out,
+      color 160ms ease-out,
+      transform 100ms ease-out;
+  }
+  .btn-solid-secondary:hover {
+    background: color-mix(in srgb, var(--color-accent) 6%, var(--color-surface));
+    border-color: var(--color-accent);
+  }
+  .btn-solid-secondary:active {
+    background: color-mix(in srgb, var(--color-accent) 10%, var(--color-surface));
+    box-shadow: 0 1px 2px color-mix(in srgb, var(--color-ink) 6%, transparent);
+    transform: translateY(1px);
+  }
+
+  /* Icon slot inside a button/CTA — theme-aware via `--button-icon`
+     (`currentColor` by default, so it just follows the button's own text
+     color unless a call site overrides it), with a small forward nudge on
+     hover only (2–4px, per the brief) — never on rest, never bouncing. */
+  .btn-icon {
+    color: var(--button-icon);
+    transition: transform 180ms ease-out;
+  }
+  .group:hover .btn-icon,
+  a:hover > .btn-icon,
+  button:hover > .btn-icon {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-solid-primary,
+    .btn-solid-secondary {
+      transition:
+        background-color 150ms ease-out,
+        border-color 150ms ease-out,
+        color 150ms ease-out;
+    }
+    .btn-solid-primary:active,
+    .btn-solid-secondary:active {
+      transform: none;
+    }
+    .btn-icon,
+    .group:hover .btn-icon,
+    a:hover > .btn-icon,
+    button:hover > .btn-icon {
+      transition: none;
+      transform: none;
+    }
+  }
+}
