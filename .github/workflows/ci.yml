@@ -1,11 +1,12 @@
 name: CI
 
-# [Production prep — thanksux.com] Verification only — no deployment step.
-# This project's actual hosting target (the office developer's existing
-# server) isn't known yet, so this workflow intentionally stops at "does it
-# typecheck/lint/build" rather than inventing SSH hosts, deploy keys, or a
-# hosting-specific deploy step. Add a deploy job once that information is
-# available — see README.md's Deployment section.
+# [Production prep — thanksux.com] `verify` runs on every push/PR — always
+# has, unchanged below. `deploy` (added for the temporary GitHub Pages
+# period — see its own comments) additionally builds a static export of the
+# PUBLIC pages only and publishes it to GitHub Pages on every push to main.
+# This is temporary scaffolding, not the final hosting story: replace
+# `deploy` with a real Node-hosting deploy step once that's available, and
+# delete this comment along with it — see README.md's Deployment section.
 on:
   push:
     branches: [main]
@@ -31,3 +32,87 @@ jobs:
           # does not require them.
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+
+  # [Temporary GitHub Pages deployment] Publishes ONLY the public marketing/
+  # community pages (home, about, work, contact, signals, audit, share) as a
+  # static export — admin, every /api/* route, and auth/session pages are
+  # never included here (pruned below, in this job's own ephemeral checkout
+  # only — nothing is deleted from the repository). Those features need a
+  # real Node server and are left completely intact in the source tree for
+  # when real hosting is available; this job cannot and does not fake them.
+  #
+  # Runs only on push to main, after `verify` passes — never on a PR, so a
+  # branch's WIP never gets published to the live domain.
+  deploy:
+    needs: verify
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.9.0"
+          cache: "npm"
+      - run: npm ci
+
+      # [Temporary GitHub Pages deployment] Removes every server-only route
+      # from THIS RUNNER'S disposable checkout only — the actual repository
+      # on GitHub is untouched (a fresh `actions/checkout@v4` next run
+      # starts from the full source again). This is what makes the export
+      # build possible without deleting or faking any admin/API/auth code:
+      # those features simply aren't part of what this job publishes.
+      - name: Remove server-only routes (this runner's checkout only)
+        run: |
+          rm -rf src/app/api src/app/admin src/app/login src/app/signup \
+            src/app/forgot-password src/app/reset-password src/app/dashboard \
+            src/app/profile src/app/settings src/app/contribute \
+            "src/app/share/[id]" "src/app/audit/[id]" src/app/responses \
+            src/proxy.ts
+
+      # [Temporary GitHub Pages deployment] `export const dynamic` must be a
+      # literal string — Next statically parses it and rejects any computed
+      # expression (confirmed by an actual failed build), so the source
+      # keeps the real "force-dynamic" literal and this step swaps it to
+      # "force-static" only in this ephemeral checkout, only for the routes
+      # included in the export. robots.ts/sitemap.ts have no dynamic export
+      # at all normally (harmless — real Node hosting doesn't need one); the
+      # export build does, so it's appended here rather than left in source.
+      - name: Patch route config for static export (this runner's checkout only)
+        run: |
+          for f in src/app/about/page.tsx src/app/contact/page.tsx src/app/page.tsx \
+            "src/app/signals/[id]/page.tsx" src/app/signals/page.tsx \
+            "src/app/work/[slug]/page.tsx" src/app/work/page.tsx; do
+            sed -i 's/^export const dynamic = "force-dynamic";$/export const dynamic = "force-static";/' "$f"
+          done
+          echo 'export const dynamic = "force-static";' >> src/app/robots.ts
+          echo 'export const dynamic = "force-static";' >> src/app/sitemap.ts
+
+      - name: Build static export
+        run: npm run build
+        env:
+          STATIC_EXPORT: "1"
+          # Real, persisted content (not the empty JSON-backend defaults
+          # data/*.json self-seeds to on a fresh checkout — see .gitignore's
+          # comment on that path) — this is the same backend
+          # DATA_BACKEND=supabase already used for local dev against real
+          # content.
+          DATA_BACKEND: supabase
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          # Required by src/lib/supabase/rest.ts (the CMS repositories'
+          # read path) — server-only, never exposed to the client bundle,
+          # never used outside this build step.
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+      - id: deployment
+        uses: actions/deploy-pages@v4

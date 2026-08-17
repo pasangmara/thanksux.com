@@ -21,6 +21,10 @@ import { getContactContent } from "@/lib/cms/siteContentRepository";
 // GraphicDesignShowcase, UIUXShowcase) now read the live persisted project
 // store per request — force-dynamic so the homepage never serves a stale
 // build-time snapshot after an admin save.
+//
+// [Temporary GitHub Pages deployment] CI patches this literal to
+// "force-static" for the export build only — see .github/workflows/ci.yml's
+// deploy job. Unset/normal builds: unchanged.
 export const dynamic = "force-dynamic";
 
 /**

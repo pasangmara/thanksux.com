@@ -96,6 +96,13 @@ export async function generateMetadata(): Promise<Metadata> {
 // the two are deliberately distinct fields. `logo`/`logoDisplayMode` pass
 // straight through to SiteNav/SiteFooter, both already defaulting to
 // today's exact text-only behavior when unset.
+// [Temporary GitHub Pages deployment] `getCurrentPublicUser()` reads the
+// session cookie (`cookies()`, via createSupabaseServerClient) — a Request-
+// time API that static export cannot prerender (see next.config.ts's
+// STATIC_EXPORT comment for the full mechanism). Every visitor to the
+// exported build gets the signed-out nav state; this is what an anonymous
+// visitor already sees today, so it's the correct-by-construction fallback,
+// not a behavior change for the real server build (STATIC_EXPORT unset).
 export default async function RootLayout({ children }: LayoutProps<"/">) {
   const [about, settings, marketing, currentUser] = await Promise.all([
     getAboutContent(),
@@ -105,7 +112,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
     // decide whether SiteNav renders the notification bell wrapper at
     // all — the bell's own client-side fetch to /api/community/notifications
     // is the real, live source of truth for its count/list.
-    getCurrentPublicUser(),
+    process.env.STATIC_EXPORT === "1" ? Promise.resolve(null) : getCurrentPublicUser(),
   ]);
   const brandName = settings.brandName || about.name;
 

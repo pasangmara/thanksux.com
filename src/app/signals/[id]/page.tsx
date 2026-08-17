@@ -10,11 +10,34 @@ import { getContributorNames } from "@/lib/community/publicProfiles";
 import { getThanksSignalMedia } from "@/lib/community/publicMedia";
 import { getCurrentPublicUser } from "@/lib/auth/publicProfile";
 import { getSiteSettings } from "@/lib/cms/siteContentRepository";
+import { createSupabaseStaticParamsClient } from "@/lib/supabase/server";
 import { ICanSolveThisButton } from "./ICanSolveThisButton";
 
 // [Phase 6F §3] Same reasoning as /signals — must read the live table per
 // request, never a cached snapshot.
+//
+// [Temporary GitHub Pages deployment] CI patches this literal to
+// "force-static" for the export build only — see .github/workflows/ci.yml's
+// deploy job. Unset/normal builds: unchanged.
 export const dynamic = "force-dynamic";
+
+// [Temporary GitHub Pages deployment] Only reached when the export build's
+// "force-static" patch is applied (a plain "force-dynamic" route never
+// calls generateStaticParams) — enumerates every currently-public signal so
+// each gets its own prerendered file. A signal published after the last
+// deploy has no page until the next rebuild; that's the inherent tradeoff
+// of a build-time snapshot on static hosting, not a bug. Not
+// listPublicSignals() — that goes through createSupabaseServerClient(),
+// which calls cookies(), which throws in generateStaticParams's build-time
+// (no-request) context (confirmed by an actual failed export build). See
+// createSupabaseStaticParamsClient's doc comment.
+export async function generateStaticParams() {
+  if (process.env.STATIC_EXPORT !== "1") return [];
+  const supabase = createSupabaseStaticParamsClient();
+  const { data, error } = await supabase.from("thanks_signals").select("id").eq("visibility", "public").limit(1000);
+  if (error) throw new Error(error.message);
+  return (data ?? []).map((row) => ({ id: row.id as string }));
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
@@ -53,7 +76,8 @@ export default async function PublicSignalPage({ params }: { params: Promise<{ i
   if (!signal || signal.visibility !== "public") notFound();
 
   const [current, responses, counts, media] = await Promise.all([
-    getCurrentPublicUser(),
+    // [Temporary GitHub Pages deployment] See layout.tsx's STATIC_EXPORT comment.
+    process.env.STATIC_EXPORT === "1" ? Promise.resolve(null) : getCurrentPublicUser(),
     listPublishedResponsesForSignal(signal.id),
     getApprovedContributionCounts([signal.id]),
     getThanksSignalMedia(signal.id),

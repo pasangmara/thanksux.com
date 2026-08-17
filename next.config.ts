@@ -20,9 +20,26 @@ function supabaseStorageRemotePattern() {
   }
 }
 
+/**
+ * [Temporary GitHub Pages deployment] `STATIC_EXPORT=1` is set ONLY by the
+ * `deploy` job in .github/workflows/ci.yml, against a pruned checkout that
+ * has already removed every server-only route (see that job's comments).
+ * Unset (every other build — `npm run dev`, `npm run build`/`start` for
+ * real Node hosting, and the `verify` CI job) leaves this file byte-for-
+ * byte equivalent to before: no `output`, default (optimized) images.
+ * `unoptimized: true` is required alongside `output: "export"` because
+ * static export has no server to run the Image Optimization API against
+ * (see next.config's own bundled docs, static-exports.md's "Image
+ * Optimization" section) — this only relaxes anything for the pruned
+ * export build, never for the real app.
+ */
+const STATIC_EXPORT = process.env.STATIC_EXPORT === "1";
+
 const nextConfig: NextConfig = {
+  ...(STATIC_EXPORT ? { output: "export" as const, trailingSlash: true } : {}),
   images: {
     remotePatterns: supabaseStorageRemotePattern(),
+    ...(STATIC_EXPORT ? { unoptimized: true } : {}),
   },
 };
 

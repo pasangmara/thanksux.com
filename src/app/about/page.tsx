@@ -24,6 +24,10 @@ import { getAboutContent } from "@/lib/cms/siteContentRepository";
  * this route (flagged as an unconsumed field in
  * docs/PORTFOLIO_CMS_ARCHITECTURE.md §13) — rendered here, and nowhere
  * else, so it doesn't end up duplicated on the homepage.
+ *
+ * [Temporary GitHub Pages deployment] CI patches this literal to
+ * "force-static" for the export build only — see
+ * .github/workflows/ci.yml's deploy job. Unset/normal builds: unchanged.
  */
 export const dynamic = "force-dynamic";
 

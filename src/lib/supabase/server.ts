@@ -1,4 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
+import { createClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 
 /**
@@ -41,4 +42,25 @@ export async function createSupabaseServerClient() {
       },
     },
   });
+}
+
+/**
+ * [Temporary GitHub Pages deployment] Build-time-only client for
+ * `generateStaticParams()`, which runs with no request/response context at
+ * all — `next/headers`'s `cookies()` (used by createSupabaseServerClient
+ * above) throws outright in that context rather than returning empty, so
+ * the cookie-bound client cannot be used there (confirmed by an actual
+ * failed export build, not assumed). Anon/publishable key only, exactly
+ * like every other public-facing client in this project — RLS still
+ * applies, so this only ever enumerates what an anonymous visitor could
+ * already see. Only meant to be called from generateStaticParams; every
+ * other server context should keep using createSupabaseServerClient.
+ */
+export function createSupabaseStaticParamsClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+  if (!url || !key) {
+    throw new Error("NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY are not set.");
+  }
+  return createClient(url, key);
 }

@@ -13,6 +13,10 @@ import { THANKS_SIGNAL_CATEGORIES, type ThanksSignalCategory } from "@/types/tha
 // must read the live thanks_signals table per request, never a cached
 // snapshot — a newly-published Signal (or a newly-approved Contribution
 // changing a card's count) should show up on the very next load.
+//
+// [Temporary GitHub Pages deployment] CI patches this literal to
+// "force-static" for the export build only — see .github/workflows/ci.yml's
+// deploy job. Unset/normal builds: unchanged.
 export const dynamic = "force-dynamic";
 
 const PAGE_SIZE = 12;
@@ -28,7 +32,15 @@ function resolveCategory(raw: string | undefined): string {
 }
 
 export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
-  const [{ category }, settings] = await Promise.all([searchParams, getSiteSettings()]);
+  // [Temporary GitHub Pages deployment] See work/page.tsx's identical
+  // comment — reading `searchParams` at all silently drops this route from
+  // the export output (confirmed by an actual export build). Never
+  // touching it when STATIC_EXPORT is set is what makes /signals
+  // exportable.
+  const [{ category }, settings] = await Promise.all([
+    process.env.STATIC_EXPORT === "1" ? Promise.resolve({ category: undefined }) : searchParams,
+    getSiteSettings(),
+  ]);
   const resolved = resolveCategory(category);
   const brand = settings.brandName || "Joy Howlader";
   const title = resolved === "All" ? `ThanksUX Signals — ${brand}` : `${resolved} Signals — ThanksUX — ${brand}`;
@@ -44,7 +56,8 @@ export async function generateMetadata({ searchParams }: { searchParams: SearchP
 }
 
 export default async function SignalsPage({ searchParams }: { searchParams: SearchParams }) {
-  const params = await searchParams;
+  // [Temporary GitHub Pages deployment] See generateMetadata's comment above.
+  const params = process.env.STATIC_EXPORT === "1" ? {} : await searchParams;
   const category = resolveCategory(params.category);
   const search = (params.q ?? "").trim();
   const page = Math.max(1, Number(params.page) || 1);

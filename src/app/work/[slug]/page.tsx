@@ -30,7 +30,22 @@ import { getSiteSettings } from "@/lib/cms/siteContentRepository";
  * an oversight.
  */
 
+// [Temporary GitHub Pages deployment] CI patches this literal to
+// "force-static" for the export build only — see .github/workflows/ci.yml's
+// deploy job. Unset/normal builds: unchanged, preserving exactly the
+// live-update behavior described above.
 export const dynamic = "force-dynamic";
+
+// [Temporary GitHub Pages deployment] Only reached when the export build's
+// "force-static" patch is applied — enumerates every currently-published
+// project so each gets its own prerendered file. A project published after
+// the last deploy has no page until the next rebuild; inherent to a
+// build-time snapshot, not a bug.
+export async function generateStaticParams() {
+  if (process.env.STATIC_EXPORT !== "1") return [];
+  const projects = await getPublishedProjects();
+  return projects.map((p) => ({ slug: p.slug }));
+}
 
 type Params = Promise<{ slug: string }>;
 

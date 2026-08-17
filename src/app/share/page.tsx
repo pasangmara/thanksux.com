@@ -11,8 +11,11 @@ import { StartSignalButton } from "./StartSignalButton";
  * a real server-side check (redirect to /login), not a hidden button —
  * matching every other protected route in this app since Phase 5.
  */
+// [Temporary GitHub Pages deployment] See layout.tsx's STATIC_EXPORT
+// comment — same guard, same reasoning: the exported build always shows
+// the signed-out "log in to share" CTA.
 export default async function SharePage() {
-  const current = await getCurrentPublicUser();
+  const current = process.env.STATIC_EXPORT === "1" ? null : await getCurrentPublicUser();
 
   return (
     <section className="py-16 tablet:py-24">

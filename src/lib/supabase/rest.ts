@@ -35,7 +35,13 @@ export async function supabaseSelect<T>(table: string, query: string): Promise<T
   const __t0 = Date.now();
   const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}?${query}`, {
     headers: { apikey: SERVICE_KEY!, Authorization: `Bearer ${SERVICE_KEY}` },
-    cache: "no-store",
+    // [Temporary GitHub Pages deployment] `output: "export"` requires every
+    // fetch a statically-rendered route makes to be cacheable — "no-store"
+    // errors the build outright (confirmed by an actual failed export
+    // build, not assumed). STATIC_EXPORT flips this to a build-time-only
+    // cached read, which is exactly what a static snapshot means anyway.
+    // Unset (the real server build) keeps "no-store", unchanged.
+    cache: process.env.STATIC_EXPORT === "1" ? "force-cache" : "no-store",
   });
   if (process.env.PERF_DEBUG) {
     console.log(`[perf] SELECT ${table}?${query} — ${Date.now() - __t0}ms — status ${res.status}`);

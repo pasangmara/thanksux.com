@@ -15,6 +15,10 @@ import type { LeadContext } from "@/types/leads";
  * plus passes the `directDetails` (email/phone/location) fields that were
  * already editable in /admin/contact but had no public destination until
  * now — see ContactSection.tsx's updated doc comment.
+ *
+ * [Temporary GitHub Pages deployment] CI patches this literal to
+ * "force-static" for the export build only — see
+ * .github/workflows/ci.yml's deploy job. Unset/normal builds: unchanged.
  */
 export const dynamic = "force-dynamic";
 
@@ -63,7 +67,18 @@ type SearchParams = Promise<{ project?: string; service?: string }>;
  * replacement.
  */
 export default async function ContactPage({ searchParams }: { searchParams: SearchParams }) {
-  const [contact, leadForm, params] = await Promise.all([getContactContent(), getLeadFormSettings(), searchParams]);
+  // [Temporary GitHub Pages deployment] Reading `searchParams` at all
+  // silently drops a route from the export output entirely (confirmed by
+  // an actual export build against /work and /signals — see their
+  // identical comments). Never touching it when STATIC_EXPORT is set is
+  // what keeps /contact exportable; the exported build never shows the
+  // `?project=`/`?service=` context-aware inquiry section, since a static
+  // file can't vary by query string without a server.
+  const [contact, leadForm, params] = await Promise.all([
+    getContactContent(),
+    getLeadFormSettings(),
+    process.env.STATIC_EXPORT === "1" ? Promise.resolve({} as Awaited<SearchParams>) : searchParams,
+  ]);
 
   let context: LeadContext | undefined;
   if (params.project) {
