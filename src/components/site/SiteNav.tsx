@@ -119,12 +119,37 @@ export function SiteNav({
   const showName = displayMode !== "logo-only" || !logo?.src;
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-[background-color,box-shadow] duration-300 ease-out ${
-        scrolled ? "nav-glass" : "border-b border-border bg-background"
-      }`}
-    >
-      <Container variant="wide">
+    <>
+      {/* [Mobile nav stacking-context fix] `#mobile-nav` (below) is
+          rendered as a SIBLING of `<header>`, not a descendant, and that's
+          load-bearing, not stylistic. Two independent things about
+          `<header>` each break a `position: fixed` descendant, confirmed by
+          an actual scrolled-then-opened repro, not assumed:
+            1. `nav-glass`'s `backdrop-filter` (applied once `scrolled` is
+               true) establishes a new *containing block* for fixed
+               descendants — `top-8`/`bottom-0` started resolving against
+               header's own ~64px box instead of the viewport, collapsing
+               the "full-screen" overlay to a ~64px sliver and leaving its
+               children (nav links, the CTA) to spill out over the page
+               underneath instead of covering it.
+            2. `<header>` is `position: sticky` with its own `z-50` — that
+               alone establishes a *stacking context*. Even after fixing
+               (1), a descendant `#mobile-nav` with a locally higher
+               z-index still couldn't outrank BackToTopButton (a true
+               sibling at z-50, mounted after SiteNav in layout.tsx): the
+               z-index comparison that matters is header-as-a-whole (z-50)
+               vs. BackToTopButton (z-50), which DOM order decides — no
+               z-index inside header's own stacking context can win that.
+          Making `#mobile-nav` a true sibling of `<header>` sidesteps both:
+          it's never a descendant of anything with a filter/transform, and
+          its own z-index now competes directly, in the real root stacking
+          context, against every other fixed element on the page. */}
+      <header
+        className={`sticky top-0 z-50 transition-[background-color,box-shadow] duration-300 ease-out ${
+          scrolled ? "nav-glass" : "border-b border-border bg-background"
+        }`}
+      >
+        <Container variant="wide">
         {/* [Header refinement] Three explicit flex children, not two nested
             groups: brand (fixed `mr-4` — a controlled, deliberate distance,
             not a shared flex gap), nav glass capsule (natural content
@@ -236,12 +261,21 @@ export function SiteNav({
             </button>
           </div>
         </div>
-      </Container>
+        </Container>
+      </header>
 
       {open ? (
         <div
           id="mobile-nav"
-          className="nav-mobile-enter fixed inset-x-0 bottom-0 top-8 z-40 flex flex-col justify-between bg-background p-4 desktop:hidden"
+          // [z-index] Deliberately above z-50, not an arbitrary jump: this is
+          // the highest other fixed element on the page (BackToTopButton,
+          // z-50, mounted after SiteNav in layout.tsx so it wins DOM-order
+          // ties at an equal z-index) — a full-screen nav surface must sit
+          // above every other floating UI while open, not just the header.
+          // Now a true sibling of <header> (see the comment above the
+          // return statement) so this z-index is compared in the real root
+          // stacking context, not trapped inside header's own.
+          className="nav-mobile-enter fixed inset-x-0 bottom-0 top-8 z-[60] flex flex-col justify-between bg-background p-4 desktop:hidden"
         >
           <nav className="flex flex-col gap-4" aria-label="Primary">
             {[...navItems, ...EXTRA_NAV_ITEMS].map((item) => {
@@ -272,6 +306,6 @@ export function SiteNav({
           </Button>
         </div>
       ) : null}
-    </header>
+    </>
   );
 }
