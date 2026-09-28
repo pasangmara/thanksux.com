@@ -100,3 +100,37 @@ Description: A fast, mobile-first website for [client/business type]. The goal w
 ### 4. n8n workflow (template — record a 1–2 min Loom)
 Title: AI Workflow Automation with n8n — Lead Capture to Follow-up
 Description: A demo of an n8n workflow that [captures leads from a website form, qualifies them with AI, saves them to Google Sheets/CRM and sends a personalised follow-up email]. It removes [repetitive manual task] so a small team can reply faster without extra staff. Works with the tools you already use.
+
+## ARGUS — Brand Identity (source: Figma "ARGUS — Brand Identity System", v1.0 2026)
+
+Facts from file: creative technology agency; tagline "See. Create. Automate."; services Brand & Design,
+Web & Digital, AI & Automation, Growth & Advertising; line "Ideas → Systems → Growth"; A-shaped symbol
+with an eye; mint-green gradient on near-black; dot grid + node-connection graphics; Facebook profile + cover.
+
+### Media title
+ARGUS — Brand Identity for a Creative Technology Agency
+
+### Media description
+Brand identity for ARGUS, a creative technology agency working across design, web, AI automation and growth. Named after the all-seeing giant of Greek myth, the symbol merges the letter A with an eye: seeing clearly comes first, then creating, then automating. That idea became the tagline "See. Create. Automate." A mint-green gradient on deep black, a dot-grid texture and node-connection lines give it a tech feel. Delivered logo system, tagline lockup and social media kit.
+
+### Featured post
+New brand identity: ARGUS 👁️
+
+ARGUS is a creative technology agency: brand, web, AI automation and growth, under one roof. They needed an identity that feels as sharp as the work they do.
+
+The idea came from the name. In Greek myth, Argus was the giant with a hundred eyes, the one who sees everything. So the symbol is a letter A with an eye built into it.
+
+Seeing comes first. You can't design or automate what you don't understand. That turned into the tagline:
+See. Create. Automate.
+
+What's in the system:
+→ A-eye symbol + full wordmark lockup
+→ Mint-green gradient on deep black, for a calm and tech-forward feel
+→ Dot-grid texture and node-connection lines that echo automation workflows
+→ Social media kit: Facebook profile picture and cover
+
+The thought behind every piece: Ideas → Systems → Growth.
+
+Working on a brand, website or automation for your business? Send me a message.
+
+#BrandIdentity #LogoDesign #BrandDesign #VisualIdentity #CreativeAgency #AIAutomation
