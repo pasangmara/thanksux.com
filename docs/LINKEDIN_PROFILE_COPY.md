@@ -134,3 +134,16 @@ The thought behind every piece: Ideas → Systems → Growth.
 Working on a brand, website or automation for your business? Send me a message.
 
 #BrandIdentity #LogoDesign #BrandDesign #VisualIdentity #CreativeAgency #AIAutomation
+
+## Dental appointment WhatsApp AI bot (source: screen recording VID-20260916-WA0006, ~5.7 min)
+
+Seen in video: WhatsApp chat "Dental Appointment"; greets by name; lists services (interactive list);
+branch (Dhanmondi / Gulshan), dentist, date, time-slot picker; summary + Confirm / Change Time / Change Branch
+buttons; answers fee/duration/location questions in Bangla (Root canal consult: 60 min, ৳3000);
+reschedule request handed to clinic team; asks triage questions when patient reports tooth pain.
+
+### Media title
+AI WhatsApp Booking Assistant for a Dental Clinic — Appointment Automation
+
+### Media description
+An AI assistant that books dental appointments on WhatsApp, 24/7. Patients pick a service, branch, dentist, date and time slot with tap-to-select menus, then confirm, change the time or switch branch in one tap. It answers fee, duration and location questions in Bangla and English, sends a clear confirmation, passes reschedule requests to the clinic team, and asks follow-up questions when a patient reports pain. Less phone time for staff, faster replies for patients.
