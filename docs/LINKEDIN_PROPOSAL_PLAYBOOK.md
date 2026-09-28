@@ -307,3 +307,70 @@ Target: reply rate 20%+, proposal → call 10%+. Kom hole opener + proof link ch
 **Do**: fast reply, personalize, proof link, clear next step, 1 ta asset chao, polite follow-up.
 **Don't**: copy-paste generic message, 4 ta service eksathe ek proposal e pitch (request er sathe jeta match kore shudhu sheta),
 lomba paragraph, price diye shuru, 3 bar er beshi follow-up.
+
+---
+
+## 9. Niche: Study Abroad Agencies (EduPilot OS)
+
+Offer ladder: (1) EduPilot OS template (Gumroad) → (2) Setup & customise for their process →
+(3) n8n automations (WhatsApp reminders, lead capture, lead scoring) → (4) Website / branding.
+
+Target: founders, CEOs, managing directors, branch managers of study abroad / education consultancies.
+Search: "study abroad consultant", "education consultancy", "student visa consultant" + Dhaka / Bangladesh.
+
+### DM 1 — connection note (≤200 chars)
+Hi {Name}, I build Notion + automation systems for study abroad agencies (student pipeline, documents, visa, fees). Would love to connect.
+
+### DM 2 — after accept (day 0–1), question first, no pitch
+Thanks for connecting, {Name}! Quick question: at {Agency}, how do you track each student from inquiry to visa today: Excel, WhatsApp, a CRM? I'm researching how agencies handle follow-ups and missing documents.
+
+### DM 3 — they reply with a pain point
+That's really common. Most agencies I talk to lose time on {their pain: chasing documents / forgotten follow-ups / unpaid fees}.
+I built EduPilot OS for exactly this: one Notion workspace where every student moves Inquiry → Documents → Shortlist → Visa → Enrolled, with deadline countdowns for missing documents and a daily follow-up list.
+Here's a 2-minute walkthrough: {Loom link}
+Happy to set it up with your real stages and document list, if useful.
+
+### DM 4 — no reply, +4 days (value)
+Hi {Name}, one small thing that helps agencies right away: a "Missing Docs" list sorted by deadline, checked every morning. It stops the last-minute visa rush. That's the view I use in EduPilot OS: {Loom link}. Happy to show you in 15 minutes.
+
+### DM 5 — last, +10 days
+Hi {Name}, I'll stop here so I don't crowd your inbox. If student tracking or WhatsApp follow-ups ever become a headache, just message me. Wishing {Agency} a great intake season!
+
+### Banglish variant (local Bangladeshi agencies)
+Assalamu alaikum {Name} bhai/apu, ami Joy. Study abroad agency der jonno Notion + automation system banai: student er inquiry theke visa porjonto, document, fee sob ek jaygay. {Agency} te ekhon student tracking kivabe koren: Excel, naki WhatsApp e? Ekta 2 minute er demo pathate pari.
+
+### Proposal / offer (after call or when they ask details)
+Hi {Name},
+
+Thanks for the time today. Here's what I understood and what I suggest.
+
+Where {Agency} is now
+• {e.g. ~{N} active students tracked in Excel + WhatsApp}
+• {e.g. documents chased manually, follow-ups missed during intake season}
+• {e.g. no single view of who has paid and what commission is due}
+
+What I'll set up: EduPilot OS, customised for {Agency}
+• Student pipeline with your exact stages: Inquiry → Consultation → Documents → Shortlist → Application → Offer → Visa → Enrolled
+• Document vault with your checklist per country/university and deadline alerts
+• University & program directory with your partner institutions
+• Fees, partial payments and university commissions in one tracker
+• Intake form for new leads, plus a daily "Today" follow-up view for counselors
+• {Optional} n8n automations: WhatsApp reminders to students for missing documents, new leads from your website/Facebook form straight into Notion, lead scoring
+
+How it works
+1. 30-min call to map your process and document list
+2. I build and import your current students ({N} from your Excel)
+3. Team walkthrough + short video guides
+4. {14} days of support after handover
+
+Timeline: {X} days
+Investment:
+• Setup & customisation: {price}
+• + WhatsApp / lead automations: {price}
+Payment: 50% to start, 50% on handover.
+
+If this looks right, reply "go" and I'll send the kickoff checklist.
+
+Best,
+Joy Howlader
+Thanks UX: thanksux.com
