@@ -39,3 +39,24 @@ Tools: Figma, Adobe XD, Illustrator, Photoshop, InDesign, n8n
 
 📩 Have a project in mind? Send me a message here or visit thanksux.com
 Portfolio: behance.net/neonemiami
+
+## Services section (max 10, order = priority)
+
+Current (8): Brand Design, Graphic Design, Logo Design, UX Research, UED, Web Design, Presentation Design, Print Design.
+
+Recommended:
+1. User Experience Design (UED)
+2. Web Design
+3. Web Development (only if you build, not just design)
+4. Mobile Application Design / App Design (nearest name in LinkedIn's list)
+5. Brand Design
+6. Digital Marketing
+7. Social Media Marketing
+8. Automation / AI (search "Automation", "Workflow", "AI"; fallback: Application Development)
+9. Logo Design
+10. Graphic Design
+
+Removed: Presentation Design, Print Design (low-value requests), UX Research (covered inside UED; mention in description).
+
+### Service Page description
+I help startups and small businesses launch products and websites that look great and bring in customers. UI/UX for SaaS dashboards and apps, fast responsive websites, brand and marketing design, and n8n AI workflow automation. 4+ years, end-to-end from research to developer handoff. Portfolio: thanksux.com
