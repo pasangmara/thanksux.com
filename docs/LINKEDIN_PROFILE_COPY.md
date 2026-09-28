@@ -82,3 +82,21 @@ Portfolio: thanksux.com
 - Messages (Open Profile): keep on.
 - Reviews visibility: keep on; request reviews from past clients.
 - Unpublish: don't touch.
+
+## Media — titles & descriptions
+
+### 1. MarketAI (real — from Featured post)
+Title: MarketAI — AI Marketing Analytics SaaS Dashboard (UI/UX Case Study)
+Description: A SaaS dashboard for an AI-powered marketing analytics platform, designed end-to-end in Figma. Marketers see revenue vs. ad spend, top channels, audience insights and AI-detected opportunities on one screen, so they can decide where to spend next without digging through reports. Built on a reusable component system for fast developer handoff.
+
+### 2. Gridmark (real — src/content/real-projects.ts)
+Title: Gridmark — Brand Identity for a Digital Marketing Agency
+Description: A grid-driven brand identity for a digital marketing agency. The mark pairs a design grid (structure) with a focused central point (direction), turning the idea "good marketing needs direction, good design needs structure" into a simple, memorable logo system. Delivered logo system, color and typography direction, stationery and branded applications.
+
+### 3. Website (template — fill with a real project)
+Title: [Project] — Responsive Website Design & Build
+Description: A fast, mobile-first website for [client/business type]. The goal was to [explain the offer clearly / get more enquiries / refresh an outdated site]. I designed the page structure and UI in Figma and built it in [Next.js / Webflow / WordPress], with clear calls-to-action and a contact form connected to [email/CRM]. [Result if real: launched, faster load, more enquiries.]
+
+### 4. n8n workflow (template — record a 1–2 min Loom)
+Title: AI Workflow Automation with n8n — Lead Capture to Follow-up
+Description: A demo of an n8n workflow that [captures leads from a website form, qualifies them with AI, saves them to Google Sheets/CRM and sends a personalised follow-up email]. It removes [repetitive manual task] so a small team can reply faster without extra staff. Works with the tools you already use.
