@@ -256,44 +256,46 @@ Or message me on WhatsApp: +880 1303-364567
 
 #ARGUS #Branding #WebDesign #AIAutomation #n8n #DigitalMarketing #SmallBusiness
 
-### Facebook (ad-style, English + light Banglish — replaces full-Bangla version)
+### Facebook (Bangla + English keywords mix)
 
 **Version A — problem hook**
-Customer message dilo raat 11 tay. Reply dilen sokal 10 tay. Customer already onno jaygay order kore felse. 😬
+রাত ১১টায় customer message দিলো, আপনি reply দিলেন সকাল ১০টায়। ততক্ষণে সে অন্য page থেকে order করে ফেলেছে। 😬
 
-ARGUS fixes this, and 3 more things your business needs:
+ARGUS এই problem solve করে, সাথে আপনার business-এর আরও ৩টা জরুরি কাজ:
 
-✅ Brand & Design: logo, brand identity, social media design
-✅ Web & Digital: business website, landing page, UI/UX
-✅ AI & Automation: WhatsApp & Messenger auto-reply, AI lead qualify, CRM (n8n)
-✅ Growth & Ads: Facebook & Instagram ads, content, reporting
+✅ Brand & Design: Logo design, Brand identity, Social media design
+✅ Web & Digital: Business website, Landing page, UI/UX design
+✅ AI & Automation: WhatsApp & Messenger automation, AI chatbot, CRM (n8n)
+✅ Growth & Advertising: Facebook ads, Instagram ads, Content strategy
 
-4 ta service. 1 ta team. 1 ta system.
+৪টা service, ১টা team, ১টা system।
 
-👉 Free consultation er jonno "START" likhe inbox korun
+👉 Free consultation-এর জন্য "START" লিখে inbox করুন
 📱 WhatsApp: +880 1303-364567
 
 See. Create. Automate.
 
-**Version B — short & direct**
-Brand, website, automation, ads: sob ek jaygay. ⚡
+#DigitalMarketingAgency #WebsiteDesign #LogoDesign #WhatsAppAutomation #FacebookAds #Branding #Dhaka
 
-Swipe korun, dekhun ARGUS apnar business er jonno ki korte pare 👉
+**Version B — short (boost/ad)**
+Branding, Website, Automation আর Facebook Ads, সব এক জায়গায়। ⚡
 
-📩 Inbox or WhatsApp: +880 1303-364567
+Swipe করে দেখুন ARGUS আপনার business-এর জন্য কী করতে পারে 👉
 
-**Version C — question hook**
-Apnar business e ei 4 tar kon ta missing? 👇
+📩 Inbox করুন অথবা WhatsApp: +880 1303-364567
 
-1️⃣ Professional brand & logo
-2️⃣ Website jeta sell kore
+**Version C — question hook (comments)**
+আপনার business-এ এই ৪টার কোনটা missing? 👇
+
+1️⃣ Professional logo & branding
+2️⃣ Sales আনে এমন website
 3️⃣ 24/7 WhatsApp & Messenger auto-reply
-4️⃣ Ads jeta real customer ane
+4️⃣ Real customer আনে এমন Facebook ads
 
-Comment e number likhun, amra free te bolbo kivabe start korben. 💬
+Comment-এ number লিখুন, আমরা free-তে বলে দেবো কীভাবে start করবেন। 💬
 
 WhatsApp: +880 1303-364567
-#ARGUS #SeeCreateAutomate
+#ARGUS #SeeCreateAutomate #DigitalMarketing #WebsiteDesign #AIAutomation
 
 ### Instagram
 4 things we do. One system. ⚡
