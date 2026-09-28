@@ -60,3 +60,25 @@ Removed: Presentation Design, Print Design (low-value requests), UX Research (co
 
 ### Service Page description
 I help startups and small businesses launch products and websites that look great and bring in customers. UI/UX for SaaS dashboards and apps, fast responsive websites, brand and marketing design, and n8n AI workflow automation. 4+ years, end-to-end from research to developer handoff. Portfolio: thanksux.com
+
+## Edit services — section by section (replaces description above)
+
+**Description (449/500):**
+I help startups and small businesses launch digital products that look great and bring in customers.
+
+• UI/UX design for SaaS dashboards, web & mobile apps
+• Fast, responsive websites and landing pages
+• Branding, logo & social media marketing design
+• AI workflow automation with n8n
+
+4+ years, end-to-end: research → wireframes → Figma → developer handoff.
+
+Message me for a free quick review of your project.
+Portfolio: thanksux.com
+
+- Work location: Dhaka + remote, both checked.
+- Pricing: "Starting at" USD hourly (e.g. $20; match your Fiverr rate). Contact for pricing is the fallback.
+- Media: MarketAI case study, a website project, n8n demo video, a branding project — thanksux.com links, not Fiverr.
+- Messages (Open Profile): keep on.
+- Reviews visibility: keep on; request reviews from past clients.
+- Unpublish: don't touch.
