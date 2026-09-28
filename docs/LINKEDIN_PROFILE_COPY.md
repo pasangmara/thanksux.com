@@ -147,3 +147,41 @@ AI WhatsApp Booking Assistant for a Dental Clinic — Appointment Automation
 
 ### Media description
 An AI assistant that books dental appointments on WhatsApp, 24/7. Patients pick a service, branch, dentist, date and time slot with tap-to-select menus, then confirm, change the time or switch branch in one tap. It answers fee, duration and location questions in Bangla and English, sends a clear confirmation, passes reschedule requests to the clinic team, and asks follow-up questions when a patient reports pain. Less phone time for staff, faster replies for patients.
+
+## EduPilot OS — Notion CRM template (source: Notion page 3e492b5c…b549; Gumroad listing)
+
+Facts: pipeline Inquiry → Consultation → Documents → Shortlist → Application → Offer → Visa → Enrolled;
+databases Student Pipeline, Document Vault, University & Program Directory, Payment & Commission Tracker,
+Use Case Library; views Journey Board, Today follow-ups, Missing Docs, Overdue; progress/paid bars,
+deadline countdowns, intake form; optional Notion AI assistant; n8n Agent Hub (WhatsApp reminders,
+lead scoring); 10-minute setup; works on Notion Free (solo).
+
+### Media title
+EduPilot OS — Notion CRM for Study Abroad Agencies
+
+### Media description
+A ready-to-use Notion CRM that runs a study abroad agency from one screen. Every student moves from inquiry to consultation, documents, shortlist, application, offer, visa and enrolment on a drag-and-drop journey board. Built in: a document vault with deadline countdowns, a university and program directory, fee and commission tracking, and a daily follow-up list. Optional n8n automations send WhatsApp reminders and score leads. Set up in 10 minutes, works on Notion Free.
+
+### Featured post
+I built a CRM for study abroad agencies, inside Notion 🎓
+
+Most agencies I've seen run on WhatsApp chats, Excel sheets and memory. Documents go missing, follow-ups get forgotten, and nobody knows who still owes fees.
+
+So I designed EduPilot OS: one Notion workspace for the whole student journey.
+
+Inquiry → Consultation → Documents → Shortlist → Application → Offer → Visa → Enrolled
+
+What it does:
+→ Journey board: drag each student to the next stage, with a progress bar that updates itself
+→ Today view: overdue and today's follow-ups, hot leads first
+→ Document vault: missing documents with live deadline countdowns
+→ University & program directory linked to every student
+→ Fees, partial payments and university commissions in one place
+→ Optional n8n automations for WhatsApp reminders and lead scoring
+
+Set up in 10 minutes. Works on Notion Free.
+
+Get it here: [Gumroad link]
+Run an agency and want it customised for your process? Send me a message.
+
+#Notion #NotionTemplate #CRM #StudyAbroad #Automation #n8n
