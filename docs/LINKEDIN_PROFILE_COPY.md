@@ -231,3 +231,73 @@ Want this for your clinic or business? Comment "BOOK" and I'll send you the deta
 - Best time: Tue–Thu, 9–11 AM for your target timezone.
 - Reply to every comment in the first hour; DM everyone who comments "BOOK".
 - After it goes live: "..." → Feature on top of profile.
+
+## ARGUS services carousel — captions (5 slides: cover → Brand → Web → AI → Growth)
+
+### LinkedIn (upload as PDF document for swipe)
+Most businesses hire 4 different people for this:
+a designer, a web developer, an automation guy and an ads person.
+
+Four briefs. Four invoices. Nothing talks to each other.
+
+ARGUS does all four, as one system 👇
+
+01 Brand & Design: logo & identity systems, social media design, print & packaging
+02 Web & Digital: business websites, landing pages, UI/UX design
+03 AI & Automation: WhatsApp & Messenger automation, AI agents that qualify leads, CRM & workflow systems (n8n)
+04 Growth & Advertising: Facebook & Instagram ads, content strategy, analytics & reporting
+
+Your brand brings people in. Your website turns them into leads. Automation replies in seconds. Ads bring more of the right people.
+
+See. Create. Automate.
+
+Which one does your business need first? Tell me in the comments 👇
+Or message me on WhatsApp: +880 1303-364567
+
+#ARGUS #Branding #WebDesign #AIAutomation #n8n #DigitalMarketing #SmallBusiness
+
+### Facebook (Bangla)
+আপনার ব্যবসার জন্য ৪ জন আলাদা মানুষ খুঁজছেন? 🤔
+ডিজাইনার, ওয়েবসাইট ডেভেলপার, অটোমেশন আর অ্যাড এক্সপার্ট।
+
+ARGUS-এ চারটাই এক জায়গায়, একটাই সিস্টেমে 👇
+
+🎨 Brand & Design: লোগো, ব্র্যান্ড আইডেন্টিটি, সোশ্যাল মিডিয়া ডিজাইন, প্রিন্ট ও প্যাকেজিং
+💻 Web & Digital: বিজনেস ওয়েবসাইট, ল্যান্ডিং পেজ, UI/UX ডিজাইন
+🤖 AI & Automation: WhatsApp ও Messenger অটোমেশন, লিড বাছাই করা AI এজেন্ট, CRM ও n8n ওয়ার্কফ্লো
+📈 Growth & Advertising: Facebook ও Instagram অ্যাড, কনটেন্ট স্ট্র্যাটেজি, রিপোর্টিং
+
+রাত ১১টায় কাস্টমার মেসেজ দিলেও উত্তর যাবে সাথে সাথে। ব্র্যান্ড থেকে বিক্রি পর্যন্ত, সব এক টিমে।
+
+See. Create. Automate.
+
+📩 ইনবক্স করুন অথবা WhatsApp করুন: +880 1303-364567
+
+#ARGUS #ব্র্যান্ডিং #ওয়েবসাইট #অটোমেশন #ডিজিটাল_মার্কেটিং #Dhaka
+
+### Instagram
+4 things we do. One system. ⚡
+
+01 Brand & Design
+02 Web & Digital
+03 AI & Automation
+04 Growth & Advertising
+
+Swipe to see what's inside each one →
+
+Stop juggling a designer, a developer, an automation expert and an ads agency. ARGUS builds your brand, website, automations and ads to work together.
+
+See. Create. Automate.
+
+💬 DM "START" or WhatsApp +880 1303-364567 (link in bio)
+
+#argus #branding #logodesign #webdesign #uiux #aiautomation #n8n #whatsappautomation #digitalmarketing #facebookads #dhaka #bangladesh #smallbusiness #creativeagency
+
+### X / Threads
+4 things we do. One system.
+
+Brand & Design → Web & Digital → AI & Automation → Growth & Advertising
+
+Your brand brings people in, your site converts them, automation replies in seconds, ads bring more.
+
+See. Create. Automate. — ARGUS
