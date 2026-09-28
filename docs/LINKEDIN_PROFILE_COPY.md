@@ -185,3 +185,49 @@ Get it here: [Gumroad link]
 Run an agency and want it customised for your process? Send me a message.
 
 #Notion #NotionTemplate #CRM #StudyAbroad #Automation #n8n
+
+## LinkedIn post — WhatsApp dental booking automation (video)
+
+### Version A — story hook (recommended)
+A dental clinic's phone rings at 11 PM.
+Nobody picks up. The patient books somewhere else.
+
+So I built an AI assistant that answers on WhatsApp, 24/7 👇
+
+Here's what happens in the video:
+→ Patient says "Hello" and gets a menu of services
+→ Picks a branch, dentist, date and time slot with a few taps
+→ Asks "Root canal consultation er fee koto?" and gets the answer in Bangla
+→ Confirms, or changes the time or branch with one button
+→ Wants to reschedule? The request goes straight to the clinic team
+→ Mentions tooth pain? The assistant asks the right questions to check if it's urgent
+
+No app to download. No waiting on hold. Just WhatsApp, which every patient already uses.
+
+For the clinic: fewer calls, no missed bookings, and the front desk can focus on patients in the chair.
+
+Built with {n8n + WhatsApp Business API + AI}.
+
+This works for any business that runs on appointments: clinics, salons, gyms, consultants, coaching centres.
+
+Which business should I build this for next? 👇
+
+#Automation #WhatsApp #AI #n8n #HealthTech #SmallBusiness
+
+### Version B — short
+I gave a dental clinic a receptionist that never sleeps 🦷
+
+It books appointments on WhatsApp, answers fee questions in Bangla, handles reschedules and flags urgent pain cases. All in one chat.
+
+Watch the full booking flow in the video 👇
+
+Want this for your clinic or business? Comment "BOOK" and I'll send you the details.
+
+#AI #WhatsAppAutomation #n8n #Dental #SmallBusiness
+
+### Posting checklist
+- Upload the video natively (not a YouTube/Drive link); trim to 60–90 s; first 3 s = the confirmed-booking screen or a text overlay "AI books dental appointments on WhatsApp".
+- Add captions/text overlays; most people watch muted.
+- Best time: Tue–Thu, 9–11 AM for your target timezone.
+- Reply to every comment in the first hour; DM everyone who comments "BOOK".
+- After it goes live: "..." → Feature on top of profile.
