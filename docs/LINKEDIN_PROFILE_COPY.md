@@ -256,24 +256,44 @@ Or message me on WhatsApp: +880 1303-364567
 
 #ARGUS #Branding #WebDesign #AIAutomation #n8n #DigitalMarketing #SmallBusiness
 
-### Facebook (Bangla)
-আপনার ব্যবসার জন্য ৪ জন আলাদা মানুষ খুঁজছেন? 🤔
-ডিজাইনার, ওয়েবসাইট ডেভেলপার, অটোমেশন আর অ্যাড এক্সপার্ট।
+### Facebook (ad-style, English + light Banglish — replaces full-Bangla version)
 
-ARGUS-এ চারটাই এক জায়গায়, একটাই সিস্টেমে 👇
+**Version A — problem hook**
+Customer message dilo raat 11 tay. Reply dilen sokal 10 tay. Customer already onno jaygay order kore felse. 😬
 
-🎨 Brand & Design: লোগো, ব্র্যান্ড আইডেন্টিটি, সোশ্যাল মিডিয়া ডিজাইন, প্রিন্ট ও প্যাকেজিং
-💻 Web & Digital: বিজনেস ওয়েবসাইট, ল্যান্ডিং পেজ, UI/UX ডিজাইন
-🤖 AI & Automation: WhatsApp ও Messenger অটোমেশন, লিড বাছাই করা AI এজেন্ট, CRM ও n8n ওয়ার্কফ্লো
-📈 Growth & Advertising: Facebook ও Instagram অ্যাড, কনটেন্ট স্ট্র্যাটেজি, রিপোর্টিং
+ARGUS fixes this, and 3 more things your business needs:
 
-রাত ১১টায় কাস্টমার মেসেজ দিলেও উত্তর যাবে সাথে সাথে। ব্র্যান্ড থেকে বিক্রি পর্যন্ত, সব এক টিমে।
+✅ Brand & Design: logo, brand identity, social media design
+✅ Web & Digital: business website, landing page, UI/UX
+✅ AI & Automation: WhatsApp & Messenger auto-reply, AI lead qualify, CRM (n8n)
+✅ Growth & Ads: Facebook & Instagram ads, content, reporting
+
+4 ta service. 1 ta team. 1 ta system.
+
+👉 Free consultation er jonno "START" likhe inbox korun
+📱 WhatsApp: +880 1303-364567
 
 See. Create. Automate.
 
-📩 ইনবক্স করুন অথবা WhatsApp করুন: +880 1303-364567
+**Version B — short & direct**
+Brand, website, automation, ads: sob ek jaygay. ⚡
 
-#ARGUS #ব্র্যান্ডিং #ওয়েবসাইট #অটোমেশন #ডিজিটাল_মার্কেটিং #Dhaka
+Swipe korun, dekhun ARGUS apnar business er jonno ki korte pare 👉
+
+📩 Inbox or WhatsApp: +880 1303-364567
+
+**Version C — question hook**
+Apnar business e ei 4 tar kon ta missing? 👇
+
+1️⃣ Professional brand & logo
+2️⃣ Website jeta sell kore
+3️⃣ 24/7 WhatsApp & Messenger auto-reply
+4️⃣ Ads jeta real customer ane
+
+Comment e number likhun, amra free te bolbo kivabe start korben. 💬
+
+WhatsApp: +880 1303-364567
+#ARGUS #SeeCreateAutomate
 
 ### Instagram
 4 things we do. One system. ⚡
