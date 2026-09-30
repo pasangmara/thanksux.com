@@ -1,8 +1,12 @@
-import { FAQ, FOUNDER, SOCIAL, KIT_TABS, PHONE, RATE_GROUPS, SERVICES, SITE_URL, WA_NUMBER, toUsd } from "@/lib/data";
+import { FOUNDER, PHONE, SITE_URL, SOCIAL, WA_NUMBER, toUsd } from "@/lib/data";
+import { CONTENT } from "@/lib/content";
+import { HOME, type Lang } from "@/lib/i18n";
 
 // Structured data for search engines: Organization, ProfessionalService with an
 // offer catalog (BDT prices), and the FAQ.
-export default function JsonLd() {
+export default function JsonLd({ lang }: { lang: Lang }) {
+  const c = CONTENT[lang];
+  const pageUrl = `${SITE_URL}${HOME[lang]}`;
   const org = {
     "@type": "Organization",
     "@id": `${SITE_URL}/#org`,
@@ -40,10 +44,11 @@ export default function JsonLd() {
 
   const service = {
     "@type": "ProfessionalService",
-    "@id": `${SITE_URL}/#service`,
-    name: "ARGUS — Branding, Websites, AI Chatbots & Ads",
-    url: SITE_URL,
-    image: `${SITE_URL}/opengraph-image.jpg`,
+    "@id": `${pageUrl}#service`,
+    name: c.ui.meta.title.split(" | ")[0],
+    url: pageUrl,
+    inLanguage: lang,
+    image: `${SITE_URL}/og-image.jpg`,
     logo: `${SITE_URL}/img/argus-logo.png`,
     telephone: PHONE.replace(/[\s-]/g, ""),
     priceRange: "৳2,500 – ৳1,08,000",
@@ -58,15 +63,15 @@ export default function JsonLd() {
       "@type": "OfferCatalog",
       name: "ARGUS services",
       itemListElement: [
-        ...SERVICES.map((s) => ({
+        ...c.services.map((s) => ({
           "@type": "Service",
           name: s.name,
           description: `${s.hook} ${s.benefits.join(". ")}.`,
           provider: { "@id": `${SITE_URL}/#org` },
           offers: offer(s.name, s.price, undefined, s.per === "mo"),
         })),
-        ...KIT_TABS.flatMap((t) => t.kits).map((k) => offer(k.name, k.price, k.what, !!k.perMonth)),
-        ...RATE_GROUPS.flatMap((g) => g.items)
+        ...c.kitTabs.flatMap((t) => t.kits).map((k) => offer(k.name, k.price, k.what, !!k.perMonth)),
+        ...c.rateGroups.flatMap((g) => g.items)
           .filter((i) => i.once)
           .map((i) => offer(i.name, i.once as number, i.what)),
       ],
@@ -75,7 +80,9 @@ export default function JsonLd() {
 
   const faq = {
     "@type": "FAQPage",
-    mainEntity: FAQ.map((f) => ({
+    "@id": `${pageUrl}#faq`,
+    inLanguage: lang,
+    mainEntity: c.faq.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },

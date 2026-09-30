@@ -1,5 +1,6 @@
 // ARGUS site content: one source for every price, service, kit and FAQ on the page.
 // Prices are stored in BDT; USD is derived with the same rule as the price workbook.
+// Formatting (digits, ৳ / $) lives in i18n.ts; Bangla wording in content-bn.ts.
 
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://argus.agency").replace(/\/$/, "");
 export const PHONE = "+880 1303-364567";
@@ -10,9 +11,6 @@ export const SOCIAL = {
   linkedin: "https://www.linkedin.com/in/joy-howlader-386089241/",
 };
 
-export const waLink = (text = "Hi ARGUS, I want to know more.") =>
-  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
-export const WA_AUDIT = waLink("Hi ARGUS, I want to book a SEE Audit (৳2,500 / $20).");
 
 /** 1 USD = ৳122.77 (28 Sep 2026). Above $10, rounded to the nearest $5. */
 export const USD_RATE = 122.77;
@@ -28,13 +26,6 @@ export const groupBD = (n: number) => {
   const last3 = s.slice(-3);
   const rest = s.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ",");
   return `${rest},${last3}`;
-};
-export const fmtBDT = (n: number) => `৳${groupBD(n)}`;
-export const fmtUSD = (n: number) => `$${toUsd(n).toLocaleString("en-US")}`;
-/** A USD amount as given: whole dollars stay whole, anything else shows cents ($40.50). */
-export const fmtUsdExact = (v: number) => {
-  const c = Math.round(v * 100) / 100;
-  return "$" + c.toLocaleString("en-US", Number.isInteger(c) ? {} : { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
 
 export type Pillar = "See" | "Create" | "Automate" | "Grow";

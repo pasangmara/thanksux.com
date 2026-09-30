@@ -24,17 +24,26 @@ Node 20.9 ba tar beshi lagbe.
 
 | Ki | File |
 |---|---|
-| Daam, service, kit, rate card, FAQ, payment, WhatsApp number | `src/lib/data.ts` |
+| Daam, code, WhatsApp number, Facebook/LinkedIn link | `src/lib/data.ts` (dui bhashar jonno ek jaygay) |
 | USD rate (1 USD = ৳122.77) | `src/lib/data.ts` → `USD_RATE` |
-| Section er lekha ar order | `src/app/page.tsx` |
-| Rong, font size, spacing | `src/app/globals.css` (upore `:root` e color token) |
-| Title, description, SEO keyword | `src/app/layout.tsx` |
-| Photo, logo, video | `public/img`, `public/media` |
+| English lekha | `src/lib/content.ts` (`UI_EN`) ar `src/lib/data.ts` |
+| বাংলা লেখা | `src/lib/content-bn.ts` |
+| Section er order ar layout | `src/components/home.tsx` |
+| Rong, font size, spacing, Bangla typography | `src/app/globals.css` (niche `html[lang="bn"]` block) |
+| Title, description, SEO keyword (dui bhasha) | `src/lib/metadata.ts` |
+| Photo, logo, video, share image | `public/img`, `public/media`, `public/og-image.jpg` |
+
+## Dui bhasha
+
+- English: `/` · বাংলা: `/bn/`. Nav er `EN | বাংলা` diye bodlano jay.
+- Dam ekta jaygay (`data.ts`) thake, tai dui page e kokhono alada dam hobe na.
+- Bangla page e sob sonkhya Bangla ongke (৳১৬,৫০০), heading e Anek Bangla, lekhay Noto Sans Bengali (duitai OFL license).
+- `hreflang`, canonical ar sitemap e dui page i ache.
 
 ## Ja ache
 
 - 16 section: nav, hero, marquee, problem, system, 10 services, kits, rate card, comparison, how it works, demos, founder, guarantees, FAQ, final CTA, footer.
-- Protiti daam BDT ar USD eksathe dekhay. Bangladesh er baire theke (time zone dekhe) visitor age USD dekhe. Switch diye bodlano jay.
+- Protiti daam BDT ar USD eksathe dekhay. Kit ar rate card e 3/12 mash prepay dile live dam, save ar total dekhay. Bangladesh er baire theke (time zone dekhe) visitor age USD dekhe. Switch diye bodlano jay.
 - Scroll effect: fade-up, sticky step list, timeline fill, marquee, live chat demo. `prefers-reduced-motion` e sob bondho hoy.
 - SEO: ekta H1, title/meta, Open Graph image, JSON-LD (Organization, ProfessionalService + Offer, FAQPage), sitemap.xml, robots.txt.
 - Demo gulo te "Demo" / "Example" lekha. Kono fake review ba client result nei.

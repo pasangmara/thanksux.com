@@ -1,24 +1,43 @@
 "use client";
 
 import { useState } from "react";
-import { KIT_TABS, RATE_GROUPS, SERVICES, WA_AUDIT, fmtBDT, fmtUSD, fmtUsdExact, toUsd, waLink, type Pillar } from "@/lib/data";
-import { CurrencySwitch, Price, useCurrency } from "./currency";
+import { WA_NUMBER, toUsd, type Kit, type Pillar } from "@/lib/data";
+import { bdt as fmtBdt, digits, usd as fmtUsd } from "@/lib/i18n";
+import {
+  CurrencySwitch,
+  Money,
+  PrepaySwitch,
+  Price,
+  cents,
+  prepaid,
+  prepayOff,
+  setPrepay,
+  useCurrency,
+  usePrepay,
+} from "./currency";
 import { IconArrow, IconCheck, IconPlus, IconWhatsApp } from "./icons";
+import { useContent, useLang } from "./lang";
+
+const wa = (text: string) => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;
 
 /* ---------- Services: filter chips + bento grid ---------- */
 
 const FILTERS: ("All" | Pillar)[] = ["All", "See", "Create", "Automate", "Grow"];
 
 export function ServicesGrid() {
+  const { services, pillars, ui } = useContent();
+  const lang = useLang();
   const [f, setF] = useState<(typeof FILTERS)[number]>("All");
-  const list = SERVICES.filter((s) => f === "All" || s.pillar === f);
+  const list = services.filter((s) => f === "All" || s.pillar === f);
   return (
     <>
-      <div className="chips" role="group" aria-label="Filter services">
+      <div className="chips" role="group" aria-label={ui.services.filter}>
         {FILTERS.map((x) => (
           <button key={x} type="button" className="chip" aria-pressed={f === x} onClick={() => setF(x)}>
-            {x}
-            <span className="chip__n">{x === "All" ? SERVICES.length : SERVICES.filter((s) => s.pillar === x).length}</span>
+            {pillars[x]}
+            <span className="chip__n">
+              {digits(x === "All" ? services.length : services.filter((s) => s.pillar === x).length, lang)}
+            </span>
           </button>
         ))}
       </div>
@@ -31,8 +50,8 @@ export function ServicesGrid() {
             style={{ "--i": i } as React.CSSProperties}
           >
             <div className="svc__top">
-              <span className="mono svc__n">{s.n}</span>
-              <span className="tag">{s.pillar}</span>
+              <span className="mono svc__n">{digits(s.n, lang)}</span>
+              <span className="tag">{pillars[s.pillar]}</span>
             </div>
             <h3 className="svc__name">{s.name}</h3>
             <p className="svc__tag mono">{s.tag}</p>
@@ -46,7 +65,7 @@ export function ServicesGrid() {
             </ul>
             <div className="svc__price">
               <div>
-                {s.from && <span className="svc__from">From </span>}
+                {s.from && <span className="svc__from">{ui.services.from}</span>}
                 <Price bdt={s.price} per={s.per} className="price--lg" />
                 {s.monthly ? (
                   <div className="svc__sub">
@@ -57,12 +76,12 @@ export function ServicesGrid() {
               </div>
               <a
                 className="btn btn--line btn--sm"
-                href={waLink(`Hi ARGUS, I’m interested in ${s.name}.`)}
+                href={wa(ui.wa.about(s.name))}
                 target="_blank"
                 rel="noopener"
-                aria-label={`Ask about ${s.name} on WhatsApp`}
+                aria-label={ui.services.askAria(s.name)}
               >
-                Ask <IconArrow size={16} />
+                {ui.services.ask} <IconArrow size={16} />
               </a>
             </div>
           </article>
@@ -72,19 +91,126 @@ export function ServicesGrid() {
   );
 }
 
-/* ---------- Kits: segment tabs + currency switch ---------- */
+/* ---------- Kits: segment tabs, prepay + currency switches, live totals ---------- */
+
+function KitCard({ k, single }: { k: Kit; single: boolean }) {
+  const { ui } = useContent();
+  const lang = useLang();
+  const cur = useCurrency();
+  const months = usePrepay();
+  const off = prepayOff(months);
+  const pct = digits(Math.round(off * 100), lang);
+  const nText = digits(months, lang);
+  const rec = k.recommended && !single;
+  const savePct = digits(Math.round((1 - k.price / k.separately) * 100), lang);
+
+  // The monthly part a prepay discount applies to: the plan price itself, or the kit's monthly fee.
+  const monthlyBase = k.perMonth ? k.price : (k.monthly ?? 0);
+  const base = { bdt: monthlyBase, usd: toUsd(monthlyBase) };
+  const d = prepaid(monthlyBase, off);
+  const total = k.perMonth
+    ? { bdt: d.bdt * months, usd: cents(d.usd * months) }
+    : { bdt: k.price + d.bdt * months, usd: cents(toUsd(k.price) + d.usd * months) };
+  const saved = { bdt: (base.bdt - d.bdt) * months, usd: cents((base.usd - d.usd) * months) };
+
+  const deal = off > 0 && (
+    <span className="kit__deal" key={months}>
+      <span className="rc__pct">−{pct}%</span> {ui.kits.savePerMonth}{" "}
+      <Money bdt={base.bdt - d.bdt} usd={cents(base.usd - d.usd)} />
+      {lang === "en" ? ui.common.perMonth : ""}
+    </span>
+  );
+
+  return (
+    <article className={`kit${rec ? " kit--rec" : ""}`}>
+      {rec && <span className="kit__badge">{ui.kits.recommended}</span>}
+      <p className="mono kit__code">
+        {k.code} · {k.forWho}
+      </p>
+      <h3 className="kit__name">{k.name}</h3>
+      <p className="kit__what">{k.what}</p>
+      <div className="kit__price">
+        {k.perMonth ? (
+          <>
+            {off > 0 && (
+              <s className="rc__was">
+                <Money {...base} />
+                {ui.common.perMonth}
+              </s>
+            )}
+            <Price bdt={d.bdt} usd={d.usd} per="mo" animate className={`price--xl${off ? " is-deal" : ""}`} />
+          </>
+        ) : (
+          <Price bdt={k.price} className="price--xl" />
+        )}
+        <div className="kit__sep">
+          {ui.kits.separately}{" "}
+          <s>
+            {cur === "USD" ? fmtUsd(k.separately, lang) : fmtBdt(k.separately, lang)}
+            {k.perMonth ? ui.common.perMonth : ""}
+          </s>{" "}
+          <span className="kit__save">{ui.kits.save(savePct)}</span>
+        </div>
+        {k.monthly ? (
+          <div className="kit__mo">
+            {off > 0 && (
+              <s className="rc__was">
+                + <Money {...base} />
+                {ui.common.perMonth}
+              </s>
+            )}
+            <span className={off ? "is-deal" : ""}>
+              + <Price bdt={d.bdt} usd={d.usd} per="mo" animate />
+            </span>{" "}
+            {off > 0 ? deal : <span className="muted">{ui.kits.monthlyNote}</span>}
+          </div>
+        ) : (
+          <div className="kit__mo">{off > 0 ? deal : <span className="muted">{ui.kits.oneFee}</span>}</div>
+        )}
+        <div className="kit__total">
+          <span className="kit__total-label">
+            {k.perMonth ? ui.kits.totalPlan(months, nText) : ui.kits.totalKit(months, nText)}
+          </span>
+          <Price bdt={total.bdt} usd={total.usd} animate className="price--md" />
+          {off > 0 && (
+            <span className="kit__total-save" key={months}>
+              {ui.kits.totalSave} <Money {...saved} />
+            </span>
+          )}
+        </div>
+      </div>
+      <ul className="ticks">
+        {k.includes.map((i) => (
+          <li key={i}>
+            <IconCheck size={16} /> {i}
+          </li>
+        ))}
+      </ul>
+      <a
+        className={`btn ${k.recommended ? "btn--mint" : "btn--line"}`}
+        href={wa(ui.wa.kit(k.name, `${fmtBdt(k.price, lang)} / ${fmtUsd(k.price, lang)}`))}
+        target="_blank"
+        rel="noopener"
+      >
+        <IconWhatsApp size={18} /> {ui.kits.get(k.name)}
+      </a>
+    </article>
+  );
+}
 
 export function Kits() {
-  const [tab, setTab] = useState(KIT_TABS[0].id);
-  const cur = useCurrency();
-  const active = KIT_TABS.find((t) => t.id === tab) ?? KIT_TABS[0];
-  const pct = (a: number, b: number) => Math.round((1 - a / b) * 100);
+  const { kitTabs, ui } = useContent();
+  const lang = useLang();
+  const months = usePrepay();
+  const off = prepayOff(months);
+  const [tab, setTab] = useState(kitTabs[0].id);
+  const active = kitTabs.find((t) => t.id === tab) ?? kitTabs[0];
 
   return (
     <>
       <div className="kits__bar">
-        <div className="tabs" role="tablist" aria-label="Choose your business">
-          {KIT_TABS.map((t) => (
+        <div className="tabs" role="tablist" aria-label={ui.kits.choose}>
+          {kitTabs.map((t) => (
             <button
               key={t.id}
               id={`tab-${t.id}`}
@@ -99,93 +225,52 @@ export function Kits() {
             </button>
           ))}
         </div>
-        <CurrencySwitch />
+        <div className="kits__opts">
+          <PrepaySwitch label={ui.kits.prepayLabel} />
+          <CurrencySwitch />
+        </div>
       </div>
+      <p className={`kits__live${off ? " is-deal" : ""}`} aria-live="polite" key={months}>
+        {off > 0 && <span className="rc__pct">−{digits(Math.round(off * 100), lang)}%</span>}
+        <span>{off ? ui.kits.live(digits(months, lang), digits(Math.round(off * 100), lang)) : ui.kits.liveOff}</span>
+      </p>
 
       <div id="kit-panel" role="tabpanel" aria-labelledby={`tab-${active.id}`} className={`kits kits--${active.kits.length}`}>
         {active.kits.map((k) => (
-          <article key={k.code} className={`kit${k.recommended && active.kits.length > 1 ? " kit--rec" : ""}`}>
-            {k.recommended && active.kits.length > 1 && <span className="kit__badge">Recommended</span>}
-            <p className="mono kit__code">{k.code} · {k.forWho}</p>
-            <h3 className="kit__name">{k.name}</h3>
-            <p className="kit__what">{k.what}</p>
-            <div className="kit__price">
-              <Price bdt={k.price} per={k.perMonth ? "mo" : undefined} className="price--xl" />
-              <div className="kit__sep">
-                Separately <s>{cur === "USD" ? fmtUSD(k.separately) : fmtBDT(k.separately)}{k.perMonth ? "/mo" : ""}</s>{" "}
-                <span className="kit__save">save {pct(k.price, k.separately)}%</span>
-              </div>
-              {k.monthly ? (
-                <div className="kit__mo">
-                  + <Price bdt={k.monthly} per="mo" /> <span className="muted">AI, hosting, tuning &amp; report</span>
-                </div>
-              ) : (
-                <div className="kit__mo muted">One monthly fee · month-to-month</div>
-              )}
-            </div>
-            <ul className="ticks">
-              {k.includes.map((i) => (
-                <li key={i}>
-                  <IconCheck size={16} /> {i}
-                </li>
-              ))}
-            </ul>
-            <a
-              className={`btn ${k.recommended ? "btn--mint" : "btn--line"}`}
-              href={waLink(`Hi ARGUS, I want the ${k.name} (${fmtBDT(k.price)} / ${fmtUSD(k.price)}).`)}
-              target="_blank"
-              rel="noopener"
-            >
-              <IconWhatsApp size={18} /> Get {k.name}
-            </a>
-          </article>
+          <KitCard key={k.code} k={k} single={active.kits.length === 1} />
         ))}
       </div>
     </>
   );
 }
 
-/* ---------- Rate card: accordion + prepay toggle ---------- */
+/* ---------- Rate card: accordion + live prepay pricing ---------- */
 
-const PREPAY = [
-  { id: 1, label: "Monthly", off: 0 },
-  { id: 3, label: "3 months −10%", off: 0.1 },
-  { id: 12, label: "12 months −15%", off: 0.15 },
-];
-
-/** Discounted monthly price. USD is the listed USD price less the same %, to the cent. */
-const cents = (v: number) => Math.round(v * 100) / 100;
-const prepaid = (bdt: number, off: number) => ({
-  bdt: Math.round(bdt * (1 - off)),
-  usd: cents(toUsd(bdt) * (1 - off)),
-});
-
-function Money({ bdt, usd }: { bdt: number; usd: number }) {
-  const cur = useCurrency();
-  return <>{cur === "USD" ? fmtUsdExact(usd) : fmtBDT(bdt)}</>;
-}
-
-function MonthlyCell({ monthly, off, months }: { monthly: number; off: number; months: number }) {
+function MonthlyCell({ monthly }: { monthly: number }) {
+  const { ui } = useContent();
+  const lang = useLang();
+  const months = usePrepay();
+  const off = prepayOff(months);
   const d = prepaid(monthly, off);
   const base = { bdt: monthly, usd: toUsd(monthly) };
   return (
-    <span className={`rc__num rc__mo${off ? " is-deal" : ""}`} data-label="Monthly">
+    <span className={`rc__num rc__mo${off ? " is-deal" : ""}`} data-label={ui.rate.head[5]}>
       {off > 0 && (
         <s className="rc__was">
           <Money {...base} />
-          /mo
+          {ui.common.perMonth}
         </s>
       )}
       <Price bdt={d.bdt} usd={d.usd} per="mo" animate />
       {off > 0 && (
         <span className="rc__deal" key={months}>
           <span className="rc__save">
-            <span className="rc__pct">−{Math.round(off * 100)}%</span> save{" "}
+            <span className="rc__pct">−{digits(Math.round(off * 100), lang)}%</span> {ui.rate.save}{" "}
             <Money bdt={base.bdt - d.bdt} usd={cents(base.usd - d.usd)} />
-            /mo
+            {ui.common.perMonth}
           </span>
           <span className="rc__total">
-            <Money bdt={d.bdt * months} usd={cents(d.usd * months)} /> for {months} months
+            <Money bdt={d.bdt * months} usd={cents(d.usd * months)} /> {ui.rate.forMonths(digits(months, lang))}
           </span>
         </span>
       )}
@@ -193,57 +278,74 @@ function MonthlyCell({ monthly, off, months }: { monthly: number; off: number; m
   );
 }
 
-const EXAMPLE = RATE_GROUPS.flatMap((g) => g.items).find((i) => i.code === "AU-01");
-const MONTHLY_COUNT = RATE_GROUPS.flatMap((g) => g.items).filter((i) => i.monthly).length;
-
 export function RateCard() {
-  const [openId, setOpenId] = useState<string | null>(RATE_GROUPS[0].id);
-  const [pp, setPp] = useState(1);
-  const off = PREPAY.find((p) => p.id === pp)?.off ?? 0;
+  const { rateGroups, ui } = useContent();
+  const lang = useLang();
+  const [openId, setOpenId] = useState<string | null>(rateGroups[0].id);
+  const months = usePrepay();
+  const off = prepayOff(months);
+  const all = rateGroups.flatMap((g) => g.items);
+  const monthlyCount = all.filter((i) => i.monthly).length;
+  const example = all.find((i) => i.code === "AU-01");
 
-  const choose = (id: number) => {
-    setPp(id);
-    const plan = PREPAY.find((p) => p.id === id);
-    const open = RATE_GROUPS.find((g) => g.id === openId);
+  const choose = (m: number) => {
+    setPrepay(m);
+    const open = rateGroups.find((g) => g.id === openId);
     // A discount only changes monthly prices, so make sure some are on screen.
-    if (plan?.off && !open?.items.some((i) => i.monthly)) setOpenId("automation");
+    if (prepayOff(m) && !open?.items.some((i) => i.monthly)) setOpenId("automation");
   };
 
-  const ex = EXAMPLE?.monthly ?? 0;
+  const ex = example?.monthly ?? 0;
   const exD = prepaid(ex, off);
   const exBase = { bdt: ex, usd: toUsd(ex) };
+  const n = digits(months, lang);
+  const pct = digits(Math.round(off * 100), lang);
 
   return (
     <>
       <div className="rc__bar">
-        <div className="seg" role="group" aria-label="Prepay discount on monthly plans">
-          {PREPAY.map((p) => (
-            <button key={p.id} type="button" className="seg__btn" aria-pressed={pp === p.id} onClick={() => choose(p.id)}>
-              {p.label}
+        <div className="seg" role="group" aria-label={ui.rate.prepayAria}>
+          {[1, 3, 12].map((m, i) => (
+            <button key={m} type="button" className="seg__btn" aria-pressed={months === m} onClick={() => choose(m)}>
+              {ui.prepay[i]}
             </button>
           ))}
         </div>
         <CurrencySwitch />
       </div>
 
-      <p className={`rc__live${off ? " is-deal" : ""}`} aria-live="polite" key={pp}>
+      <p className={`rc__live${off ? " is-deal" : ""}`} aria-live="polite" key={months}>
         {off ? (
           <>
-            <span className="rc__pct">−{Math.round(off * 100)}%</span>
+            <span className="rc__pct">−{pct}%</span>
             <span>
-              Prepaying {pp} months: all {MONTHLY_COUNT} monthly prices below are {Math.round(off * 100)}% lower. Example:{" "}
-              {EXAMPLE?.name} <s><Money {...exBase} /></s> → <strong><Money {...exD} />/mo</strong>, you pay{" "}
-              <strong><Money bdt={exD.bdt * pp} usd={cents(exD.usd * pp)} /></strong> for {pp} months and save{" "}
-              <strong className="mint"><Money bdt={(exBase.bdt - exD.bdt) * pp} usd={cents((exBase.usd - exD.usd) * pp)} /></strong>.
+              {ui.rate.liveOn(n, digits(monthlyCount, lang), pct)} {example?.name}{" "}
+              <s>
+                <Money {...exBase} />
+              </s>{" "}
+              →{" "}
+              <strong>
+                <Money {...exD} />
+                {ui.common.perMonth}
+              </strong>
+              , {ui.rate.livePay}{" "}
+              <strong>
+                <Money bdt={exD.bdt * months} usd={cents(exD.usd * months)} />
+              </strong>{" "}
+              {ui.rate.liveFor(n)}{" "}
+              <strong className="mint">
+                <Money bdt={(exBase.bdt - exD.bdt) * months} usd={cents((exBase.usd - exD.usd) * months)} />
+              </strong>
+              {lang === "bn" ? "।" : "."}
             </span>
           </>
         ) : (
-          <span>Monthly plans are month-to-month. Prepay 3 months to save 10%, or 12 months to save 15%.</span>
+          <span>{ui.rate.liveOff}</span>
         )}
       </p>
 
       <div className="rc">
-        {RATE_GROUPS.map((g) => {
+        {rateGroups.map((g) => {
           const isOpen = openId === g.id;
           const monthlies = g.items.filter((i) => i.monthly).length;
           return (
@@ -256,12 +358,10 @@ export function RateCard() {
                   onClick={() => setOpenId(isOpen ? null : g.id)}
                 >
                   <span>{g.label}</span>
-                  <span className="mono muted">
-                    {g.items.length} {g.items.length === 1 ? "item" : "items"}
-                  </span>
+                  <span className="mono muted">{ui.rate.items(g.items.length, digits(g.items.length, lang))}</span>
                   {off > 0 && monthlies > 0 && (
-                    <span className="rc__tag" key={pp}>
-                      −{Math.round(off * 100)}% on {monthlies} monthly
+                    <span className="rc__tag" key={months}>
+                      {ui.rate.onMonthly(pct, digits(monthlies, lang))}
                     </span>
                   )}
                   <IconPlus className="rc__plus" />
@@ -271,28 +371,28 @@ export function RateCard() {
                 <div className="rc__inner">
                   <div className="rc__body">
                     <div className="rc__row rc__row--head mono" aria-hidden="true">
-                      <span>Code</span>
-                      <span>Package</span>
-                      <span>What you get</span>
-                      <span>Delivery</span>
-                      <span>One-time</span>
-                      <span>Monthly{off ? ` · ${pp} mo prepay` : ""}</span>
+                      {ui.rate.head.map((h, i) => (
+                        <span key={h}>
+                          {h}
+                          {i === 5 && off ? ui.rate.prepayHead(n) : ""}
+                        </span>
+                      ))}
                     </div>
                     {g.items.map((it) => (
                       <div key={it.code} className="rc__row">
                         <span className="mono rc__code">{it.code}</span>
                         <span className="rc__name">{it.name}</span>
                         <span className="rc__what">{it.what}</span>
-                        <span className="rc__days" data-label="Delivery">
+                        <span className="rc__days" data-label={ui.rate.head[3]}>
                           {it.days ?? "—"}
                         </span>
-                        <span className="rc__num" data-label="One-time">
+                        <span className="rc__num" data-label={ui.rate.head[4]}>
                           {it.once ? <Price bdt={it.once} /> : "—"}
                         </span>
                         {it.monthly ? (
-                          <MonthlyCell monthly={it.monthly} off={off} months={pp} />
+                          <MonthlyCell monthly={it.monthly} />
                         ) : (
-                          <span className="rc__num" data-label="Monthly">
+                          <span className="rc__num" data-label={ui.rate.head[5]}>
                             —
                           </span>
                         )}
@@ -306,12 +406,11 @@ export function RateCard() {
         })}
       </div>
       <p className="rc__note">
-        Prepay discounts apply to monthly plans only; one-time prices stay the same. Prices exclude VAT. Ad spend and WhatsApp
-        template fees are paid by you at cost (0% markup). USD at 1 USD = ৳122.77. Need something else?{" "}
-        <a href={WA_AUDIT} target="_blank" rel="noopener">
-          Start with a SEE Audit
+        {ui.rate.note}{" "}
+        <a href={wa(ui.wa.audit)} target="_blank" rel="noopener">
+          {ui.rate.noteLink}
         </a>
-        .
+        {lang === "bn" ? "।" : "."}
       </p>
     </>
   );
