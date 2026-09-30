@@ -41,6 +41,26 @@ jobs:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
 
+  # ARGUS marketing site (argus-site/): a separate static Next.js app with its
+  # own lockfile. It is excluded from the root tsconfig/eslint above.
+  argus-site:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: argus-site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20.9.0"
+          cache: "npm"
+          cache-dependency-path: argus-site/package-lock.json
+      - run: npm ci
+      - run: npx next typegen
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm run build
+
   # [Temporary GitHub Pages deployment] Publishes ONLY the public marketing/
   # community pages (home, about, work, contact, signals, audit, share) as a
   # static export — admin, every /api/* route, and auth/session pages are
