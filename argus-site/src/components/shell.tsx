@@ -3,6 +3,7 @@ import { CONTENT } from "@/lib/content";
 import ScrollFx from "./fx";
 import { LangProvider } from "./lang";
 import Nav from "./nav";
+import MetaPixel from "./pixel";
 import "../app/globals.css";
 
 // The <html> shell shared by the English and Bangla root layouts.
@@ -17,6 +18,7 @@ export default function Shell({ lang, fonts, children }: { lang: Lang; fonts: st
           <Nav />
           {children}
           <ScrollFx />
+          <MetaPixel />
         </LangProvider>
       </body>
     </html>

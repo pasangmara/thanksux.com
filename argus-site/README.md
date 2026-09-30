@@ -20,6 +20,23 @@ Node 20.9 ba tar beshi lagbe.
 2. `out/` folder er **bhitorer sob file** hosting er `public_html` (ba site root) e upload korun.
 3. Domain onno hole build er age set korun: `NEXT_PUBLIC_SITE_URL=https://yourdomain.com npm run build`. Default `https://argus.agency`. Canonical, sitemap, robots ar schema te ei URL bose.
 
+## Facebook (Meta) Pixel
+
+Ad chalanor age Pixel boshan, jate website visit ar WhatsApp click Meta te track hoy:
+
+```bash
+NEXT_PUBLIC_META_PIXEL_ID=1234567890 npm run build
+```
+
+Tarpor notun `out/` upload korun. Pixel ID na dile kono tracking script load hoy na.
+
+| Event | Kokhon |
+|---|---|
+| PageView | Page khulle |
+| ViewContent | Pricing section screen e ashle (ekbar) |
+| Lead | SEE Audit er WhatsApp button click |
+| Contact | Onno je kono WhatsApp button click |
+
 ## Kothay ki bodlaben
 
 | Ki | File |
