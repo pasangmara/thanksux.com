@@ -493,19 +493,27 @@ button {
 }
 .photo > img {
   width: 100%;
-  aspect-ratio: 900 / 1146;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
 }
+.hero__media {
+  position: relative;
+}
+/* Live chat demo sits under the poster so it never covers the name or face. */
 .live {
-  position: absolute;
-  inset: auto 16px 16px 16px;
+  position: relative;
   display: grid;
   gap: 8px;
+  margin-top: 14px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background: rgba(11, 13, 12, 0.72);
 }
 .live__demo {
   position: absolute;
-  right: 0;
-  top: -30px;
+  right: 14px;
+  top: 14px;
 }
 .live > * {
   animation: live 9s infinite both;

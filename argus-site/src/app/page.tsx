@@ -108,27 +108,27 @@ function Hero() {
         <div className="hero__media">
           <div className="photo">
             <Image
-              src="/img/joy-howlader-argus-studio.webp"
-              alt="Joy Howlader, founder of ARGUS, at the ARGUS studio"
-              width={900}
-              height={1146}
+              src="/img/joy-howlader-poster.webp"
+              alt="Joy Howlader, founder of ARGUS — graphic designer, UI/UX designer and automation enthusiast"
+              width={1000}
+              height={1000}
               priority
               sizes="(max-width: 900px) 100vw, 460px"
             />
-            <div className="live" aria-label="Demo: an ad turns into an order">
-              <span className="tag live__demo">Demo</span>
-              <div className="live__chip live__ad">
-                <IconEye size={14} /> Ad · Click to WhatsApp
-              </div>
-              <div className="bubble bubble--in live__q">
-                dam koto? M size ache?<span className="bubble__meta">1:12 AM</span>
-              </div>
-              <div className="bubble bubble--out live__a">
-                ৳1,250 · M in stock · 2 days. Order korben?<span className="bubble__meta mint">AI reply · 3 sec</span>
-              </div>
-              <div className="live__chip live__ok">
-                <IconCheck size={14} /> Order saved to sheet
-              </div>
+          </div>
+          <div className="live" aria-label="Demo: an ad turns into an order">
+            <span className="tag live__demo">Demo</span>
+            <div className="live__chip live__ad">
+              <IconEye size={14} /> Ad · Click to WhatsApp
+            </div>
+            <div className="bubble bubble--in live__q">
+              dam koto? M size ache?<span className="bubble__meta">1:12 AM</span>
+            </div>
+            <div className="bubble bubble--out live__a">
+              ৳1,250 · M in stock · 2 days. Order korben?<span className="bubble__meta mint">AI reply · 3 sec</span>
+            </div>
+            <div className="live__chip live__ok">
+              <IconCheck size={14} /> Order saved to sheet
             </div>
           </div>
         </div>
