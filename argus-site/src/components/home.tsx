@@ -522,10 +522,10 @@ function Founder({ c }: P) {
       <div className="wrap founder">
         <div className="founder__photo" data-reveal>
           <Image
-            src="/img/joy-howlader-poster.webp"
-            alt={c.ui.hero.posterAlt}
-            width={1000}
-            height={1000}
+            src="/img/joy-howlader-studio.webp"
+            alt={u.photoAlt}
+            width={1100}
+            height={981}
             sizes="(max-width: 900px) 100vw, 440px"
           />
         </div>

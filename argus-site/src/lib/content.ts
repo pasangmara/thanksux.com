@@ -178,6 +178,7 @@ export const UI_EN = {
     h2: ["T-shirt or suit? ", "It has to fit."] as Pair,
     lead: "A T-shirt from a shelf fits almost everyone, almost well. A suit is cut for one person. Most brands, websites and bots are T-shirts. ARGUS makes suits: we SEE your business first, then create and automate what fits it.",
     body: "I’m Joy — graphic designer, UI/UX designer and automation enthusiast. I started ARGUS so small businesses get one team that designs, builds and connects everything, at a price written on the page.",
+    photoAlt: "Joy Howlader, founder of ARGUS, at the ARGUS studio",
     linkedin: "Joy on LinkedIn",
     facebook: "ARGUS on Facebook",
   },

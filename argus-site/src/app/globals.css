@@ -2582,3 +2582,11 @@ html[lang="bn"] .cue {
     font-size: 13px;
   }
 }
+
+/* founder: photo lines up with the eyebrow, not the middle of the text */
+.founder {
+  align-items: start;
+}
+.founder__photo {
+  margin-top: 6px;
+}
