@@ -6,6 +6,8 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://argus.agen
 export const PHONE = "+880 1303-364567";
 export const WA_NUMBER = "8801303364567";
 export const FOUNDER = "Joy Howlader";
+/** Public Meta Pixel ID (it is visible in every page). Never put access tokens in this site. */
+export const META_PIXEL_ID = "1772884870427633";
 export const SOCIAL = {
   facebook: "https://www.facebook.com/profile.php?id=61594554400256",
   linkedin: "https://www.linkedin.com/in/joy-howlader-386089241/",

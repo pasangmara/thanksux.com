@@ -2,12 +2,13 @@
 
 import Script from "next/script";
 import { useEffect } from "react";
+import { META_PIXEL_ID } from "@/lib/data";
 
-// Meta (Facebook) Pixel. Off unless NEXT_PUBLIC_META_PIXEL_ID is set at build time:
-//   NEXT_PUBLIC_META_PIXEL_ID=1234567890 npm run build
+// Meta (Facebook) Pixel. Uses META_PIXEL_ID from data.ts; a build can override it with
+// NEXT_PUBLIC_META_PIXEL_ID=<id>, or turn tracking off with NEXT_PUBLIC_META_PIXEL_ID=off.
 // Events: PageView on load, ViewContent when the pricing section is seen,
 // Lead when a SEE Audit WhatsApp link is clicked, Contact for any other WhatsApp link.
-const RAW = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "";
+const RAW = process.env.NEXT_PUBLIC_META_PIXEL_ID || META_PIXEL_ID;
 const PIXEL_ID = /^\d{6,20}$/.test(RAW) ? RAW : "";
 
 type Fbq = (...args: unknown[]) => void;

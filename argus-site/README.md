@@ -22,13 +22,15 @@ Node 20.9 ba tar beshi lagbe.
 
 ## Facebook (Meta) Pixel
 
-Ad chalanor age Pixel boshan, jate website visit ar WhatsApp click Meta te track hoy:
+Pixel website visit ar WhatsApp click Meta te track kore. Onno Pixel ID diye build korte:
 
 ```bash
 NEXT_PUBLIC_META_PIXEL_ID=1234567890 npm run build
 ```
 
-Tarpor notun `out/` upload korun. Pixel ID na dile kono tracking script load hoy na.
+ARGUS er Pixel ID (`1772884870427633`) `src/lib/data.ts` → `META_PIXEL_ID` e rakha ache, tai sadharon `npm run build` e nijei boshe. Pixel ID public, page source e dekha jay. Tracking bondho rakhte: `NEXT_PUBLIC_META_PIXEL_ID=off npm run build`.
+
+> Meta access token (Conversions API) kokhono ei site e, `.env` file e ba repo te rakhben na. Static site er sob file browser e porte pare. Token lagle server-side kaje (jemon Meta CAPI Gateway) rakhte hobe.
 
 | Event | Kokhon |
 |---|---|
