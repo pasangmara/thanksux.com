@@ -5,7 +5,7 @@ import { useEffect } from "react";
 // Scroll effects without extra libraries. Everything is visible without JS;
 // effects only start after mount, and are skipped for prefers-reduced-motion.
 //  [data-reveal]         fades up the first time it enters the viewport
-//  [data-progress]       gets --p (0 → 1) while the element scrolls through the screen
+//  [data-progress]       gets --p (0 → 1) while the element scrolls through the screen ("center": as the middle line crosses it)
 //  [data-step]           marks the matching [data-step-link] as active (System section)
 //  video[data-inview]    plays muted while on screen, loads its source on first approach
 export default function ScrollFx() {
@@ -46,7 +46,10 @@ export default function ScrollFx() {
       const vh = window.innerHeight;
       for (const el of bars) {
         const r = el.getBoundingClientRect();
-        const p = Math.min(1, Math.max(0, (vh * 0.75 - r.top) / (r.height + vh * 0.25)));
+        // "center": how far the middle of the screen has travelled through the element
+        // (matches the step highlight); default: from entering at 75% until the bottom reaches the middle.
+        const raw = el.dataset.progress === "center" ? (vh * 0.5 - r.top) / r.height : (vh * 0.75 - r.top) / (r.height + vh * 0.25);
+        const p = Math.min(1, Math.max(0, raw));
         el.style.setProperty("--p", reduce ? "1" : p.toFixed(3));
       }
       root.classList.toggle("scrolled", window.scrollY > 24);
@@ -98,13 +101,17 @@ export default function ScrollFx() {
     const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".nav__links a"));
     const secs = Array.from(document.querySelectorAll<HTMLElement>("main section[id]"));
     if (navLinks.length && "IntersectionObserver" in window) {
+      // Track which section sits on the middle line; none (hero, footer) clears the highlight.
+      const onLine = new Set<string>();
       const io = new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
-            if (!e.isIntersecting) continue;
-            const href = LINK_FOR[e.target.id];
-            navLinks.forEach((a) => a.toggleAttribute("data-active", a.getAttribute("href") === href));
+            if (e.isIntersecting) onLine.add(e.target.id);
+            else onLine.delete(e.target.id);
           }
+          const current = secs.find((s) => onLine.has(s.id));
+          const href = current ? LINK_FOR[current.id] : undefined;
+          navLinks.forEach((a) => a.toggleAttribute("data-active", !!href && a.getAttribute("href") === href));
         },
         { rootMargin: "-50% 0px -50% 0px" },
       );

@@ -5,6 +5,10 @@ export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://argus.agen
 export const PHONE = "+880 1303-364567";
 export const WA_NUMBER = "8801303364567";
 export const FOUNDER = "Joy Howlader";
+export const SOCIAL = {
+  facebook: "https://www.facebook.com/profile.php?id=61594554400256",
+  linkedin: "https://www.linkedin.com/in/joy-howlader-386089241/",
+};
 
 export const waLink = (text = "Hi ARGUS, I want to know more.") =>
   `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`;

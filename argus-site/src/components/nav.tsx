@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { NAV_LINKS, WA_AUDIT, waLink } from "@/lib/data";
+import { NAV_LINKS, SOCIAL, WA_AUDIT, waLink } from "@/lib/data";
 import { Price } from "./currency";
-import { IconMenu, IconWhatsApp, IconX } from "./icons";
+import { IconFacebook, IconLinkedIn, IconMenu, IconWhatsApp, IconX } from "./icons";
 
 export default function Nav() {
   const [open, setOpen] = useState(false);
@@ -59,6 +59,14 @@ export default function Nav() {
         <a className="btn btn--mint" href={WA_AUDIT} target="_blank" rel="noopener" onClick={close}>
           Book SEE Audit · <Price bdt={2500} />
         </a>
+        <div className="nav__social">
+          <a href={SOCIAL.facebook} target="_blank" rel="noopener" onClick={close}>
+            <IconFacebook size={16} /> Facebook
+          </a>
+          <a href={SOCIAL.linkedin} target="_blank" rel="noopener" onClick={close}>
+            <IconLinkedIn size={16} /> LinkedIn
+          </a>
+        </div>
         <p className="nav__sheet-note">English · Bangla · Banglish — Bangladesh &amp; worldwide</p>
       </div>
     </header>

@@ -10,6 +10,7 @@ import {
   PHONE,
   PROBLEMS,
   PROMISES,
+  SOCIAL,
   STEPS,
   SYSTEM_STEPS,
   WA_AUDIT,
@@ -26,7 +27,9 @@ import {
   IconCheck,
   IconDown,
   IconEye,
+  IconFacebook,
   IconGlobe,
+  IconLinkedIn,
   IconPlus,
   IconSheet,
   IconShield,
@@ -124,6 +127,11 @@ function Hero() {
             <div className="bubble bubble--in live__q">
               dam koto? M size ache?<span className="bubble__meta">1:12 AM</span>
             </div>
+            <div className="bubble bubble--out live__typing" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
             <div className="bubble bubble--out live__a">
               ৳1,250 · M in stock · 2 days. Order korben?<span className="bubble__meta mint">AI reply · 3 sec</span>
             </div>
@@ -213,8 +221,8 @@ function System() {
         <h2 className="h2" data-reveal>
           See. Create. Automate. — <span className="mint">one team, one system.</span>
         </h2>
-        <div className="sys">
-          <aside className="sys__nav" data-progress>
+        <div className="sys" data-progress="center">
+          <aside className="sys__nav">
             <div className="sys__bar">
               <span />
             </div>
@@ -536,6 +544,14 @@ function Founder() {
           <p className="mono mint founder__sig" data-reveal>
             See . Create . Automate .
           </p>
+          <div className="social" data-reveal>
+            <a className="btn btn--line btn--sm" href={SOCIAL.linkedin} target="_blank" rel="noopener me">
+              <IconLinkedIn size={16} /> Joy on LinkedIn
+            </a>
+            <a className="btn btn--line btn--sm" href={SOCIAL.facebook} target="_blank" rel="noopener">
+              <IconFacebook size={16} /> ARGUS on Facebook
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -640,6 +656,14 @@ function Footer() {
             <IconWhatsApp size={16} /> {PHONE}
           </a>
           <p className="muted">Dhaka, Bangladesh · working worldwide</p>
+          <div className="footer__social">
+            <a href={SOCIAL.facebook} target="_blank" rel="noopener" aria-label="ARGUS on Facebook">
+              <IconFacebook size={18} />
+            </a>
+            <a href={SOCIAL.linkedin} target="_blank" rel="noopener" aria-label="Joy Howlader on LinkedIn">
+              <IconLinkedIn size={18} />
+            </a>
+          </div>
         </div>
         <nav aria-label="Footer">
           <p className="mono footer__h">Services</p>

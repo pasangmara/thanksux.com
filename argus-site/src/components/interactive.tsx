@@ -189,7 +189,9 @@ export function RateCard() {
                   <IconPlus className="rc__plus" />
                 </button>
               </h3>
-              <div id={`rc-${g.id}`} className="rc__body" hidden={!isOpen}>
+              <div id={`rc-${g.id}`} className="rc__collapse" inert={!isOpen}>
+                <div className="rc__inner">
+                <div className="rc__body">
                 <div className="rc__row rc__row--head mono" aria-hidden="true">
                   <span>Code</span>
                   <span>Package</span>
@@ -210,6 +212,8 @@ export function RateCard() {
                     </span>
                   </div>
                 ))}
+                </div>
+                </div>
               </div>
             </div>
           );

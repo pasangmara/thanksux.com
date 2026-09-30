@@ -1,4 +1,4 @@
-import { FAQ, FOUNDER, KIT_TABS, PHONE, RATE_GROUPS, SERVICES, SITE_URL, WA_NUMBER, toUsd } from "@/lib/data";
+import { FAQ, FOUNDER, SOCIAL, KIT_TABS, PHONE, RATE_GROUPS, SERVICES, SITE_URL, WA_NUMBER, toUsd } from "@/lib/data";
 
 // Structured data for search engines: Organization, ProfessionalService with an
 // offer catalog (BDT prices), and the FAQ.
@@ -9,7 +9,14 @@ export default function JsonLd() {
     name: "ARGUS",
     url: SITE_URL,
     logo: `${SITE_URL}/img/argus-logo.png`,
-    founder: { "@type": "Person", name: FOUNDER },
+    sameAs: [SOCIAL.facebook],
+    founder: {
+      "@type": "Person",
+      name: FOUNDER,
+      jobTitle: "Founder",
+      knowsAbout: ["Graphic design", "UI/UX design", "Automation"],
+      sameAs: [SOCIAL.linkedin],
+    },
     contactPoint: {
       "@type": "ContactPoint",
       telephone: PHONE.replace(/[\s-]/g, ""),
@@ -46,6 +53,7 @@ export default function JsonLd() {
     areaServed: [{ "@type": "Country", name: "Bangladesh" }, "Worldwide"],
     knowsLanguage: ["en", "bn"],
     parentOrganization: { "@id": `${SITE_URL}/#org` },
+    sameAs: [SOCIAL.facebook],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "ARGUS services",
