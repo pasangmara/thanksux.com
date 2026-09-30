@@ -235,8 +235,8 @@ export const GUARANTEES = [
 ];
 
 export const FAQ = [
-  { q: "Do you work with clients outside Bangladesh?",
-    a: "Yes. We work in English, meet on Google Meet or Zoom, and quote in USD. Every price on this page shows USD next to BDT (1 USD = ৳122.77). You can pay with Payoneer, Wise, PayPal, Stripe, card or bank (SWIFT)." },
+  { q: "Can we work together if I’m outside Bangladesh?",
+    a: "Yes. We work with businesses from anywhere, in Bangladesh or abroad. Talk to us in English, Bangla or Banglish, whichever feels easiest, on WhatsApp, Google Meet or Zoom. Every price on this page shows USD next to BDT (1 USD = ৳122.77), and you can pay with Payoneer, Wise, PayPal, Stripe, card or bank (SWIFT)." },
   { q: "How do I pay?",
     a: "In Bangladesh: bKash, Nagad, Rocket, Upay, bank transfer or Visa / Mastercard. From abroad: Payoneer, Wise, PayPal, Stripe, Visa / Mastercard / Amex or bank (SWIFT). One-time work is 50% to start and 50% before launch. You always get an invoice and a receipt." },
   { q: "Which languages can the AI chatbot reply in?",

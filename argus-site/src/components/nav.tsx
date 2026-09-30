@@ -49,6 +49,7 @@ export default function Nav() {
           </button>
         </div>
       </div>
+      <span className="nav__progress" aria-hidden="true" />
       <div id="mobile-menu" className="nav__sheet" hidden={!open}>
         {NAV_LINKS.map((l) => (
           <a key={l.href} href={l.href} onClick={close}>

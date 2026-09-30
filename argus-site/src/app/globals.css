@@ -1873,3 +1873,215 @@ button {
 body:has(.nav--open) .mbar {
   display: none;
 }
+
+/* ---------- Section-to-section flow ----------
+   Each section rises over the one before it like a card (rounded top that
+   flattens as it arrives), while the section being left sinks back a little.
+   Pure CSS scroll-driven animations; browsers without them keep the simple
+   fade-up reveal, and reduced-motion users get no movement. */
+.nav__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--mint);
+  box-shadow: 0 0 12px rgba(43, 242, 161, 0.7);
+  transform: scaleX(var(--page, 0));
+  transform-origin: 0 50%;
+  pointer-events: none;
+}
+.nav__links a {
+  position: relative;
+}
+.nav__links a[data-active] {
+  color: var(--white);
+}
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--mint);
+  transform: translateX(-50%) scale(0);
+  transition: transform 0.3s ease;
+}
+.nav__links a[data-active]::after {
+  transform: translateX(-50%) scale(1);
+}
+
+.cue {
+  position: absolute;
+  left: 50%;
+  /* bottom of the first screen, or of the hero if that is shorter */
+  top: min(calc(100svh - 70px), calc(100% - 84px));
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  transition:
+    color 0.2s,
+    opacity 0.4s;
+}
+.scrolled .cue {
+  opacity: 0;
+  pointer-events: none;
+}
+.cue:hover {
+  color: var(--mint);
+}
+.cue__mouse {
+  display: block;
+  width: 22px;
+  height: 34px;
+  border: 1.5px solid currentColor;
+  border-radius: 12px;
+  position: relative;
+}
+.cue__mouse::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 3px;
+  height: 7px;
+  margin-left: -1.5px;
+  border-radius: 2px;
+  background: var(--mint);
+  animation: cue 1.8s ease-in-out infinite;
+}
+@keyframes cue {
+  0% {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+.founder__photo {
+  overflow: hidden;
+  border-radius: 28px;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* incoming section: overlaps the previous one and opens up like a card */
+    .sec:not(.hero),
+    .footer {
+      margin-top: -56px;
+      animation: sec-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+    .marquee + .sec {
+      margin-top: 0;
+    }
+    @keyframes sec-rise {
+      from {
+        clip-path: inset(0 3% 0 3% round 56px 56px 0 0);
+      }
+      to {
+        clip-path: inset(0 0 0 0 round 0 0 0 0);
+      }
+    }
+
+    /* outgoing content: sinks back and dims while the next section arrives */
+    .sec > .wrap {
+      animation: sec-sink linear both;
+      animation-timeline: view();
+      animation-range: exit 35% exit 100%;
+      transform-origin: 50% 0%;
+    }
+    @keyframes sec-sink {
+      to {
+        opacity: 0.25;
+        transform: translateY(-48px) scale(0.96);
+      }
+    }
+
+    /* poster drifts slightly inside its frame */
+    .photo > img,
+    .founder__photo img {
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+    @keyframes drift {
+      from {
+        transform: scale(1.08) translateY(-3%);
+      }
+      to {
+        transform: scale(1.08) translateY(3%);
+      }
+    }
+
+    /* section glow follows the scroll */
+    .sec--green,
+    .sec--cta {
+      background-size:
+        140% 140%,
+        140% 140%,
+        100% 100%;
+      animation: sec-rise linear both, glow linear both;
+      animation-timeline: view(), view();
+      animation-range: entry 0% entry 55%, cover;
+    }
+    .hero.sec--green {
+      animation: glow linear both;
+      animation-timeline: view();
+      animation-range: cover;
+    }
+    @keyframes glow {
+      from {
+        background-position:
+          0% 0%,
+          0% 0%,
+          0 0;
+      }
+      to {
+        background-position:
+          0% 100%,
+          100% 0%,
+          0 0;
+      }
+    }
+  }
+}
+@media (max-width: 640px) {
+  .cue {
+    display: none;
+  }
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .sec:not(.hero),
+      .footer {
+        margin-top: -36px;
+      }
+      .marquee + .sec {
+        margin-top: 0;
+      }
+      @keyframes sec-rise {
+        from {
+          clip-path: inset(0 2.5% 0 2.5% round 32px 32px 0 0);
+        }
+        to {
+          clip-path: inset(0 0 0 0 round 0 0 0 0);
+        }
+      }
+    }
+  }
+}

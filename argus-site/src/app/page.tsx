@@ -133,6 +133,10 @@ function Hero() {
           </div>
         </div>
       </div>
+      <a className="cue" href="#problem" aria-label="Scroll to the next section">
+        <span className="cue__mouse" aria-hidden="true" />
+        Scroll
+      </a>
     </section>
   );
 }
@@ -287,7 +291,7 @@ function Pricing() {
           Website, chatbot &amp; ads packages — <span className="mint">pick a kit, save ~15%.</span>
         </h2>
         <p className="lead" data-reveal>
-          Outside Bangladesh? We work in English, meet on Google Meet or Zoom and quote in USD.
+          Wherever you are, we work with you. Talk to us in English, Bangla or Banglish, meet on WhatsApp, Google Meet or Zoom, and pay in BDT or USD.
         </p>
         <Kits />
         <div className="pay" data-reveal>
@@ -575,7 +579,7 @@ function Faq() {
             Questions, <span className="mint">answered.</span>
           </h2>
           <p className="muted-2" data-reveal>
-            Something else? Ask us on WhatsApp — English, Bangla or Banglish.
+            Something else? Message us on WhatsApp from anywhere. We reply in English, Bangla or Banglish.
           </p>
           <WaBtn cls="btn--line" text="Hi ARGUS, I have a question.">
             <IconWhatsApp size={18} /> {PHONE}

@@ -50,6 +50,8 @@ export default function ScrollFx() {
         el.style.setProperty("--p", reduce ? "1" : p.toFixed(3));
       }
       root.classList.toggle("scrolled", window.scrollY > 24);
+      const max = document.documentElement.scrollHeight - vh;
+      root.style.setProperty("--page", max > 0 ? Math.min(1, window.scrollY / max).toFixed(4) : "0");
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -80,6 +82,33 @@ export default function ScrollFx() {
         { rootMargin: "-45% 0px -45% 0px" },
       );
       steps.forEach((s) => io.observe(s));
+      cleanups.push(() => io.disconnect());
+    }
+
+    // Nav: highlight the link for the section on screen.
+    const LINK_FOR: Record<string, string> = {
+      services: "#services",
+      pricing: "#pricing",
+      "rate-card": "#pricing",
+      compare: "#pricing",
+      "how-it-works": "#how-it-works",
+      demos: "#demos",
+      faq: "#faq",
+    };
+    const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".nav__links a"));
+    const secs = Array.from(document.querySelectorAll<HTMLElement>("main section[id]"));
+    if (navLinks.length && "IntersectionObserver" in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            const href = LINK_FOR[e.target.id];
+            navLinks.forEach((a) => a.toggleAttribute("data-active", a.getAttribute("href") === href));
+          }
+        },
+        { rootMargin: "-50% 0px -50% 0px" },
+      );
+      secs.forEach((s) => io.observe(s));
       cleanups.push(() => io.disconnect());
     }
 
