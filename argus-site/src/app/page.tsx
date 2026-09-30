@@ -507,10 +507,10 @@ function Founder() {
       <div className="wrap founder">
         <div className="founder__photo" data-reveal>
           <Image
-            src="/img/joy-howlader-argus-studio.webp"
-            alt="Joy Howlader, founder of ARGUS, at the ARGUS studio"
-            width={900}
-            height={1146}
+            src="/img/joy-howlader-poster.webp"
+            alt="Joy Howlader, founder of ARGUS — graphic designer, UI/UX designer and automation enthusiast"
+            width={1000}
+            height={1000}
             sizes="(max-width: 900px) 100vw, 440px"
           />
         </div>
