@@ -31,6 +31,11 @@ export const groupBD = (n: number) => {
 };
 export const fmtBDT = (n: number) => `৳${groupBD(n)}`;
 export const fmtUSD = (n: number) => `$${toUsd(n).toLocaleString("en-US")}`;
+/** A USD amount as given: whole dollars stay whole, anything else shows cents ($40.50). */
+export const fmtUsdExact = (v: number) => {
+  const c = Math.round(v * 100) / 100;
+  return "$" + c.toLocaleString("en-US", Number.isInteger(c) ? {} : { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
 
 export type Pillar = "See" | "Create" | "Automate" | "Grow";
 
