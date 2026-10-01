@@ -18,7 +18,7 @@ Node 20.9 ba tar beshi lagbe.
 
 1. `npm run build` chalan.
 2. `out/` folder er **bhitorer sob file** hosting er `public_html` (ba site root) e upload korun.
-3. Domain onno hole build er age set korun: `NEXT_PUBLIC_SITE_URL=https://yourdomain.com npm run build`. Default `https://argus.agency`. Canonical, sitemap, robots ar schema te ei URL bose.
+3. Domain onno hole build er age set korun: `NEXT_PUBLIC_SITE_URL=https://yourdomain.com npm run build`. Default `https://argusofficial.com`. Canonical, sitemap, robots ar schema te ei URL bose.
 
 ## Facebook (Meta) Pixel
 

@@ -2,7 +2,7 @@
 // Prices are stored in BDT; USD is derived with the same rule as the price workbook.
 // Formatting (digits, ৳ / $) lives in i18n.ts; Bangla wording in content-bn.ts.
 
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://argus.agency").replace(/\/$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://argusofficial.com").replace(/\/$/, "");
 export const PHONE = "+880 1303-364567";
 export const WA_NUMBER = "8801303364567";
 export const FOUNDER = "Joy Howlader";
