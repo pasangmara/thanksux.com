@@ -1,0 +1,149 @@
+@import "tailwindcss";
+
+/*
+ * ARGUS design tokens (dark), matching the Figma variables
+ * "ARGUS / Colors → Dark" and argusofficial.com.
+ * Use the Tailwind names (bg-surface, text-muted, border-line …),
+ * never raw hex values in components.
+ */
+@theme {
+  --color-bg: #0b0d0c;
+  --color-bg-2: #131614;
+  --color-surface: #171a18;
+  --color-surface-2: #1e2321;
+  --color-line: #2a2f2c;
+  --color-line-strong: #3a413d;
+  --color-text: #f7f7f2;
+  --color-text-2: #c9cfcb;
+  --color-muted: #7f8984;
+  --color-mint: #2bf2a1;
+  --color-mint-hover: #0fd888;
+  --color-mint-soft: #10261d;
+  --color-on-mint: #06110c;
+  --color-deep: #0b5e4e;
+  --color-warning: #f59e0b;
+  --color-warning-soft: #2a2210;
+  --color-error: #ef4444;
+  --color-error-soft: #2b1614;
+  --color-info: #3ea6ff;
+  --color-info-soft: #0f1e2a;
+
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-geist), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-bn: var(--font-bengali), var(--font-geist), ui-sans-serif, sans-serif;
+
+  --radius-field: 12px;
+  --radius-card: 16px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  color-scheme: dark;
+  background: var(--color-bg);
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Bangla copy uses Noto Sans Bengali (same as the website). */
+:lang(bn) body,
+.lang-bn {
+  font-family: var(--font-bn);
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-mint) 35%, transparent);
+  color: var(--color-text);
+}
+
+/* Visible, on-brand focus ring for keyboard users only. */
+:focus-visible {
+  outline: 2px solid var(--color-mint);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+@utility card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+}
+
+@utility field {
+  width: 100%;
+  background: var(--color-bg-2);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-field);
+  color: var(--color-text);
+  padding: 12px 14px;
+  font-size: 15px;
+  line-height: 1.5;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+
+  &::placeholder {
+    color: var(--color-muted);
+  }
+  &:hover {
+    border-color: var(--color-line-strong);
+  }
+  &:focus {
+    outline: none;
+    border-color: var(--color-mint);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-mint) 18%, transparent);
+  }
+  &[aria-invalid="true"] {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-error) 14%, transparent);
+  }
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-line-strong) transparent;
+}
+
+/* Skeleton shimmer used by loading.tsx files. */
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+@utility skeleton {
+  background: linear-gradient(90deg, var(--color-surface) 0%, var(--color-surface-2) 50%, var(--color-surface) 100%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

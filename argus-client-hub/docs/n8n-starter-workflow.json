@@ -1,0 +1,407 @@
+{
+  "name": "ARGUS Client Hub (starter)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "argus-client-hub",
+        "options": {
+          "rawBody": true
+        }
+      },
+      "name": "ARGUS webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        300
+      ],
+      "webhookId": "argus-client-hub"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Verifies the ARGUS signature (see docs/N8N.md). Paste the secret from Dashboard → Settings.\nconst crypto = require('crypto');\nconst SECRET = 'PASTE_SECRET_HERE';\nconst item = $input.first();\nconst h = item.json.headers;\nlet raw;\ntry { raw = (await this.helpers.getBinaryDataBuffer(0, 'data')).toString('utf8'); }\ncatch { raw = JSON.stringify(item.json.body); }\nif (SECRET !== 'PASTE_SECRET_HERE') {\n  const expected = 'sha256=' + crypto.createHmac('sha256', SECRET).update(`${h['x-argus-timestamp']}.${raw}`).digest('hex');\n  if (h['x-argus-signature'] !== expected) throw new Error('Bad signature');\n}\nreturn [{ json: JSON.parse(raw) }];"
+      },
+      "name": "Verify signature",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.event }}",
+                    "rightValue": "feedback.created",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "feedback.created"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.event }}",
+                    "rightValue": "post.status_changed",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "post.status_changed"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict"
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.event }}",
+                    "rightValue": "reminder.due",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "reminder.due"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Event type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        440,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// The app already sends the 18 Sheet columns in data.sheet_row\nreturn [{ json: $input.first().json.data.sheet_row }];"
+      },
+      "name": "To sheet row",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "PASTE_GOOGLE_SHEET_URL"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Sheet1"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "Feedback ID"
+          ]
+        },
+        "options": {}
+      },
+      "name": "Sheet: append or update",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        920,
+        120
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.notify.urgent }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "name": "Urgent (≤ 3★)?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        700,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "PASTE_FROM_EMAIL",
+        "toEmail": "={{ $json.notify.email }}",
+        "subject": "=⚠️ {{ $json.data.client }} rated {{ $json.data.rating }}★",
+        "emailFormat": "text",
+        "text": "=Follow up within 24 hours.\n\n{{ $json.data.client }} ({{ $json.data.company }})\nDo better: {{ $json.data.do_better }}\n\nOpen: {{ $json.data.dashboard_url }}",
+        "options": {}
+      },
+      "name": "Email: urgent",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        940,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "PASTE_WHATSAPP_PROVIDER_URL",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ to: $json.notify.whatsapp, text: '⚠️ ' + $json.data.client + ' rated ' + $json.data.rating + '★: ' + ($json.data.do_better || '') + ' ' + $json.data.dashboard_url }) }}",
+        "options": {}
+      },
+      "name": "WhatsApp: urgent",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        940,
+        380
+      ],
+      "notes": "Replace with the WhatsApp Business Cloud node or your provider (Twilio, etc.)."
+    },
+    {
+      "parameters": {
+        "fromEmail": "PASTE_FROM_EMAIL",
+        "toEmail": "={{ $json.notify.email }}",
+        "subject": "=New feedback {{ $json.data.rating }}★ from {{ $json.data.client }}",
+        "emailFormat": "text",
+        "text": "={{ $json.data.client }} ({{ $json.data.company }})\nDid well: {{ $json.data.did_well }}\nDo better: {{ $json.data.do_better }}\nPublic: {{ $json.data.public_permission }}\n\n{{ $json.data.dashboard_url }}",
+        "options": {}
+      },
+      "name": "Email: new feedback",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        940,
+        500
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// The app already sends the 18 Sheet columns in data.sheet_row\nreturn [{ json: $input.first().json.data.sheet_row }];"
+      },
+      "name": "To sheet row (post)",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        700,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "mode": "url",
+          "value": "PASTE_GOOGLE_SHEET_URL"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Sheet1"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [
+            "Feedback ID"
+          ]
+        },
+        "options": {}
+      },
+      "name": "Sheet: update post status",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        920,
+        640
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "PASTE_WHATSAPP_PROVIDER_URL",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ to: $json.notify.whatsapp, text: 'Ask ' + $json.data.client + ' for feedback (' + $json.data.days_since_completion + ' days): ' + $json.data.feedback_link }) }}",
+        "options": {}
+      },
+      "name": "WhatsApp: reminder",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        820
+      ],
+      "notes": "Replace with the WhatsApp Business Cloud node or your provider (Twilio, etc.)."
+    }
+  ],
+  "connections": {
+    "ARGUS webhook": {
+      "main": [
+        [
+          {
+            "node": "Verify signature",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Verify signature": {
+      "main": [
+        [
+          {
+            "node": "Event type",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Event type": {
+      "main": [
+        [
+          {
+            "node": "To sheet row",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Urgent (≤ 3★)?",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "To sheet row (post)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "WhatsApp: reminder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "To sheet row": {
+      "main": [
+        [
+          {
+            "node": "Sheet: append or update",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Urgent (≤ 3★)?": {
+      "main": [
+        [
+          {
+            "node": "Email: urgent",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "WhatsApp: urgent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email: new feedback",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "To sheet row (post)": {
+      "main": [
+        [
+          {
+            "node": "Sheet: update post status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "meta": {
+    "note": "Starter template. Set credentials, sheet URL, secret and WhatsApp provider, then activate."
+  }
+}

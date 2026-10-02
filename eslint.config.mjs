@@ -14,6 +14,8 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     // Separate Next.js app with its own config and lint (see argus-site/README.md).
     "argus-site/**",
+    // Separate Next.js app with its own config and lint (see argus-client-hub/README.md).
+    "argus-client-hub/**",
   ]),
 ]);
 
