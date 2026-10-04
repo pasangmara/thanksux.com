@@ -1,0 +1,20 @@
+<svg width="270" height="162" viewBox="0 0 270 162" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_2_2)">
+<rect width="270" height="162" fill="white"/>
+<path d="M0 0H30L54 81L30 162H0V0Z" fill="#0B1F3A"/>
+<path d="M0 24L54 81L0 138V24Z" fill="#1E6FD9"/>
+<path d="M0 81H54L0 138V81Z" fill="#38B6FF"/>
+<path d="M270 0H240L216 81L240 162H270V0Z" fill="#0B1F3A"/>
+<path d="M270 24L216 81L270 138V24Z" fill="#1E6FD9"/>
+<path d="M270 24L216 81H270V24Z" fill="#38B6FF"/>
+<text fill="#0B1F3A" xml:space="preserve" font-family="Montserrat-ExtraBold, Montserrat" font-size="26" font-weight="800" letter-spacing="4px"><tspan x="84.78" y="66.32">TIMES</tspan></text>
+<text fill="#1E6FD9" xml:space="preserve" font-family="Montserrat-SemiBold, Montserrat" font-size="10.5" font-weight="600" letter-spacing="2.6px"><tspan x="74.38" y="81.76">INTERNATIONAL</tspan></text>
+<rect x="117" y="90" width="36" height="1.2" fill="#38B6FF"/>
+<text fill="#4A5568" xml:space="preserve" font-family="Inter-Medium, Inter" font-size="9" font-weight="500" letter-spacing="0.2px"><tspan x="93.75" y="105.22">All Kinds of Goods</tspan><tspan x="94.41" y="116.72">Import from China</tspan></text>
+</g>
+<defs>
+<clipPath id="clip0_2_2">
+<rect width="270" height="162" fill="white"/>
+</clipPath>
+</defs>
+</svg>
