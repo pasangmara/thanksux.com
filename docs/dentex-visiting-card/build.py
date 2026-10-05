@@ -6,7 +6,8 @@ Generates:
   (design B = reference layout, the chosen one; design A = first concept in out/option-A/)
 Units: points. Coordinates are TRIM coords, origin top-left, y down.
 """
-import json, re, os
+import json, re, os, base64
+from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas as rl
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -32,6 +33,7 @@ COLORS = {
     "white":     ("#FFFFFF", (0, 0, 0, 0)),
     "tealDeep":  ("#077A80", (92, 35, 48, 18)),  # gradient end (design B)
     "mist":      ("#F3F9F9", (4, 0, 1.5, 0)),      # soft shape on white (design B)
+    "qr":        ("#1D1D1B", (0, 0, 0, 100)),     # QR modules, max contrast
     "mistLine":  ("#E3F1F1", (9, 0, 3.5, 0)),     # watermark on mist (design B)
 }
 
@@ -66,6 +68,35 @@ def text(s, x, y, font, size, color, name, ls=0, align="left"):
         x = x - w / 2
     return {"t": "text", "s": s, "x": x, "y": y, "font": font, "size": size, "color": color,
             "ls": ls, "w": w, "name": name}
+
+
+QR_URL = "https://share.google/ibaEdEEhdLPOn5D4g"  # decoded from the old card's QR
+QR_MATRIX = json.load(open(os.path.join(HERE, "assets", "qr_matrix.json")))
+EMBLEM_PNG = os.path.join(HERE, "assets", "govt_emblem.png")        # RGBA, for SVG/Figma
+EMBLEM_CMYK = os.path.join(HERE, "assets", "govt_emblem_cmyk.jpg")  # CMYK, for the print PDF
+
+
+def emblem(cx, cy, r, name="Govt of Bangladesh logo"):
+    return {"t": "image", "x": cx - r, "y": cy - r, "w": 2 * r, "h": 2 * r, "circle": True, "name": name}
+
+
+def qr(x, y, size, name="QR code"):
+    return {"t": "qr", "x": x, "y": y, "size": size, "fill": "qr", "name": name}
+
+
+def qr_runs(e):
+    """Dark modules merged into horizontal runs -> list of (x, y, w, h) in trim coords."""
+    n = len(QR_MATRIX); m = e["size"] / n; out = []
+    for r, row in enumerate(QR_MATRIX):
+        c = 0
+        while c < n:
+            if row[c]:
+                s0 = c
+                while c < n and row[c]: c += 1
+                out.append((e["x"] + s0 * m, e["y"] + r * m, (c - s0) * m, m))
+            else:
+                c += 1
+    return out
 
 
 # ---------------------------------------------------------------- FRONT
@@ -105,9 +136,9 @@ back = [
     text("dentex6037@gmail.com", X0 + 11, 129, "Poppins-Regular", 8, "ink", "Email"),
     # placeholders in panel
     {"t": "circle", "cx": PCX, "cy": 37, "r": 16, "fill": "white", "name": "Govt logo backing"},
-    {"t": "ph_circle", "cx": PCX, "cy": 37, "r": 14, "name": "PLACEHOLDER Govt of Bangladesh logo (28pt)"},
+    emblem(PCX, 37, 14),
     {"t": "rect", "x": PCX - 25, "y": 60, "w": 50, "h": 50, "r": 4, "fill": "white", "name": "QR backing"},
-    {"t": "ph_rect", "x": PCX - 22, "y": 63, "w": 44, "h": 44, "name": "PLACEHOLDER QR code (44pt)"},
+    qr(PCX - 22, 63, 44),
     text("SCAN ME", PCX, 123, "Poppins-Medium", 8, "white", "QR label", ls=1.2, align="center"),
 ]
 
@@ -150,9 +181,9 @@ back_b = [
     {"t": "icon", "k": "globe", "x": X0 - 0.5, "y": 114.6, "size": 8, "fill": "tealDark", "name": "Icon web"},
     text("www.dentex.cc", X0 + 11, 121, "Poppins-Regular", 8, "ink", "Website"),
     {"t": "circle", "cx": 225, "cy": 32, "r": 16, "fill": "white", "name": "Govt logo backing"},
-    {"t": "ph_circle", "cx": 225, "cy": 32, "r": 14, "name": "PLACEHOLDER Govt of Bangladesh logo (28pt)"},
+    emblem(225, 32, 14),
     {"t": "rect", "x": QX, "y": QY, "w": 50, "h": 50, "r": 4, "fill": "white", "name": "QR backing"},
-    {"t": "ph_rect", "x": QX + 3, "y": QY + 3, "w": 44, "h": 44, "name": "PLACEHOLDER QR code (44pt)"},
+    qr(QX + 3, QY + 3, 44),
 ]
 SIDES_B = {"Front": front_b, "Back": back_b}
 VARIANTS = {"A": SIDES_A, "B": SIDES_B}
@@ -272,6 +303,18 @@ def draw_pdf_side(c, items):
                     c.ellipse(sh[1] - sh[3], sh[2] - sh[4], sh[1] + sh[3], sh[2] + sh[4], stroke=1, fill=0)
                 elif sh[0] == "line_stroke":
                     c.setStrokeColor(cmyk(sh[5])); c.setLineWidth(sh[6]); c.line(*sh[1:5])
+        elif t == "qr":
+            c.setFillColor(cmyk(e["fill"]))
+            for (x, y, w, h) in qr_runs(e):
+                c.rect(x, y, w + 0.01, h + 0.01, stroke=0, fill=1)  # hairline overlap, no seams
+        elif t == "image":
+            c.saveState()
+            if e.get("circle"):
+                p = c.beginPath(); p.circle(e["x"] + e["w"] / 2, e["y"] + e["h"] / 2, e["w"] / 2)
+                c.clipPath(p, stroke=0, fill=0)
+            c.translate(e["x"], e["y"] + e["h"]); c.scale(1, -1)
+            c.drawImage(ImageReader(EMBLEM_CMYK), 0, 0, e["w"], e["h"])
+            c.restoreState()
         elif t in ("ph_rect", "ph_circle"):
             c.setStrokeColor(cmyk("line")); c.setLineWidth(0.5); c.setDash(2, 1.5)
             if t == "ph_rect":
@@ -355,6 +398,12 @@ def svg_side(name, items, out=OUT):
                 elif sh[0] == "ellipse_stroke": L.append(f'<ellipse cx="{sh[1]:.3f}" cy="{sh[2]:.3f}" rx="{sh[3]:.3f}" ry="{sh[4]:.3f}" fill="none" stroke="{hexc(sh[5])}" stroke-width="{sh[6]:.3f}"/>')
                 elif sh[0] == "line_stroke": L.append(f'<line x1="{sh[1]:.3f}" y1="{sh[2]:.3f}" x2="{sh[3]:.3f}" y2="{sh[4]:.3f}" stroke="{hexc(sh[5])}" stroke-width="{sh[6]:.3f}"/>')
             L.append("</g>")
+        elif t == "qr":
+            d = " ".join(f"M{x:.3f} {y:.3f}h{w:.3f}v{h:.3f}h{-w:.3f}z" for (x, y, w, h) in qr_runs(e))
+            L.append(f'<path id="{nm}" d="{d}" fill="{hexc(e["fill"])}"/>')
+        elif t == "image":
+            b64 = base64.b64encode(open(EMBLEM_PNG, "rb").read()).decode()
+            L.append(f'<image id="{nm}" x="{e["x"]}" y="{e["y"]}" width="{e["w"]}" height="{e["h"]}" href="data:image/png;base64,{b64}"/>')
         elif t == "ph_rect":
             x, y, w, h = e["x"], e["y"], e["w"], e["h"]
             L.append(f'<g id="{nm}" fill="none" stroke="{hexc("line")}" stroke-width="0.5" stroke-dasharray="2 1.5"><rect x="{x}" y="{y}" width="{w}" height="{h}"/><line x1="{x}" y1="{y}" x2="{x+w}" y2="{y+h}"/><line x1="{x+w}" y1="{y}" x2="{x}" y2="{y+h}"/></g>')

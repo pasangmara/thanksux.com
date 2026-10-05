@@ -2,8 +2,8 @@
 <title>Dentex visiting card - Front (3.5x2in trim + 0.125in bleed)</title>
 <defs><clipPath id="bleed"><rect x="-9" y="-9" width="270" height="162"/></clipPath></defs>
 <g clip-path="url(#bleed)">
-<linearGradient id="g3378" gradientUnits="userSpaceOnUse" x1="-9" y1="-9" x2="261" y2="153"><stop offset="0" stop-color="#0FAAAC"/><stop offset="1" stop-color="#077A80"/></linearGradient>
-<rect id="BG Teal gradient (full bleed)" x="-9" y="-9" width="270" height="162" fill="url(#g3378)"/>
+<linearGradient id="g2542" gradientUnits="userSpaceOnUse" x1="-9" y1="-9" x2="261" y2="153"><stop offset="0" stop-color="#0FAAAC"/><stop offset="1" stop-color="#077A80"/></linearGradient>
+<rect id="BG Teal gradient (full bleed)" x="-9" y="-9" width="270" height="162" fill="url(#g2542)"/>
 <circle id="Soft circle large" cx="262" cy="18" r="128" fill="#FFFFFF" fill-opacity="0.07"/>
 <circle id="Soft circle small" cx="262" cy="18" r="84" fill="#FFFFFF" fill-opacity="0.06"/>
 <circle id="Soft circle corner" cx="-6" cy="150" r="62" fill="#FFFFFF" fill-opacity="0.05"/>
