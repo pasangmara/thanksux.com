@@ -3,7 +3,7 @@
 Generates:
   out/Dentex_Card_PrintReady_CMYK.pdf  (2 pages, 3.5x2in trim, 0.125in bleed, crop marks, live text)
   out/Dentex_Card_Front.svg / _Back.svg (bleed size, editable in Illustrator)
-  out/spec.json (layout data mirrored into Figma)
+  (design B = reference layout, the chosen one; design A = first concept in out/option-A/)
 Units: points. Coordinates are TRIM coords, origin top-left, y down.
 """
 import json, re, os
@@ -30,6 +30,9 @@ COLORS = {
     "grey":      ("#555555", (0, 0, 0, 72)),
     "line":      ("#B3B3B3", (0, 0, 0, 30)),
     "white":     ("#FFFFFF", (0, 0, 0, 0)),
+    "tealDeep":  ("#077A80", (92, 35, 48, 18)),  # gradient end (design B)
+    "mist":      ("#F3F9F9", (4, 0, 1.5, 0)),      # soft shape on white (design B)
+    "mistLine":  ("#E3F1F1", (9, 0, 3.5, 0)),     # watermark on mist (design B)
 }
 
 # Dentex tooth mark, traced from the logo (circle removed). Stroke-based, unit box 430 x 468.
@@ -108,7 +111,52 @@ back = [
     text("SCAN ME", PCX, 123, "Poppins-Medium", 8, "white", "QR label", ls=1.2, align="center"),
 ]
 
-SIDES = {"Front": front, "Back": back}
+SIDES_A = {"Front": front, "Back": back}
+
+# ============================================================ DESIGN B
+# Layout after the client's reference: gradient brand side with soft circles
+# and the doctor's name; clean white info side with a big faint logo watermark.
+CX = TW / 2
+mark_h = 26
+front_b = [
+    {"t": "grad_rect", "x": -BLEED, "y": -BLEED, "w": TW + 2 * BLEED, "h": TH + 2 * BLEED,
+     "c0": "teal", "c1": "tealDeep", "p0": (-BLEED, -BLEED), "p1": (TW + BLEED, TH + BLEED), "name": "BG Teal gradient (full bleed)"},
+    {"t": "circle", "cx": 262, "cy": 18, "r": 128, "fill": "white", "alpha": 0.07, "name": "Soft circle large"},
+    {"t": "circle", "cx": 262, "cy": 18, "r": 84, "fill": "white", "alpha": 0.06, "name": "Soft circle small"},
+    {"t": "circle", "cx": -6, "cy": 150, "r": 62, "fill": "white", "alpha": 0.05, "name": "Soft circle corner"},
+    tooth(CX - TOOTH_W * mark_h / TOOTH_H / 2, 21, mark_h, "white", "Logo mark"),
+    text("DENTEX", CX, 59, "Poppins-Bold", 8, "white", "Wordmark", ls=2.5, align="center"),
+    text("DR. ANJUMAN ARA MUNA", CX, 83, "Poppins-Bold", 14, "white", "Name", ls=0.2, align="center"),
+    text("BDS, BCS, DDS, FCPS", CX, 96, "Poppins-Medium", 8, "white", "Degrees", align="center"),
+    text("Orthodontics & Dentofacial Orthopedics", CX, 106, "Poppins-Regular", 8, "white", "Speciality", align="center"),
+    text("Assistant Professor, Dhaka Dental College Hospital", CX, 116, "Poppins-Regular", 8, "white", "Designation", align="center"),
+]
+
+QX, QY = 192, 74  # QR backing top-left
+back_b = [
+    {"t": "rect", "x": -BLEED, "y": -BLEED, "w": TW + 2 * BLEED, "h": TH + 2 * BLEED, "fill": "white", "name": "BG White (full bleed)"},
+    {"t": "circle", "cx": 302, "cy": 80, "r": 100, "fill": "mist", "name": "Soft shape"},
+    tooth(203, -4, 168, "mistLine", "Watermark tooth"),
+    text("DR. ANJUMAN ARA MUNA", X0, 30, "Poppins-Bold", 14, "tealDark", "Name", ls=0.2),
+    text("BDS, BCS, DDS, FCPS", X0, 42, "Poppins-Medium", 8, "grey", "Degrees"),
+    text("Orthodontics & Dentofacial Orthopedics", X0, 52, "Poppins-Regular", 8, "grey", "Speciality"),
+    text("Assistant Professor", X0, 65, "Poppins-SemiBold", 9, "ink", "Designation"),
+    text("Dhaka Dental College Hospital", X0, 75, "Poppins-Regular", 8, "grey", "Institution"),
+    {"t": "rect", "x": X0, "y": 83, "w": 132, "h": 0.75, "fill": "teal", "name": "Teal rule"},
+    {"t": "icon", "k": "phone", "x": X0 - 0.5, "y": 90.6, "size": 8, "fill": "tealDark", "name": "Icon phone"},
+    text("01733-682188", X0 + 11, 97, "Poppins-Regular", 8, "ink", "Phone"),
+    {"t": "icon", "k": "mail", "x": X0 - 0.5, "y": 102.6, "size": 8, "fill": "tealDark", "name": "Icon email"},
+    text("dentex6037@gmail.com", X0 + 11, 109, "Poppins-Regular", 8, "ink", "Email"),
+    {"t": "icon", "k": "globe", "x": X0 - 0.5, "y": 114.6, "size": 8, "fill": "tealDark", "name": "Icon web"},
+    text("www.dentex.cc", X0 + 11, 121, "Poppins-Regular", 8, "ink", "Website"),
+    {"t": "circle", "cx": 225, "cy": 32, "r": 16, "fill": "white", "name": "Govt logo backing"},
+    {"t": "ph_circle", "cx": 225, "cy": 32, "r": 14, "name": "PLACEHOLDER Govt of Bangladesh logo (28pt)"},
+    {"t": "rect", "x": QX, "y": QY, "w": 50, "h": 50, "r": 4, "fill": "white", "name": "QR backing"},
+    {"t": "ph_rect", "x": QX + 3, "y": QY + 3, "w": 44, "h": 44, "name": "PLACEHOLDER QR code (44pt)"},
+]
+SIDES_B = {"Front": front_b, "Back": back_b}
+VARIANTS = {"A": SIDES_A, "B": SIDES_B}
+SIDES = SIDES_B
 
 # ------------------------------------------------------------ path utils
 TOK = re.compile(r"[MmLlHhVvCcSsZz]|-?\d*\.?\d+(?:e-?\d+)?")
@@ -201,7 +249,14 @@ def draw_pdf_side(c, items):
         elif t == "path":
             c.setFillColor(cmyk(e["fill"])); c.drawPath(pdf_path(c, parse_path(e["d"])), stroke=0, fill=1)
         elif t == "circle":
-            c.setFillColor(cmyk(e["fill"])); c.circle(e["cx"], e["cy"], e["r"], stroke=0, fill=1)
+            c.saveState(); c.setFillColor(cmyk(e["fill"]))
+            if e.get("alpha") is not None: c.setFillAlpha(e["alpha"])
+            c.circle(e["cx"], e["cy"], e["r"], stroke=0, fill=1); c.restoreState()
+        elif t == "grad_rect":
+            c.saveState()
+            p = c.beginPath(); p.rect(e["x"], e["y"], e["w"], e["h"]); c.clipPath(p, stroke=0, fill=0)
+            c.linearGradient(*e["p0"], *e["p1"], (cmyk(e["c0"]), cmyk(e["c1"])), extend=True)
+            c.restoreState()
         elif t == "tooth":
             c.setStrokeColor(cmyk(e["color"])); c.setLineWidth(e["stroke"]); c.setLineCap(1); c.setLineJoin(1)
             for d in TOOTH_PATHS:
@@ -245,12 +300,13 @@ def crop_marks(c):
         c.line(0, y, SLUG - 3, y); c.line(PW - SLUG + 3, y, PW, y)
 
 
-def build_pdf():
+def build_pdf(sides=None, out=OUT):
+    sides = sides or SIDES
     PW, PH = TW + 2 * M, TH + 2 * M
-    path = os.path.join(OUT, "Dentex_Card_PrintReady_CMYK.pdf")
+    path = os.path.join(out, "Dentex_Card_PrintReady_CMYK.pdf")
     c = rl.Canvas(path, pagesize=(PW, PH))
     c.setTitle("Dentex Visiting Card - Dr. Anjuman Ara Muna"); c.setAuthor("Dentex")
-    for side, items in SIDES.items():
+    for side, items in sides.items():
         c.setTrimBox((M, M, M + TW, M + TH))
         c.setBleedBox((M - BLEED, M - BLEED, M + TW + BLEED, M + TH + BLEED))
         draw_pdf_side(c, items)
@@ -263,7 +319,7 @@ def build_pdf():
 
 
 # ------------------------------------------------------------ SVG backend
-def svg_side(name, items):
+def svg_side(name, items, out=OUT):
     W, H = TW + 2 * BLEED, TH + 2 * BLEED
     hexc = lambda n: COLORS[n][0]
     fam = {"Poppins-Regular": ("Poppins", 400), "Poppins-Medium": ("Poppins", 500),
@@ -279,7 +335,13 @@ def svg_side(name, items):
         elif t == "path":
             L.append(f'<path id="{nm}" d="{e["d"]}" fill="{hexc(e["fill"])}"/>')
         elif t == "circle":
-            L.append(f'<circle id="{nm}" cx="{e["cx"]}" cy="{e["cy"]}" r="{e["r"]}" fill="{hexc(e["fill"])}"/>')
+            op = f' fill-opacity="{e["alpha"]}"' if e.get("alpha") is not None else ""
+            L.append(f'<circle id="{nm}" cx="{e["cx"]}" cy="{e["cy"]}" r="{e["r"]}" fill="{hexc(e["fill"])}"{op}/>')
+        elif t == "grad_rect":
+            gid = "g" + str(abs(hash(nm)) % 10000)
+            (x0, y0), (x1, y1) = e["p0"], e["p1"]
+            L.append(f'<linearGradient id="{gid}" gradientUnits="userSpaceOnUse" x1="{x0}" y1="{y0}" x2="{x1}" y2="{y1}"><stop offset="0" stop-color="{hexc(e["c0"])}"/><stop offset="1" stop-color="{hexc(e["c1"])}"/></linearGradient>')
+            L.append(f'<rect id="{nm}" x="{e["x"]}" y="{e["y"]}" width="{e["w"]}" height="{e["h"]}" fill="url(#{gid})"/>')
         elif t == "tooth":
             L.append(f'<g id="{nm}" fill="none" stroke="{hexc(e["color"])}" stroke-width="{e["stroke"]:.3f}" stroke-linecap="round" stroke-linejoin="round">')
             for d in TOOTH_PATHS:
@@ -304,21 +366,19 @@ def svg_side(name, items):
             s = e["s"].replace("&", "&amp;")
             L.append(f'<text id="{nm}" x="{e["x"]:.3f}" y="{e["y"]}" font-family="{f}" font-weight="{wgt}" font-size="{e["size"]}" letter-spacing="{e["ls"]}" fill="{hexc(e["color"])}">{s}</text>')
     L.append("</g></svg>")
-    p = os.path.join(OUT, f"Dentex_Card_{name}.svg")
+    p = os.path.join(out, f"Dentex_Card_{name}.svg")
     open(p, "w").write("\n".join(L))
     return p
 
 
 if __name__ == "__main__":
-    print(build_pdf())
-    for n, it in SIDES.items():
-        print(svg_side(n, it))
-    spec = {"colors": COLORS, "tooth": {"paths": TOOTH_PATHS, "w": TOOTH_W, "h": TOOTH_H, "stroke": TOOTH_STROKE},
-            "icons": {k: ops_to_d(parse_path(v)) for k, v in ICONS.items()}, "panel": PANEL, "sides": SIDES}
-    json.dump(spec, open(os.path.join(OUT, "spec.json"), "w"), indent=1)
-    # fit checks
-    for n, it in SIDES.items():
-        for e in it:
-            if e["t"] == "text":
-                r = e["x"] + e["w"]
-                print(f'{n:5} {e["name"]:14} x {e["x"]:6.1f}..{r:6.1f}  size {e["size"]}')
+    # Design B (reference layout, chosen) -> out/ ; Design A (first concept) -> out/option-A/
+    for tag, sides, out in [("B", SIDES_B, OUT), ("A", SIDES_A, os.path.join(OUT, "option-A"))]:
+        os.makedirs(out, exist_ok=True)
+        print(build_pdf(sides, out))
+        for n, it in sides.items():
+            print(svg_side(n, it, out))
+        for n, it in sides.items():
+            for e in it:
+                if e["t"] == "text":
+                    print(f'{tag} {n:5} {e["name"]:14} x {e["x"]:6.1f}..{e["x"] + e["w"]:6.1f}  size {e["size"]}')

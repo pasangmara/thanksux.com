@@ -2,18 +2,19 @@
 <title>Dentex visiting card - Front (3.5x2in trim + 0.125in bleed)</title>
 <defs><clipPath id="bleed"><rect x="-9" y="-9" width="270" height="162"/></clipPath></defs>
 <g clip-path="url(#bleed)">
-<rect id="BG Teal (full bleed)" x="-9" y="-9" width="270" height="162" rx="0" fill="#0FAAAC"/>
-<g id="Watermark tooth" fill="none" stroke="#21B0B2" stroke-width="11.923" stroke-linecap="round" stroke-linejoin="round">
-<path d="M 199.923 162.013 L 189.192 34.833 C 186.808 1.051 197.936 -22 227.744 -22 L 325.115 -22 C 348.962 -22 358.897 -6.897 356.91 16.949 L 339.026 162.013"/>
-<path d="M 339.026 162.013 C 325.115 156.051 313.192 132.205 289.346 104.385 L 241.654 40.795 C 227.744 22.91 209.859 14.962 191.974 20.923"/>
-<path d="M 277.423 88.487 C 265.5 117.103 233.705 140.949 199.923 162.013"/>
+<linearGradient id="g3378" gradientUnits="userSpaceOnUse" x1="-9" y1="-9" x2="261" y2="153"><stop offset="0" stop-color="#0FAAAC"/><stop offset="1" stop-color="#077A80"/></linearGradient>
+<rect id="BG Teal gradient (full bleed)" x="-9" y="-9" width="270" height="162" fill="url(#g3378)"/>
+<circle id="Soft circle large" cx="262" cy="18" r="128" fill="#FFFFFF" fill-opacity="0.07"/>
+<circle id="Soft circle small" cx="262" cy="18" r="84" fill="#FFFFFF" fill-opacity="0.06"/>
+<circle id="Soft circle corner" cx="-6" cy="150" r="62" fill="#FFFFFF" fill-opacity="0.05"/>
+<g id="Logo mark" fill="none" stroke="#FFFFFF" stroke-width="1.667" stroke-linecap="round" stroke-linejoin="round">
+<path d="M 115.722 46.722 L 114.222 28.944 C 113.889 24.222 115.444 21 119.611 21 L 133.222 21 C 136.556 21 137.944 23.111 137.667 26.444 L 135.167 46.722"/>
+<path d="M 135.167 46.722 C 133.222 45.889 131.556 42.556 128.222 38.667 L 121.556 29.778 C 119.611 27.278 117.111 26.167 114.611 27"/>
+<path d="M 126.556 36.444 C 124.889 40.444 120.444 43.778 115.722 46.722"/>
 </g>
-<g id="Logo mark" fill="none" stroke="#FFFFFF" stroke-width="2.692" stroke-linecap="round" stroke-linejoin="round">
-<path d="M 109.397 75.551 L 106.974 46.833 C 106.436 39.205 108.949 34 115.679 34 L 137.667 34 C 143.051 34 145.295 37.41 144.846 42.795 L 140.808 75.551"/>
-<path d="M 140.808 75.551 C 137.667 74.205 134.974 68.821 129.59 62.538 L 118.821 48.179 C 115.679 44.141 111.641 42.346 107.603 43.692"/>
-<path d="M 126.897 58.949 C 124.205 65.41 117.026 70.795 109.397 75.551"/>
-</g>
-<text id="Wordmark" x="91.431" y="96" font-family="Poppins" font-weight="700" font-size="14" letter-spacing="3" fill="#FFFFFF">DENTEX</text>
-<text id="Tagline" x="70.692" y="109" font-family="Poppins" font-weight="400" font-size="8" letter-spacing="0.4" fill="#FFFFFF">Dentistry Done Differently</text>
-<rect id="Accent rule" x="117.0" y="119" width="18" height="0.75" rx="0" fill="#FFFFFF"/>
+<text id="Wordmark" x="104.282" y="59" font-family="Poppins" font-weight="700" font-size="8" letter-spacing="2.5" fill="#FFFFFF">DENTEX</text>
+<text id="Name" x="35.102" y="83" font-family="Poppins" font-weight="700" font-size="14" letter-spacing="0.2" fill="#FFFFFF">DR. ANJUMAN ARA MUNA</text>
+<text id="Degrees" x="86.344" y="96" font-family="Poppins" font-weight="500" font-size="8" letter-spacing="0" fill="#FFFFFF">BDS, BCS, DDS, FCPS</text>
+<text id="Speciality" x="46.244" y="106" font-family="Poppins" font-weight="400" font-size="8" letter-spacing="0" fill="#FFFFFF">Orthodontics &amp; Dentofacial Orthopedics</text>
+<text id="Designation" x="25.960" y="116" font-family="Poppins" font-weight="400" font-size="8" letter-spacing="0" fill="#FFFFFF">Assistant Professor, Dhaka Dental College Hospital</text>
 </g></svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="270pt" height="162pt" viewBox="-9 -9 270 162">
+<title>Dentex visiting card - Back (3.5x2in trim + 0.125in bleed)</title>
+<defs><clipPath id="bleed"><rect x="-9" y="-9" width="270" height="162"/></clipPath></defs>
+<g clip-path="url(#bleed)">
+<rect id="BG White (full bleed)" x="-9" y="-9" width="270" height="162" rx="0" fill="#FFFFFF"/>
+<path id="Teal panel (curved)" d="M196 -9 C180 36 194 100 184 153 L261 153 L261 -9 Z" fill="#0FAAAC"/>
+<g id="Logo mark small" fill="none" stroke="#0FAAAC" stroke-width="1.154" stroke-linecap="round" stroke-linejoin="round">
+<path d="M 15.154 31.808 L 14.115 19.5 C 13.885 16.231 14.962 14 17.846 14 L 27.269 14 C 29.577 14 30.538 15.462 30.346 17.769 L 28.615 31.808"/>
+<path d="M 28.615 31.808 C 27.269 31.231 26.115 28.923 23.808 26.231 L 19.192 20.077 C 17.846 18.346 16.115 17.577 14.385 18.154"/>
+<path d="M 22.654 24.692 C 21.5 27.462 18.423 29.769 15.154 31.808"/>
+</g>
+<text id="Wordmark small" x="36.000" y="26.6" font-family="Poppins" font-weight="700" font-size="10" letter-spacing="1.6" fill="#333333">DENTEX</text>
+<text id="Name" x="14.000" y="52" font-family="Poppins" font-weight="600" font-size="14" letter-spacing="0" fill="#333333">Dr. Anjuman Ara Muna</text>
+<text id="Degrees" x="14.000" y="63.5" font-family="Poppins" font-weight="500" font-size="8" letter-spacing="0" fill="#555555">BDS, BCS, DDS, FCPS</text>
+<text id="Speciality" x="14.000" y="73.5" font-family="Poppins" font-weight="400" font-size="8" letter-spacing="0" fill="#555555">Orthodontics &amp; Dentofacial Orthopedics</text>
+<text id="Designation" x="14.000" y="87" font-family="Poppins" font-weight="600" font-size="9" letter-spacing="0" fill="#0B8184">Assistant Professor</text>
+<text id="Institution" x="14.000" y="97.5" font-family="Poppins" font-weight="400" font-size="8" letter-spacing="0" fill="#555555">Dhaka Dental College Hospital</text>
+<rect id="Accent rule" x="14" y="104.5" width="22" height="1.2" rx="0" fill="#0FAAAC"/>
+<g id="Icon phone">
+<path d="M 15.7 114.2 C 16.167 115.133 16.967 115.9 17.9 116.4 L 18.633 115.667 C 18.733 115.567 18.867 115.533 18.967 115.6 C 19.333 115.733 19.733 115.8 20.167 115.8 C 20.367 115.8 20.5 115.933 20.5 116.133 L 20.5 117.267 C 20.5 117.467 20.367 117.6 20.167 117.6 C 17.033 117.6 14.5 115.067 14.5 111.933 C 14.5 111.733 14.633 111.6 14.833 111.6 L 16 111.6 C 16.2 111.6 16.333 111.733 16.333 111.933 C 16.333 112.367 16.4 112.767 16.533 113.133 C 16.567 113.233 16.533 113.367 16.467 113.467 L 15.7 114.2 Z" fill="#0B8184"/>
+</g>
+<text id="Phone" x="25.000" y="117" font-family="Poppins" font-weight="400" font-size="8" letter-spacing="0" fill="#333333">01733-682188</text>
+<g id="Icon web">
+<circle cx="90.000" cy="114.600" r="3.333" fill="#0B8184"/>
+<ellipse cx="90.000" cy="114.600" rx="1.400" ry="3.333" fill="none" stroke="#FFFFFF" stroke-width="0.533"/>
+<line x1="86.667" y1="114.600" x2="93.333" y2="114.600" stroke="#FFFFFF" stroke-width="0.533"/>
+</g>
+<text id="Website" x="97.000" y="117" font-family="Poppins" font-weight="400" font-size="8" letter-spacing="0" fill="#333333">www.dentex.cc</text>
+<g id="Icon email">
+<path d="M 20.167 123.933 L 14.833 123.933 C 14.467 123.933 14.167 124.233 14.167 124.6 L 14.167 128.6 C 14.167 128.967 14.467 129.267 14.833 129.267 L 20.167 129.267 C 20.533 129.267 20.833 128.967 20.833 128.6 L 20.833 124.6 C 20.833 124.233 20.533 123.933 20.167 123.933 Z M 20.167 125.267 L 17.5 126.933 L 14.833 125.267 L 14.833 124.6 L 17.5 126.267 L 20.167 124.6 L 20.167 125.267 Z" fill="#0B8184"/>
+</g>
+<text id="Email" x="25.000" y="129" font-family="Poppins" font-weight="400" font-size="8" letter-spacing="0" fill="#333333">dentex6037@gmail.com</text>
+<circle id="Govt logo backing" cx="215.5" cy="37" r="16" fill="#FFFFFF"/>
+<g id="PLACEHOLDER Govt of Bangladesh logo (28pt)" fill="none" stroke="#B3B3B3" stroke-width="0.5" stroke-dasharray="2 1.5"><circle cx="215.5" cy="37" r="14"/><line x1="205.601" y1="27.101" x2="225.399" y2="46.899"/><line x1="225.399" y1="27.101" x2="205.601" y2="46.899"/></g>
+<rect id="QR backing" x="190.5" y="60" width="50" height="50" rx="4" fill="#FFFFFF"/>
+<g id="PLACEHOLDER QR code (44pt)" fill="none" stroke="#B3B3B3" stroke-width="0.5" stroke-dasharray="2 1.5"><rect x="193.5" y="63" width="44" height="44"/><line x1="193.5" y1="63" x2="237.5" y2="107"/><line x1="237.5" y1="63" x2="193.5" y2="107"/></g>
+<text id="QR label" x="194.056" y="123" font-family="Poppins" font-weight="500" font-size="8" letter-spacing="1.2" fill="#FFFFFF">SCAN ME</text>
+</g></svg>
