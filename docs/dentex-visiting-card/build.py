@@ -47,6 +47,7 @@ TOOTH_PATHS = [
 
 ICONS = {  # 24x24 boxes, filled unless noted
     "phone": "M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z",
+    "pin": "M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
     "mail": "M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z",
 }
 
@@ -174,12 +175,13 @@ top_to_base = lambda top, size: top + CAP * size         # baseline from a cap-t
 
 name_base = top_to_base(row(1), 14)                      # name cap-top = row 1 = logo top
 qr_x, qr_y, qr_s = col(10), row(4), 3 * 15 + 2 * 4      # 3 x 3 modules = 53 pt
-contact_base = [qr_y + qr_s - 20, qr_y + qr_s - 10, qr_y + qr_s]  # last baseline = QR bottom
+contact_base = [qr_y + qr_s - 30, qr_y + qr_s - 20, qr_y + qr_s - 10, qr_y + qr_s]  # last baseline = QR bottom
 spec_base = name_base + 22
 # middle group sits with equal space above and below
 g3_top = contact_base[0] - CAP * 8
 desig_base = (g3_top - 10 + spec_base + CAP * 9) / 2
-LABEL_X, VALUE_X = col(1), col(3)
+ICON_X, TEXT_X, ICON = col(1), col(1) + 12, 8           # icon column + text indent
+icon_at = lambda k, base: {"t": "icon", "k": k, "x": ICON_X, "y": base - 6.6, "size": ICON, "fill": "tealDark", "name": f"Icon {k}"}
 back_b = [
     {"t": "rect", "x": -BLEED, "y": -BLEED, "w": TW + 2 * BLEED, "h": TH + 2 * BLEED, "fill": "white", "name": "BG White (full bleed)"},
     # group 1: identity
@@ -189,13 +191,14 @@ back_b = [
     # group 2: position
     text("Assistant Professor", col(1), desig_base, "Poppins-SemiBold", 9, "tealDark", "Designation"),
     text("Dhaka Dental College Hospital", col(1), desig_base + 10, "Poppins-Regular", 8, "ink", "Institution"),
-    # group 3: contacts as a label / value table
-    text("PHONE", LABEL_X, contact_base[0], "Poppins-Medium", 8, "tealDark", "Label phone", ls=0.8),
-    text("01733-682188", VALUE_X, contact_base[0], "Poppins-Regular", 8, "ink", "Phone"),
-    text("EMAIL", LABEL_X, contact_base[1], "Poppins-Medium", 8, "tealDark", "Label email", ls=0.8),
-    text("dentex6037@gmail.com", VALUE_X, contact_base[1], "Poppins-Regular", 8, "ink", "Email"),
-    text("WEB", LABEL_X, contact_base[2], "Poppins-Medium", 8, "tealDark", "Label web", ls=0.8),
-    text("www.dentex.cc", VALUE_X, contact_base[2], "Poppins-Regular", 8, "ink", "Website"),
+    # group 3: contacts, icon + text
+    icon_at("phone", contact_base[0]),
+    text("+880 1868-980020", TEXT_X, contact_base[0], "Poppins-Regular", 8, "ink", "Phone"),
+    icon_at("mail", contact_base[1]),
+    text("dentex6037@gmail.com", TEXT_X, contact_base[1], "Poppins-Regular", 8, "ink", "Email"),
+    icon_at("pin", contact_base[2]),
+    text("56/2 Dynasty Wahed Tower,", TEXT_X, contact_base[2], "Poppins-Regular", 8, "ink", "Address line 1"),
+    text("West Panthapath, Dhaka 1205", TEXT_X, contact_base[3], "Poppins-Regular", 8, "ink", "Address line 2"),
     # right column (cols 10-12)
     emblem(col(10) + qr_s / 2, row(1) + 17, 17),        # rows 1-2, 34 pt
     qr(qr_x, qr_y, qr_s),                                # rows 4-6

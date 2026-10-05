@@ -5,7 +5,7 @@ Figma (page "Dentex"): https://www.figma.com/design/xrBqOge9hA4CSLhvRSpXDQ
 **Option B (chosen, follows the client's reference layout)** is in this folder. The first concept, Option A, is in `option-A/`.
 
 - Front: teal gradient with soft circles, the tooth mark + DENTEX, the doctor's name and credentials, all centred.
-- Back: plain white, typography only (no shapes or overlays), set on a modular grid. Text on columns 1–9; Govt. of Bangladesh logo and QR code on columns 10–12. See `mockups/Dentex_Back_Grid.png`.
+- Back: plain white, typography only (no shapes or overlays), set on a modular grid. Contacts: phone +880 1868-980020, email, and the chamber address (56/2 Dynasty Wahed Tower, West Panthapath, Dhaka 1205), each with a small teal icon. No website. Text on columns 1–9; Govt. of Bangladesh logo and QR code on columns 10–12. See `mockups/Dentex_Back_Grid.png`.
 
 | File | Use |
 | --- | --- |
@@ -27,7 +27,7 @@ Figma (page "Dentex"): https://www.figma.com/design/xrBqOge9hA4CSLhvRSpXDQ
 ## Specs
 - Trim 252 × 144 pt · bleed 9 pt · safe zone 9 pt inside trim
 - Type: Poppins. Name 14 pt, wordmark 14/10 pt, designation 9 pt, everything else 8 pt (minimum)
-- Back grid: margins 14 pt (L/R) and 17 pt (T/B); 12 columns × 6 rows of square 15 pt modules; 4 pt gutters. Name cap-top = row 1 = logo top; last contact baseline = row 6 bottom = QR bottom; three text groups with equal 18 pt gaps; contact labels on column 1, values on column 3
+- Back grid: margins 14 pt (L/R) and 17 pt (T/B); 12 columns × 6 rows of square 15 pt modules; 4 pt gutters. Name cap-top = row 1 = logo top; last contact baseline = row 6 bottom = QR bottom; three text groups with equal 13 pt gaps; contact icons on column 1, contact text indented 12 pt
 - QR: version 3, 29 × 29 modules, 53 pt (≈ 18.7 mm), K100 on white
 - Govt. logo: 34 pt
 - Colours: Teal C80 M5 Y35 K0 · Teal Deep (gradient end) C92 M35 Y48 K18 · Teal Dark C85 M28 Y45 K8 · Ink K90 · Grey K72 (Option A also uses Teal Tint C74 M4.5 Y32.5 K0)

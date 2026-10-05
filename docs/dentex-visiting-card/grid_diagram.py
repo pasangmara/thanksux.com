@@ -16,7 +16,7 @@ for c in range(1, 13):
 red = (226, 54, 74, 220)
 for y in (B.row(1), B.row(6) + 15):
     d.line([(0, y*k), (im.width, y*k)], fill=red, width=3)
-for x in (B.col(1), B.col(3), B.col(10)):
+for x in (B.col(1), B.TEXT_X, B.col(10)):
     d.line([(x*k, 0), (x*k, im.height)], fill=red, width=3)
 im = Image.alpha_composite(im, ov)
 pad = 110; W = im.width + 2*pad; H = im.height + 2*pad + 150
@@ -31,5 +31,5 @@ fs = ImageFont.truetype(os.path.join(HERE, "fonts/Poppins-Regular.ttf"), 26)
 y0 = im.height + pad + 34
 dr.text((pad, y0), "Back: modular grid, 12 × 6 square modules (15 pt), 4 pt gutters, margins 14 / 17 pt", font=f, fill=(40, 40, 40))
 dr.text((pad, y0 + 52), "Red lines: name cap-top = logo top  ·  last baseline = QR bottom", font=fs, fill=(90, 90, 90))
-dr.text((pad, y0 + 88), "Labels on column 1  ·  values on column 3  ·  logo + QR on columns 10–12", font=fs, fill=(90, 90, 90))
+dr.text((pad, y0 + 88), "Icons on column 1, contact text indented 12 pt  ·  logo + QR on columns 10–12", font=fs, fill=(90, 90, 90))
 out = os.path.join(HERE, "out", "mockups", "Dentex_Back_Grid.png"); cv.save(out); print(out, cv.size)
