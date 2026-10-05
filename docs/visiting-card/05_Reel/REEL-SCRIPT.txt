@@ -1,0 +1,34 @@
+TIMES INTERNATIONAL - VISITING CARD DESIGN REEL
+Format: 1080 x 1920 (9:16), 30 fps, ~53 s, H.264 + AAC, -14 LUFS
+Audio: English voiceover + original synthesized lo-fi music + UI sound effects
+       (all generated, no third-party samples -> no copyright claim)
+
+SCENES & VOICEOVER
+------------------
+00  Intro            "Let's design a visiting card for Times International."
+                     Cursor drags out the 3.5 x 2 in artboard.
+01  Artboard Setup   "We start with a three and a half by two inch artboard,
+                      with bleed and safe zones for print."
+                     Bleed (red), dimensions, safe zone (blue) draw in.
+02  Geometric Shapes "Bold navy and blue geometric shapes frame the front."
+                     Six facets slide in one by one with selection boxes.
+03  Brand Typography "Then the brand name, Times International, with the tagline:
+                      all kinds of goods, imported from China."
+                     TIMES types in, INTERNATIONAL tracks in, rule + tagline.
+04  Back - Identity  "On the back, the company name comes first,
+                      then MD Jakir Hossen, CEO."
+                     Card flips; ribbon, company, name (typing), CEO.
+05  Contact Details  "Phone, email, and address, each with a clean icon."
+06  QR Codes         "WeChat and WhatsApp QR codes let clients connect in one scan."
+                     Navy panel slides in, QR codes reveal.
+07  Print Ready      "Print ready, and fully editable in Illustrator."
+                     Front + back mockup.
+--  Outro            "Times International. All kinds of goods, from China."
+
+SUGGESTED POST CAPTION
+----------------------
+Visiting card design for Times International - importer of all kinds of goods
+from China. From blank artboard to print-ready file in 50 seconds.
+
+#visitingcard #businesscard #branding #graphicdesign #printdesign
+#illustrator #figma #designprocess #importexport #bangladesh
