@@ -163,27 +163,42 @@ front_b = [
     text("Assistant Professor, Dhaka Dental College Hospital", CX, 116, "Poppins-Regular", 8, "white", "Designation", align="center"),
 ]
 
-QX, QY = 192, 74  # QR backing top-left
+# Back: typography only on a modular grid (no shapes, no overlays).
+# Trim 252 x 144 pt. Margins 14 (L/R) and 17 (T/B). 12 columns x 6 rows of
+# square 15 pt modules, 4 pt gutters -> module k starts at margin + (k-1)*19.
+GRID = {"margin_x": 14, "margin_y": 17, "cols": 12, "rows": 6, "module": 15, "gutter": 4}
+col = lambda k: GRID["margin_x"] + (k - 1) * 19          # left edge of column k
+row = lambda r: GRID["margin_y"] + (r - 1) * 19          # top edge of row r
+CAP = 0.701                                              # Poppins cap height (em)
+top_to_base = lambda top, size: top + CAP * size         # baseline from a cap-top line
+
+name_base = top_to_base(row(1), 14)                      # name cap-top = row 1 = logo top
+qr_x, qr_y, qr_s = col(10), row(4), 3 * 15 + 2 * 4      # 3 x 3 modules = 53 pt
+contact_base = [qr_y + qr_s - 20, qr_y + qr_s - 10, qr_y + qr_s]  # last baseline = QR bottom
+spec_base = name_base + 22
+# middle group sits with equal space above and below
+g3_top = contact_base[0] - CAP * 8
+desig_base = (g3_top - 10 + spec_base + CAP * 9) / 2
+LABEL_X, VALUE_X = col(1), col(3)
 back_b = [
     {"t": "rect", "x": -BLEED, "y": -BLEED, "w": TW + 2 * BLEED, "h": TH + 2 * BLEED, "fill": "white", "name": "BG White (full bleed)"},
-    {"t": "circle", "cx": 302, "cy": 80, "r": 100, "fill": "mist", "name": "Soft shape"},
-    tooth(203, -4, 168, "mistLine", "Watermark tooth"),
-    text("DR. ANJUMAN ARA MUNA", X0, 30, "Poppins-Bold", 14, "tealDark", "Name", ls=0.2),
-    text("BDS, BCS, DDS, FCPS", X0, 42, "Poppins-Medium", 8, "grey", "Degrees"),
-    text("Orthodontics & Dentofacial Orthopedics", X0, 52, "Poppins-Regular", 8, "grey", "Speciality"),
-    text("Assistant Professor", X0, 65, "Poppins-SemiBold", 9, "ink", "Designation"),
-    text("Dhaka Dental College Hospital", X0, 75, "Poppins-Regular", 8, "grey", "Institution"),
-    {"t": "rect", "x": X0, "y": 83, "w": 132, "h": 0.75, "fill": "teal", "name": "Teal rule"},
-    {"t": "icon", "k": "phone", "x": X0 - 0.5, "y": 90.6, "size": 8, "fill": "tealDark", "name": "Icon phone"},
-    text("01733-682188", X0 + 11, 97, "Poppins-Regular", 8, "ink", "Phone"),
-    {"t": "icon", "k": "mail", "x": X0 - 0.5, "y": 102.6, "size": 8, "fill": "tealDark", "name": "Icon email"},
-    text("dentex6037@gmail.com", X0 + 11, 109, "Poppins-Regular", 8, "ink", "Email"),
-    {"t": "icon", "k": "globe", "x": X0 - 0.5, "y": 114.6, "size": 8, "fill": "tealDark", "name": "Icon web"},
-    text("www.dentex.cc", X0 + 11, 121, "Poppins-Regular", 8, "ink", "Website"),
-    {"t": "circle", "cx": 225, "cy": 32, "r": 16, "fill": "white", "name": "Govt logo backing"},
-    emblem(225, 32, 14),
-    {"t": "rect", "x": QX, "y": QY, "w": 50, "h": 50, "r": 4, "fill": "white", "name": "QR backing"},
-    qr(QX + 3, QY + 3, 44),
+    # group 1: identity
+    text("Dr. Anjuman Ara Muna", col(1), name_base, "Poppins-SemiBold", 14, "ink", "Name"),
+    text("BDS, BCS, DDS, FCPS", col(1), name_base + 12, "Poppins-Medium", 8, "grey", "Degrees"),
+    text("Orthodontics & Dentofacial Orthopedics", col(1), spec_base, "Poppins-Regular", 8, "grey", "Speciality"),
+    # group 2: position
+    text("Assistant Professor", col(1), desig_base, "Poppins-SemiBold", 9, "tealDark", "Designation"),
+    text("Dhaka Dental College Hospital", col(1), desig_base + 10, "Poppins-Regular", 8, "ink", "Institution"),
+    # group 3: contacts as a label / value table
+    text("PHONE", LABEL_X, contact_base[0], "Poppins-Medium", 8, "tealDark", "Label phone", ls=0.8),
+    text("01733-682188", VALUE_X, contact_base[0], "Poppins-Regular", 8, "ink", "Phone"),
+    text("EMAIL", LABEL_X, contact_base[1], "Poppins-Medium", 8, "tealDark", "Label email", ls=0.8),
+    text("dentex6037@gmail.com", VALUE_X, contact_base[1], "Poppins-Regular", 8, "ink", "Email"),
+    text("WEB", LABEL_X, contact_base[2], "Poppins-Medium", 8, "tealDark", "Label web", ls=0.8),
+    text("www.dentex.cc", VALUE_X, contact_base[2], "Poppins-Regular", 8, "ink", "Website"),
+    # right column (cols 10-12)
+    emblem(col(10) + qr_s / 2, row(1) + 17, 17),        # rows 1-2, 34 pt
+    qr(qr_x, qr_y, qr_s),                                # rows 4-6
 ]
 SIDES_B = {"Front": front_b, "Back": back_b}
 VARIANTS = {"A": SIDES_A, "B": SIDES_B}
