@@ -8,16 +8,22 @@ gaps.
 | # | Phase | Time box | Output |
 |---|---|---|---|
 | 0 | Sync instructions | 1 min | Rules read, Figma field synced |
-| 1 | Interview Joy | 1 message, then wait | Brief + "how much this helped" judgement |
-| 2 | Focused research | 15 min | Answers to ≤8 key questions, 3 competitor examples |
-| 3 | Audience & hook mapping | 10 min | 3–4 audience cards, 3 hook angles, combo ideas |
-| 4 | Funnel & 7-day plan | 10 min | 7 post ideas mapped to the 4 stages |
-| 5 | Sketch | 15 min | Storyboard + 7 rough thumbnails + headline type sketches + ≥4 style directions |
-| 6 | Elements check | 5 min | Elements list: have / I make / Joy provides (with prompts) |
-| 7 | Design A + B | 20 min | 2 finished posters + purpose notes |
-| 8 | Competitor compare | 10 min | Side-by-side analysis + what to keep or change |
-| 9 | Design C (merge) | 15 min | Final poster + purpose note |
-| 10 | Score, improve, log | 10 min | Scorecards, improvement section, A/B idea, journey log |
+| 0.5 | **Plan card + interview** (first reply) | 1 message, then wait | Rule priority, total time, research structure, interview questions |
+| 1 | Brief from answers | 3 min | Brief + "how much this helped" judgement |
+| 2 | Focused research + **crowd voice** | 15 min | ≤8 key answers, majority answers per audience (with confidence), topic of the moment, 3 competitors |
+| 3 | Audience, hook & **both-side win** | 10 min | 3–4 audience cards, 3 hooks, user goal + maker goal + shared win, combos |
+| 4 | **Problem hunt + pre-mortem** | 5 min | Real problems, "not-premium" risks, a fix for each, message to the owner |
+| 5 | **Campaign + journey + funnel** | 10 min | Campaign goal, N days, start → finish, check day; journey map; day-by-day funnel plan |
+| 6 | Sketch → solution → design variables | 15 min | Storyboard, N thumbnails, headline sketches, ≥4 style directions, chosen variables |
+| 7 | Elements check | 5 min | Elements list: have / I make / Joy provides (with prompts) |
+| 8 | Design A + B | 20 min | 2 finished posters + purpose notes |
+| 9 | Competitor compare | 10 min | Side-by-side analysis + what to keep or change |
+| 10 | Design C (merge) | 15 min | Final poster + purpose note |
+| 11 | Score, improve, log | 10 min | Scorecards, improvement section, A/B idea, journey log |
+
+Default total is about 2 hours of work, not counting the time spent waiting
+for Joy. The plan card adjusts the total per product: a simple product gets
+shorter research, while a new or complex one gets more research and sketching.
 
 ---
 
@@ -26,8 +32,22 @@ gaps.
 - Read the Figma field (text node `instructionField.text` in `figma-map.json`). Move anything under
   "➕ New rules" into `INSTRUCTIONS.md`, then clear that part of the field.
 
+## Phase 0.5: Plan card + interview (my first reply when a product is named)
+
+Plan card format:
+
+> **Product:** … · **Category:** … · **Complexity:** simple / medium / complex
+> **Rules that matter most here:** list the rule numbers with a short reason
+> **Rules that matter less here:** list the rule numbers
+> **Total time:** ~X min. Phase times: research …, sketch …, design …
+> **Research plan:** the questions (≤8), sources, number of results, and
+> crowd-voice categories
+> **Campaign guess:** N days (to be confirmed after research)
+
+Then the interview, as below.
+
 ## Phase 1: Interview (empathy map)
-Send **one message** with at most 12 questions. Each question has 3–4 options
+Send **one message** (together with the plan card) with at most 12 questions. Each question has 3–4 options
 plus "other / don't know". Choose the ones that matter for this product from
 the bank below:
 
@@ -70,6 +90,14 @@ works. Categorize the findings:
 - one success or failure story from the category, and what turned a failure
   into a success.
 
+### Crowd voice (2 minutes, inside Phase 2)
+For each of 3–4 audience categories, list the 3 most common answers people
+give about the product or category: likes, complaints, wishes and the words
+they use. Sources are public reviews, comments, forums, Q&A and search
+trends. Give each answer a confidence level. **It is a synthesis, not a
+survey.** If a decision depends on it, suggest a real poll. Also note the
+**topic of the moment**.
+
 ## Phase 3: Audience & hook mapping (10 min)
 - **3–4 audience cards:** who they are, their mood and place of use, the
   words they like, their tone, what they want to see, and what they should
@@ -80,30 +108,60 @@ works. Categorize the findings:
 - **Combo / extras ideas** with a likelihood of selling.
 - **When to show the product up close vs when content should lead.**
 
-## Phase 4: Funnel & 7-day plan (10 min)
-Days 1–2 are Awareness, days 3–4 Engagement, days 5–6 Key value and day 7
-Sell. The price is revealed only on days 6–7. For each day write: audience,
+### Both-side win (inside Phase 3)
+Write three lines: the user's goal, the maker's goal, and the shared win that
+makes both happy.
+
+## Phase 4: Problem hunt + pre-mortem (5 min)
+- **Real problems:** what is weak today (photos, price clarity, delivery,
+  packaging, availability, trust).
+- **Pre-mortem:** "the campaign failed because the product didn't feel
+  premium". List 5 reasons and a design or product fix for each.
+- **Message to the owner:** 3–5 plain lines on what to fix, add or offer
+  and why.
+- **Zero-confusion check:** list every question a user may have from order
+  to delivery to unboxing to first use, and where each one gets answered.
+
+## Phase 5: Campaign, journey & funnel (10 min)
+- **Campaign:** goal, N days with the reason, what is needed, the start
+  point, the finish goal, and the **check day** that confirms connection
+  plus the product development insight.
+- **Journey map:** see → stop → understand → want → ask → buy → receive →
+  open → use → share or rebuy. For each step: see / do / feel / ask, and
+  how to make it beautiful.
+- **Full path to buyer:** the channels and touchpoints that get the product
+  to the right person.
+
+### Funnel plan (days)
+Split the N campaign days across the 4 stages. For the default 7 days that
+means days 1–2 Awareness, days 3–4 Engagement, days 5–6 Key value and day 7
+Sell. The price is revealed only in the last stages. For each day write: audience,
 hook, headline idea, visual idea, background or place, target signal (save,
 share, comment, react, click) and motion idea.
 
-## Phase 5: Sketch (15 min, in Figma)
+## Phase 6: Sketch → solution → design variables (15 min, in Figma)
 On page "✏️ Research & Sketch", in a section named `<product> — <date>`:
 1. **Brief board:** product, maker, user, goal, problems or gaps.
 2. **Use life-cycle storyboard:** 4–6 frames showing the need, the miss, the
    use and the result.
-3. **7 rough thumbnails** in grey blocks: product, headline zone, props,
+3. **N rough thumbnails** (one per campaign day) in grey blocks: product, headline zone, props,
    CTA.
 4. **Headline typography sketches:** 3 tones (product-like, motivating,
    curious).
 5. **≥4 style directions** from `STYLES.md`, as tiny mood thumbnails.
 6. **Exploded / layered view idea** of the product.
+7. **Connect the rough ideas** into one full solution, then pick the
+   **design variables**: manipulation, scene creation and
+   product-photography type, with one line on why each builds trust and
+   speaks to the user's eye, and how it shows the maker's layers and the
+   product's availability.
 
-## Phase 6: Elements check (5 min)
+## Phase 7: Elements check (5 min)
 Make a table of element, purpose, status (have, I'll make, Joy provides) and
 source (asset ID, a ChatGPT prompt, or a file to send). Icons and simple
 vectors: I make them in Figma. Ask for everything else in **one** message.
 
-## Phase 7: Design A + B (on "🎨 Experiments")
+## Phase 8: Design A + B (on "🎨 Experiments")
 - **A, message-led:** the custom headline and words lead, and the visual
   supports them.
 - **B, content/visual-led:** the cutout scene, product truth and experience
@@ -113,7 +171,7 @@ vectors: I make them in Figma. Ask for everything else in **one** message.
 - Put a purpose note next to each, covering: purpose, how it achieves it,
   audience, funnel stage, references, assets, motion idea.
 
-## Phase 8: Competitor compare (10 min)
+## Phase 9: Competitor compare (10 min)
 Place each design beside the competitor or reference. Answer:
 - What makes theirs simple?
 - Does ours explain more, or help more?
@@ -121,12 +179,12 @@ Place each design beside the competitor or reference. Answer:
 - What should we keep from their structure, and what new structure should we
   build?
 
-## Phase 9: Design C, the merge (15 min)
+## Phase 10: Design C, the merge (15 min)
 Combine the strongest parts of A and B using all the research. Add a purpose
 note explaining what came from A, what came from B, and what came from the
 research.
 
-## Phase 10: Score, improve, log (10 min)
+## Phase 11: Score, improve, log (10 min)
 
 **Scorecard: 10 criteria × 10 points = /100**
 
@@ -159,7 +217,11 @@ Then write:
 For each product, create `projects/<slug>/` with:
 - `brief.md`: the interview answers, assumptions and "how much it helped";
 - `research.md`: questions, answers, competitors and categories;
-- `funnel.md`: audience cards, hooks and the 7-day plan;
+- `plan.md`: the plan card;
+- `funnel.md`: audience cards, crowd voice, both-side win, campaign,
+  journey map and the day plan;
+- `risks.md`: problem hunt, pre-mortem, the message to the owner and the
+  zero-confusion check;
 - `elements.md`: the elements table and prompts;
 - `scores.md`: scorecards, improvements and the A/B test;
 - `log.md`: a dated journey log.

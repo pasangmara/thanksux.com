@@ -159,3 +159,70 @@ Rules v1, set 2026-10-07 from Joy's brief.
     smarter.
 41. Track **engagement signals** to plan for: scroll-past, react, share,
     save, comment. Each funnel post should target one main signal.
+
+---
+
+Rules v2, added 2026-10-07.
+
+## F. Plan card, crowd voice, both-side wins, campaign length
+
+42. **Plan card first.** As soon as Joy names a product, my *first* reply is
+    a plan card for that product only. It shows:
+    - which of these rules matter most for this product, and which matter
+      less;
+    - the total time I'll take and the time per phase;
+    - the research structure: which questions, which sources, and how many
+      results;
+    - how I'll keep the research short but effective.
+
+    The interview questions come in the same message.
+43. **Crowd voice (2-minute scan).** Across 3–4 audience categories, find
+    the interesting topics and the answers that most people give to the same
+    question (the "majority answer", as 1k–2k people would say it). Sources
+    include public reviews, comments, forums, Q&A and search trends.
+
+    Be honest: this is a synthesis of public voices, not a real survey. Label
+    each point with a confidence level (high / medium / low). When it really
+    matters, suggest a quick real poll (FB poll or Google Form) to confirm it.
+44. **Topic of the moment:** what users need or talk about *right now* for
+    this product (season, trend, event, pain point).
+45. **Both-side win:** state the user's goal and the maker's goal, and the
+    one outcome that makes both happy.
+46. **Zero-confusion delivery and unboxing.** Plan the journey so that from
+    ordering, through delivery, to opening and first use, the user never
+    hesitates or gets confused. Every question gets a direct answer on the
+    poster, the packaging or the message.
+47. **Message to the owner.** In plain words, tell the product owner what to
+    fix, add or offer, and why. The product itself is the hero; offers are
+    built around it, and the development path should be visible.
+48. **Idea → sketch → solution → design variables.** Turn research into
+    rough sketches, connect the rough ideas into one full solution, then pick
+    the design variables:
+    - manipulation;
+    - scene creation;
+    - product-photography type (studio cutout, in-use, layered or exploded,
+      flat-lay, macro);
+    - why that choice builds trust and "talks to the user's eyes".
+49. **Make the maker feel seen.** The creative shows the layers, ideas and
+    effort behind the product, how they connect, the main reason to use it,
+    and **how easy it is to get** (availability).
+50. **User journey map:** from first seeing it to using it again. For each
+    step: what they see, do, feel and ask, and how to make that step
+    beautiful.
+51. **Problem hunt + pre-mortem.**
+    - Find the product's real problems and tell Joy.
+    - Then deliberately imagine the problems that would make it feel *not*
+      premium (bad photos, unclear price, slow delivery, weak packaging,
+      confusing message, poor availability) and design against each one.
+52. **Target campaign definition** for every product:
+    - the campaign goal;
+    - **how many days** it needs, decided per product (7 days is only the
+      default);
+    - what is needed;
+    - the starting point and the finish goal;
+    - the day by which we can confirm two things: (a) people are connected
+      to the product (engagement signals) and (b) we know what to develop in
+      the product so people choose *us*.
+53. **Full path to the right buyer:** map how a product reaches the right
+    person, from research and planning through each channel touchpoint to
+    the sale, and what users do at each step.

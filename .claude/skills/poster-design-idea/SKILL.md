@@ -1,6 +1,6 @@
 ---
 name: poster-design-idea
-description: Creative-marketing poster system for any product or business. It interviews the user (empathy map), researches the product, maker and audience, plans a 4-stage funnel and 7-day content journey, sketches in Figma, then designs A (message-led), B (visual-led) and C (merged) with purpose notes, competitor comparison and scorecards. Use whenever the user asks for a poster, social post, ad creative, campaign or poster ideas for a product (e.g. "burger poster", "earbuds ad", "poster design koro", a product name plus "design").
+description: Creative-marketing poster system for any product or business. It interviews the user (empathy map), researches the product, maker and audience, shows a plan card first, runs crowd-voice research, a problem hunt and a both-side-win analysis, plans the campaign length, journey map and 4-stage funnel, sketches in Figma, then designs A (message-led), B (visual-led) and C (merged) with purpose notes, competitor comparison and scorecards. Use whenever the user asks for a poster, social post, ad creative, campaign or poster ideas for a product (e.g. "burger poster", "earbuds ad", "poster design koro", a product name plus "design").
 ---
 
 # Poster Design Idea: Creative Marketing System
@@ -24,8 +24,10 @@ sketches and experiments.
 - **Phase 0 sync:** read `INSTRUCTIONS.md`. Read the Figma instruction field
   and move any text under "➕ New rules" into `INSTRUCTIONS.md`. If the user
   writes `instruction update: …`, add it to both and confirm in one line.
-- **Start with the interview, not a design.** Ask questions with options,
-  then wait.
+- **First reply when a product is named:** the plan card plus the
+  interview (WORKFLOW Phase 0.5). It covers rule priority for this
+  product, total time, research structure and the questions with options.
+  Then wait. Never start with a design.
 - Follow the `WORKFLOW.md` phases in order. Announce each phase with its time
   box in one short line.
 - **Sketch in Figma before designing.** Use the "✏️ Research & Sketch" page;
