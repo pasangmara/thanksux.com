@@ -91,3 +91,36 @@ and shares.
   > রিপেয়ার স্লিপ দেখালেই গরম কফি + ফিরনি মাত্র ৳১৯৯, সাথে ফ্রি ওয়াইফাই।
   > পেমেন্ট: বিকাশ · নগদ · ক্যাশ
   > 📍 মোতালিব প্লাজা গলি, ৮ পরিবাগ · 📞 ০১৯৭২-৪৯৮৫৬১
+
+## C v3a / v3b: built on FOOD-POSTER-SYSTEM.md (R28–R31)
+
+| Criterion | v2 | **v3a giant type** | **v3b appetite glow** |
+|---|---|---|---|
+| Hook / stop-scroll | 8 | 9 | 8 |
+| Glance clarity | 8 | 9 | 8 |
+| Audience fit | 7 | 8 | 8 |
+| Desire | 9 | 8 | 9 |
+| Product truth | 5 | 5 | 5 |
+| Trust | 6 | 7 | 7 |
+| Typography | 8 | 9 | 9 |
+| Color logic | 8 | 8 | 9 |
+| Element purpose | 9 | 9 | 9 |
+| Differentiation | 7 | 8 | 7 |
+| **Total** | 75 | **80** | **79** |
+
+- **v3a** (R30 + R31):
+  - A giant condensed red Bangla headline sits behind the food, which
+    overlaps it to create depth.
+  - The black price disc is between the items on the eye path.
+  - Cream floor with contact shadows and reflections.
+  - A red CTA pill with an arrow, and the info stacked on the right.
+- **v3b** (R28 + R31):
+  - An orange→deep-red radial appetite glow over a white perspective floor.
+  - A two-tone headline (Galada script + dark condensed).
+  - A red price disc touching the hero, upper-right.
+  - A centred orange glowing CTA, with one info line under it.
+- **Still open:**
+  - The food is an AI stand-in.
+  - The steam is a single asset. A second, shorter steam would read more
+    naturally.
+  - No foreground motion element yet (a pistachio or almond scatter).

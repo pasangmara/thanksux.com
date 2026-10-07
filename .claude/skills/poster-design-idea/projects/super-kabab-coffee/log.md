@@ -78,3 +78,11 @@
 - **Session 4b:** Joy wants food bold and close, the background arranged,
   and less text. Made C v2 (food-hero). Its details moved to the caption
   draft. Lesson saved to STYLES.md.
+- **Session 5:**
+  - Joy added 4 food-poster references (R28–R31). I analysed them into
+    `FOOD-POSTER-SYSTEM.md`: hierarchy, depth toolkit, hunger colours, type
+    system (Noto Sans Bengali Condensed Black + Anton + Galada/Yellowtail),
+    price-tag and CTA systems, and an improvement task list.
+  - Built C v3a (giant type) and C v3b (appetite glow). Scores: 80 and 79.
+  - Fixed the steam: it is now a luminance alpha instead of a screen
+    blend, which had left a grey box over dark text.

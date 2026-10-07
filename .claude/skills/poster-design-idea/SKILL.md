@@ -19,6 +19,9 @@ sketches and experiments.
 4. `ASSETS.md`: the raw asset library in `assets/`, plus pending asset
    prompts.
 5. `figma-map.json`: the Figma file, page and node IDs.
+6. `FOOD-POSTER-SYSTEM.md`: for any food or restaurant poster. Covers
+   hierarchy, depth, hunger colours, type, price tag and CTA rules (from
+   R28–R31).
 
 ## Must-do every time
 - **Phase 0 sync:** read `INSTRUCTIONS.md`. Read the Figma instruction field
