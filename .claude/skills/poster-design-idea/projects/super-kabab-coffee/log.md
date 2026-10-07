@@ -53,3 +53,25 @@
     subset, so it was dropped.
 - **Next:** Joy's feedback on A/B, then the competitor compare, then
   Design C.
+
+## 2026-10-07 (session 4)
+- **Joy's critique of A/B:**
+  - unclear CTA;
+  - unclear brand and service;
+  - no restaurant cues;
+  - the battery looked cheap;
+  - who, why, how and where were missing.
+- **Fixed in Design C v1:**
+  - brand bar;
+  - menu card with a skewer divider and Galada script;
+  - the repair-slip coupon replaces the battery;
+  - an explicit CTA with the phone number;
+  - a corridor inset ("২ মিনিট") and the address strip.
+- **Scores:** A 57, B 55, C 75 (`scores.md`). The lessons went into
+  STYLES.md → "Lessons learned".
+- **Avoided:** I had invented "প্রতিদিন খোলা" (hours unknown) and removed
+  it.
+- **Owner must confirm:**
+  - the ৳199 waiting combo and the slip mechanic;
+  - the exact landmark (gate or floor);
+  - opening hours.

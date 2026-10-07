@@ -100,3 +100,22 @@ artwork.
   arrows. Faded brand watermark. One neon accent (green) for the CTA.
 - **Purpose:** Signals precision, quality and premium value.
 - **Assets:** B12, B10/B11/B13 (pending), T01, T03, T04a/b, T06.
+
+---
+
+## Lessons learned (from real feedback)
+
+### 2026-10-07: SKC Day 1, Joy's critique
+1. **Who and what at a glance.** Every poster needs a visible brand bar:
+   logo, name, and a category word such as "রেস্টুরেন্ট". Never only a tiny
+   corner logo.
+2. **Category cues.** A restaurant must *read* as a restaurant without
+   words: menu-card frames, food typography (script plus bold), utensil or
+   skewer motifs, and food on a real table.
+3. **An explicit CTA.** It answers "what do I do now?" as a verb plus an
+   object, for example "স্লিপ দেখান, বসে পড়ুন". Add a phone number or
+   Messenger, and the exact address.
+4. **Use local objects, not generic UI icons.** A repair slip beats a
+   battery icon. The metaphor must come from the user's real world, or it
+   looks cheap.
+5. **Answer who, why, how and where on every offer poster.**
