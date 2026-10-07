@@ -59,3 +59,14 @@ price-menu post did **20–50× better** than anything else, because the core
 audience decides on price first. **Proposal:** keep the funnel, but show a
 *value anchor* ("৩০০ টাকার নিচে পুরো প্লেট") from day 1 and put the full price
 ladder on day 5. **Joy decides.**
+
+## Decisions (2026-10-07, round 2)
+1. **Rule 16 exception approved for SKC:** a value anchor ("৩০০ টাকার নিচে")
+   from day 1, and the full price ladder on day 5.
+2. Delivery inside the plaza: **yes**. Payment: **bKash and Nagad, both**.
+   **Wi-Fi yes, no charger.**
+   - Repair Break becomes coffee + firni + **free Wi-Fi**.
+   - Owner suggestion: add a ৳1–2k multi-plug charging strip. It would turn
+     the hook into a fact.
+3. Best-selling item: unknown. Track it during the campaign: count the
+   combo orders per day from day 1, then review on check day 10.

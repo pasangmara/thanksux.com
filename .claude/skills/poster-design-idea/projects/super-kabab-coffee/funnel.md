@@ -47,7 +47,7 @@ Prices are proposals. The owner must check them against cost.
 | Combo | Contents | Proposed price | Audience | Gap it fills | Sell chance |
 |---|---|---|---|---|---|
 | **Lunch Express** | Tehari or roast polao + borhani, served in 10 min or delivered to the shop inside the plaza | ৳249 | A1 | No time, needs a fixed price | High |
-| **Repair Break** | Coffee + firni (or soup) + a charging point at the table | ৳199 | A2 | Bored waiting, no seat | Medium–high (unique) |
+| **Repair Break** | Coffee + firni (or soup) + free Wi-Fi (a charging strip is suggested to the owner) | ৳199 | A2 | Bored waiting, no seat | Medium–high (unique) |
 | **Adda Platter for 4** | Mini kabab platter + naan + 4 borhani or coffee | ৳999 | A1, A4 | Evening hangout value | Medium–high |
 | **Team Lunch Box (5+)** | Set menu + drink, pre-order by message | ৳229 per person | A3 | Office group ordering | Medium |
 | **Plaza Card** | Buy 10 lunches, 11th free (stamp card) | n/a | A1 | Repeat visits | High for the core |
