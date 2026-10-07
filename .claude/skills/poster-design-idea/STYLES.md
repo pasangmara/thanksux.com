@@ -119,3 +119,11 @@ artwork.
    battery icon. The metaphor must come from the user's real world, or it
    looks cheap.
 5. **Answer who, why, how and where on every offer poster.**
+
+### 2026-10-07: SKC Day 1, Joy's second note (C v1 → C v2)
+6. **Food is the hero.** The main items are big, bold and close to the camera
+   (they can bleed off the edge). The background is the real place, pushed
+   back with blur and warmth, but properly arranged.
+7. **Minimal text.** Use only: brand (small), one headline, a price seal, and
+   one line of action + where. Move extra explanation (mechanics, Wi-Fi,
+   payment) to the caption or the comments, not onto the poster.

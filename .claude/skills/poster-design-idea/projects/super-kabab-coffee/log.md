@@ -75,3 +75,6 @@
   - the ৳199 waiting combo and the slip mechanic;
   - the exact landmark (gate or floor);
   - opening hours.
+- **Session 4b:** Joy wants food bold and close, the background arranged,
+  and less text. Made C v2 (food-hero). Its details moved to the caption
+  draft. Lesson saved to STYLES.md.

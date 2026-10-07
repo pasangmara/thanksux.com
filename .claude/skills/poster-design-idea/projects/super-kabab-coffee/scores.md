@@ -70,3 +70,24 @@ and shares.
 - Opening hours. Unknown, so I left them out rather than guess.
 - **Motion:** the stamp "thuds" onto the slip, then the steam rises
   (a 3-sec Reel).
+
+## C v2: food-hero, minimal text (after Joy's second note)
+- **Changes from C v1:**
+  - Coffee is oversized and bleeds off the left edge, with the firni closer
+    to the camera.
+  - The café background is blurred and warmed, with a dark top band for
+    the type.
+  - Text cut to 4 items: brand, "অপেক্ষা নয়, টেবিল রেডি!", the ৳১৯৯ seal,
+    and one bottom line ("রিপেয়ার স্লিপ দেখান · মোতালিব প্লাজা গলি · phone").
+  - Removed the menu card, corridor inset, repair-slip graphic and payment
+    line. These move to the caption.
+- **Score:** hook 8, clarity 8, audience 7, desire 9, product truth 5
+  (stand-in), trust 6, typography 8, color 8, element purpose 9,
+  differentiation 7. **Total 75.**
+  - Desire is higher than C v1.
+  - Where/how is weaker on the image, so the caption has to carry it.
+- **Caption draft** (carries the details):
+  > মোতালিব প্লাজায় ফোন সারাতে দিয়েছেন? দাঁড়িয়ে না থেকে চলে আসুন SKC-তে।
+  > রিপেয়ার স্লিপ দেখালেই গরম কফি + ফিরনি মাত্র ৳১৯৯, সাথে ফ্রি ওয়াইফাই।
+  > পেমেন্ট: বিকাশ · নগদ · ক্যাশ
+  > 📍 মোতালিব প্লাজা গলি, ৮ পরিবাগ · 📞 ০১৯৭২-৪৯৮৫৬১
