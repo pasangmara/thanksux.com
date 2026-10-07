@@ -35,3 +35,21 @@
   - Shop delivery, charging and payment to be confirmed with the owner.
 - **Blocked:** real photos and a hi-res logo are needed before Design A/B,
   and Figma raster upload is still denied by network policy.
+
+## 2026-10-07 (session 3)
+- **Done:**
+  - Joy confirmed: the rule 16 exception, plaza delivery, bKash and Nagad,
+    Wi-Fi (no charger).
+  - Wrote the ChatGPT prompts (`prompts.md`).
+  - Joy generated 6 Day-1 assets (SKC-01, 03, 04, 05, 06, 07).
+  - Made the Figma Day 1 plan: the 3-second eye path, the 7-step imagined
+    journey, and A/B zone wireframes with annotations.
+  - Rendered A/B photo-sketch previews locally, because Figma raster upload
+    is still blocked.
+- **Fixed:**
+  - The cutout flood-fill wiped the man (the seed pixel wasn't white). It
+    now seeds only on white pixels.
+  - The battery overlapped the headline. Dari (।) is missing from the font
+    subset, so it was dropped.
+- **Next:** Joy's feedback on A/B, then the competitor compare, then
+  Design C.
