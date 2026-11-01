@@ -1,0 +1,82 @@
+
+/* ===== EDITORIAL / ARTICLE STYLES (modular grid) ===== */
+.page.lit{--acc:var(--red);--accl:var(--pink)}
+.lit .cres{box-shadow:none;background:var(--red);width:2.4mm;height:2.4mm;border-radius:.3mm}
+h1.serif{font-family:'Noto Serif Bengali',serif;font-weight:800;line-height:1.18;letter-spacing:-.005em;color:var(--ink);margin:0}
+.arthead{display:flex;flex-direction:column;justify-content:flex-start}
+.arthead .kicker{margin-bottom:1.6mm}
+.deck{font-family:'Tiro Bangla';font-style:italic;font-size:12pt;line-height:1.45;color:var(--gray);margin-top:2mm}
+.byline{display:flex;flex-wrap:wrap;align-items:baseline;gap:1mm 2.4mm;margin-top:2.6mm;padding-top:2mm;border-top:.3mm solid var(--ink);font-size:8pt;line-height:1.35}
+.byline .bl-l{font-weight:600;color:var(--acc)}
+.byline b{font-family:'Anek Bangla';font-weight:700;font-size:10pt;color:var(--ink)}
+.byline .bl-r{color:var(--gray)}
+.note .byline{border-top:0;margin:0;padding:0}
+.overpanel{background:#fff;padding:5mm 6mm 0 0;margin-top:0;border-top-right-radius:4mm;z-index:2}
+
+/* flowing text frames */
+.flow{position:relative;min-width:0;min-height:0;overflow:hidden;column-fill:auto;column-gap:4mm;
+  font-size:9pt;line-height:1.56;text-align:justify;color:#262629}
+.flow.cols1{column-count:1}.flow.cols2{column-count:2}.flow.cols3{column-count:3}
+.flow p{margin:0 0 1.7mm;orphans:2;widows:2}
+.flow p.cont{margin-top:0}
+.flow h4{font-family:'Anek Bangla';font-weight:700;font-size:10.6pt;line-height:1.25;color:var(--acc);margin:2.6mm 0 1.2mm;break-after:avoid}
+.flow h4:first-child{margin-top:0}
+.flow .dc{float:left;font-family:'Noto Serif Bengali';font-weight:800;font-size:31pt;line-height:.86;color:var(--acc);margin:1.2mm 2mm 0 0}
+.flow p.li{position:relative;padding-left:4.2mm}
+.flow p.li:before{content:'';position:absolute;left:0;top:1.9mm;width:1.9mm;height:1.9mm;background:var(--acc);border-radius:.3mm}
+.flow p.li b{font-family:'Anek Bangla';font-weight:700}
+.flow p.verse{font-family:'Tiro Bangla';font-style:italic;font-size:10.6pt;line-height:1.55;text-align:left;border-left:.8mm solid var(--acc);padding-left:3mm;color:var(--ink)}
+.flow p.moral{font-family:'Anek Bangla';font-weight:700;color:var(--acc);font-size:10pt;text-align:left;border-top:.3mm solid var(--acc);padding-top:1.6mm;margin-top:2.4mm}
+.endmark{display:inline-block;width:2mm;height:2mm;background:var(--acc);margin-left:1.2mm;vertical-align:baseline}
+
+/* pull quote with red outline (editorial reference) */
+.pullbox{border:.45mm solid var(--acc);border-radius:2.5mm;padding:4.5mm 5mm;display:flex;flex-direction:column;justify-content:center}
+.pullbox .pq-mark,.pq-mark{font-family:'Noto Serif Bengali';font-weight:800;font-size:40pt;line-height:.7;color:var(--acc);height:8mm}
+.pullbox .pq-t,.pq-t{font-family:'Tiro Bangla';font-style:italic;line-height:1.42;color:var(--acc)}
+.pullbox.wide{flex-direction:row;align-items:center;gap:5mm;padding:3mm 6mm}
+.pullbox.wide .pq-mark{height:auto;line-height:.9}
+.serifq{font-family:'Noto Serif Bengali';font-weight:700;font-size:14pt;line-height:1.4;color:#fff}
+.panel.ink{background:var(--ink)}
+.panel .pq-mark{color:rgba(255,255,255,.6)}
+.giantq{font-family:'Noto Serif Bengali';font-weight:800;font-size:40pt;line-height:1.22;color:var(--red);letter-spacing:-.01em}
+.giantmark{font-family:'Noto Serif Bengali';font-weight:800;font-size:170pt;line-height:.7;color:rgba(255,255,255,.18);text-align:right}
+.optitle.serifT{font-family:'Noto Serif Bengali';font-weight:800;font-size:54pt;line-height:1.1}
+
+/* side tiles */
+.techlist{display:flex;flex-direction:column;gap:1.8mm;margin-top:1mm}
+.techlist span{font-size:8.6pt;line-height:1.3;font-weight:500;padding:1.6mm 2.6mm;background:#fff;border-radius:1.6mm;border-left:1mm solid var(--acc)}
+.refs{margin:1mm 0 0;padding-left:4.4mm;font-size:7.8pt;line-height:1.45;color:var(--gray)}
+.refs li{margin-bottom:1.6mm}
+.flag.big{align-items:flex-start}
+.flag.big b{font-size:62pt;line-height:.95}
+.flag.big span{font-family:'Anek Bangla';font-weight:700;font-size:13pt;letter-spacing:.02em}
+.suntile{background:var(--cream);border-radius:3mm;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3mm}
+.sun{width:24mm;height:24mm;border-radius:50%;background:var(--red);box-shadow:0 0 0 3mm var(--pink),0 0 0 6mm rgba(215,25,42,.12)}
+.sunlbl{font-family:'Anek Bangla';font-weight:700;font-size:10pt;color:var(--red)}
+.bricks{border-radius:3mm;background-color:#B8322A;
+  background-image:linear-gradient(0deg,rgba(255,255,255,.9) 1mm,transparent 1mm),
+                   linear-gradient(90deg,rgba(255,255,255,.9) 1mm,transparent 1mm),
+                   linear-gradient(90deg,rgba(255,255,255,.9) 1mm,transparent 1mm);
+  background-size:100% 7mm,14mm 14mm,14mm 14mm;background-position:0 0,0 0,7mm 7mm}
+.tline.four{grid-template-columns:repeat(4,1fr);align-self:center!important}
+.nlist.big div{padding:2.2mm 4mm 2.2mm 2mm;align-items:flex-start}
+.nlist.big b{width:10mm;height:10mm;font-size:10pt}
+.nlist.big span{font-size:9.4pt}
+.snum{font-family:'Noto Serif Bengali';font-weight:800;font-size:40pt;line-height:1;color:var(--pink);margin-bottom:1mm}
+.bpq{background:var(--navy);color:#fff;border-radius:3mm;padding:5mm;display:flex;flex-direction:column;justify-content:center;gap:2.6mm}
+.bpq p{margin:0;font-family:'Tiro Bangla';font-style:italic;font-size:10.6pt;line-height:1.42}
+.lst h5{font-family:'Noto Serif Bengali';font-weight:800;font-size:15pt;color:#fff;margin:0 0 3mm;padding-bottom:2mm;border-bottom:.4mm solid var(--red)}
+.lst div{display:flex;justify-content:space-between;gap:2mm;font-size:8.8pt;line-height:1.35;color:rgba(255,255,255,.92);padding:1.3mm 0;border-bottom:.2mm dashed rgba(255,255,255,.25)}
+.lst b{font-family:'Anek Bangla';font-weight:800;color:var(--red);font-size:10pt}
+.parthd.ink{background:var(--ink)}
+.ti.tx{padding:.55mm 0}
+.ti.tx .ttl{font-size:8.8pt;line-height:1.3}
+.ti.tx .tpg{font-size:11pt}
+.tline.four .kicker{margin-bottom:0}
+.ti.lt .tpg{color:var(--ink)}
+
+.chipgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:2mm;margin-top:1.5mm}
+.chipgrid.three{grid-template-columns:repeat(3,1fr)}
+.chipgrid span{font-size:8.6pt;line-height:1.3;font-weight:500;padding:1.8mm 2.6mm;background:#fff;border-radius:1.6mm;border-left:1mm solid var(--acc)}
+.ti.tx{padding:.35mm 0}
+.flow h4{text-align:left}
