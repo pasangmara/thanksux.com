@@ -1,0 +1,192 @@
+@page { size: 210mm 297mm; margin: 0; }
+:root{
+  --red:#D7192A; --dred:#A50F1F; --ink:#1C1C1E; --gray:#55565B; --lgray:#8E8E93;
+  --cream:#F7F3EE; --pink:#FBE8E9; --line:#E4DFD8; --char:#232326; --navy:#1E3A6E; --nvpink:#E6ECF6;
+  --acc:var(--red); --accl:var(--pink);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:#fff}
+body{font-family:'Hind Siliguri',sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact;
+  text-rendering:optimizeLegibility;font-kerning:normal}
+.page{width:210mm;height:297mm;padding:12mm;position:relative;overflow:hidden;break-after:page;page-break-after:always;background:#fff}
+.page.nv{--acc:var(--navy);--accl:var(--nvpink)}
+.inner{position:relative;width:186mm;height:273mm;overflow:hidden}
+.full{position:absolute;inset:0}
+.content{position:absolute;left:0;right:0;top:12mm;bottom:10mm}
+
+/* running header / footer */
+.hd{position:absolute;left:0;right:0;top:0;height:8mm;display:flex;align-items:center;justify-content:space-between;
+  border-bottom:.25mm solid var(--line);font-size:7.2pt;color:var(--gray);font-weight:500}
+.odd .hd{flex-direction:row-reverse}
+.brand{display:flex;align-items:center;gap:2.2mm}
+.cres{display:inline-block;width:3.6mm;height:3.6mm;border-radius:50%;box-shadow:-.9mm 0 0 0 var(--red);margin-left:1mm}
+.nv .cres{box-shadow:none;background:var(--navy);width:2.4mm;height:2.4mm;transform:rotate(45deg);border-radius:.4mm}
+.sec{background:var(--acc);color:#fff;font-family:'Anek Bangla';font-weight:600;font-size:7.6pt;padding:.6mm 3mm .5mm;border-radius:5mm}
+.ft{position:absolute;left:0;right:0;bottom:0;height:6mm;display:flex;align-items:center;gap:3mm;font-size:7pt;color:var(--lgray)}
+.odd .ft{flex-direction:row-reverse}
+.ft b{font-family:'Anek Bangla';font-weight:800;font-size:12pt;color:var(--acc);line-height:1}
+.ft span{border-left:.3mm solid var(--line);padding-left:3mm}
+.odd .ft span{border-left:0;border-right:.3mm solid var(--line);padding-left:0;padding-right:3mm}
+
+/* generic positioned elements */
+.t{position:absolute}
+.f{position:absolute;margin:0;overflow:hidden;border-radius:2.5mm;background:#ddd}
+.f img{width:100%;height:100%;object-fit:cover;display:block}
+.f.c{border-radius:50%}
+.f.tl{border-top-left-radius:22mm}
+.f.tr{border-top-right-radius:22mm}
+.f.bl{border-bottom-left-radius:22mm}
+.f.br{border-bottom-right-radius:22mm}
+.f.pill{border-radius:30mm}
+.f.pill2{border-radius:33mm 33mm 2.5mm 2.5mm}
+.f.arch{border-radius:85mm 85mm 4mm 4mm}
+.f.arch2{border-radius:4mm 60mm 4mm 4mm}
+.f.arch3{border-radius:48mm 48mm 3mm 3mm}
+.f.arch4{border-radius:42mm 42mm 3mm 3mm}
+.f.arch5{border-radius:45mm 45mm 3mm 3mm}
+.f.arch6{border-radius:45mm 45mm 3mm 3mm}
+.f.ring{box-shadow:0 0 0 2mm #fff}
+.f.ringw{box-shadow:0 0 0 2.4mm #fff}
+.f.ringr{box-shadow:0 0 0 1.8mm var(--red)}
+.deco{position:absolute;border-radius:50%}
+.ringd{border:.5mm dashed var(--acc);background:transparent!important}
+.box{position:absolute;border-radius:4mm}
+.box.red{background:var(--red)} .box.cream{background:var(--cream)} .box.char{background:var(--char)} .box.navy{background:var(--navy)}
+.rule{position:absolute;left:0;right:0;height:0;border-top:.3mm solid var(--line)}
+
+/* type */
+.kicker{font-family:'Hind Siliguri';font-weight:600;font-size:8.2pt;color:var(--acc);letter-spacing:.02em;display:flex;align-items:center;gap:2mm;margin-bottom:1.2mm}
+.kicker:before{content:'';display:inline-block;width:6mm;height:.9mm;background:var(--acc);border-radius:1mm}
+.kicker.w{color:#fff}.kicker.w:before{background:#fff}
+h1{font-family:'Anek Bangla';font-weight:800;font-size:30pt;line-height:1.08;margin:0;color:var(--ink);letter-spacing:-.005em}
+.big{font-family:'Anek Bangla';font-weight:800;font-size:44pt;line-height:1;color:var(--acc)}
+h3.sub{font-family:'Anek Bangla';font-weight:700;font-size:13pt;line-height:1.2;margin:0 0 1.6mm;color:var(--ink)}
+h3.sub.w{color:#fff}
+.b{font-size:9.3pt;line-height:1.62;text-align:justify;color:#2b2b2e}
+.b.sm{font-size:8.7pt;line-height:1.58}
+.b.w,.w{color:#fff}
+.cols2{column-count:2;column-gap:7mm}
+.drop:first-letter{font-family:'Anek Bangla';font-weight:800;color:var(--acc);font-size:250%;float:left;line-height:.9;margin:1mm 1.6mm 0 0}
+.lead{font-family:'Anek Bangla';font-weight:600;font-size:13pt;line-height:1.35;color:var(--ink)}
+.acc{color:var(--acc)}
+.lead.acc{color:var(--acc)}
+.small{font-size:7.8pt;line-height:1.5;color:var(--gray)}
+.cap{font-size:7.4pt;line-height:1.4;color:var(--gray);display:flex;gap:1.6mm;align-items:flex-start}
+.cap .dot{flex:none;width:1.8mm;height:1.8mm;border-radius:50%;background:var(--acc);margin-top:1mm}
+.pq{font-family:'Tiro Bangla';font-style:italic;font-size:13pt;line-height:1.45;color:var(--acc)}
+.q1{font-family:'Tiro Bangla';font-size:44pt;line-height:.6;color:var(--acc);height:7mm}
+.qt{font-family:'Tiro Bangla';font-style:italic;font-size:15pt;line-height:1.4;color:var(--ink)}
+.panel{background:var(--red);border-radius:4mm;padding:6mm 7mm}
+.panel .q1{color:rgba(255,255,255,.55)} .panel .qt{color:#fff}
+.panel.wide{display:flex;gap:4mm;align-items:flex-start;padding:5mm 7mm}
+.panel.wide .q1{height:auto;line-height:.9}
+.panel.nvp{background:var(--navy)}
+.note{background:var(--accl);border-radius:3mm;padding:3.5mm 4mm}
+
+/* cover */
+.covtop{position:absolute;left:0;right:0;top:0;height:22mm;display:flex;align-items:center;gap:3mm;border-bottom:.3mm solid var(--line)}
+.covtop .logo{height:17mm;width:17mm;object-fit:contain}
+.covorg{display:flex;flex-direction:column;margin-left:2mm}
+.covorg b{font-family:'Anek Bangla';font-weight:700;font-size:12pt;line-height:1.2}
+.covorg span{font-size:8.5pt;color:var(--gray)}
+.issue{margin-left:auto;text-align:right;font-size:8pt;color:var(--gray);line-height:1.3}
+.issue b{font-family:'Anek Bangla';font-weight:800;font-size:18pt;color:var(--red)}
+.mast{font-family:'Anek Bangla';font-weight:800;font-size:66pt;line-height:1;color:var(--red);letter-spacing:-.01em}
+span.pill{display:inline-block;background:var(--ink);color:#fff;font-family:'Anek Bangla';font-weight:600;font-size:10pt;padding:1.2mm 4mm 1mm;border-radius:6mm}
+.tag{font-family:'Tiro Bangla';font-style:italic;font-size:14pt;color:var(--ink);margin-top:2.5mm}
+.badge{position:absolute;border-radius:50%;background:var(--red);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  font-family:'Anek Bangla';font-weight:600;font-size:9pt;line-height:1.2;padding:5mm;box-shadow:0 0 0 1.8mm #fff}
+.badge b{font-weight:800;font-size:22pt;line-height:1.05}
+.badge.nv{background:var(--navy)}
+.covlines{position:absolute;left:0;right:0;bottom:0;height:30mm;display:grid;grid-template-columns:1fr 1fr 1fr;gap:5mm;align-items:end}
+.covlines div{color:#fff;font-family:'Anek Bangla';font-weight:600;font-size:10pt;line-height:1.3;padding:0 0 1mm}
+.covlines div:nth-child(2),.covlines div:nth-child(3){color:var(--ink)}
+.covlines b{display:block;font-weight:800;font-size:18pt;line-height:1.1}
+.covlines div:nth-child(2) b,.covlines div:nth-child(3) b{color:var(--red)}
+
+/* contents */
+.parthd{font-family:'Anek Bangla';font-weight:700;font-size:10pt;color:#fff;background:var(--red);padding:1.3mm 3.5mm 1mm;border-radius:2mm;margin-bottom:3mm}
+.parthd.nv{background:var(--navy)}
+.ti{display:flex;align-items:center;gap:3mm;padding:1.6mm 0;border-bottom:.25mm dashed var(--line)}
+.tth{flex:none;width:11mm;height:11mm;border-radius:50%;overflow:hidden;background:#ddd}
+.tth img{width:100%;height:100%;object-fit:cover;display:block}
+.ttl{flex:1;font-family:'Anek Bangla';font-weight:600;font-size:9.6pt;line-height:1.25}
+.tpg{font-family:'Anek Bangla';font-weight:800;font-size:13pt;color:var(--red)}
+.ti.nv .tpg{color:var(--navy)}
+
+/* stats & lists */
+.stats{position:absolute;left:0;right:0;display:grid;grid-template-columns:repeat(3,1fr);gap:4mm}
+.stats.four{grid-template-columns:repeat(4,1fr)}
+.st{background:var(--accl);border-radius:3mm;padding:3.5mm 4mm 3mm}
+.st b{display:block;font-family:'Anek Bangla';font-weight:800;font-size:20pt;line-height:1.05;color:var(--acc)}
+.st span{display:block;font-size:8pt;line-height:1.35;color:var(--gray);margin-top:1mm}
+.st.red{background:var(--acc)} .st.red b,.st.red span{color:#fff}
+.stat2{position:absolute;display:flex;align-items:center;gap:3mm}
+.stat2 b{font-family:'Anek Bangla';font-weight:800;font-size:40pt;line-height:1;color:var(--red)}
+.stat2 span{font-family:'Anek Bangla';font-weight:600;font-size:10.5pt;line-height:1.25;width:30mm}
+.chip{position:absolute;background:var(--red);color:#fff;font-family:'Anek Bangla';font-weight:600;font-size:8.6pt;padding:.9mm 3.4mm .7mm;border-radius:4mm}
+.tline{position:absolute;left:0;right:0;display:grid;grid-template-columns:repeat(3,1fr);gap:4mm;border-top:.6mm solid var(--red);padding-top:3mm}
+.tline div{position:relative;padding-top:1mm}
+.tline div:before{content:'';position:absolute;top:-5.1mm;left:0;width:3.4mm;height:3.4mm;border-radius:50%;background:#fff;border:.7mm solid var(--red)}
+.tline b{display:block;font-family:'Anek Bangla';font-weight:800;font-size:14pt;color:var(--red)}
+.tline span{font-size:8.2pt;line-height:1.4;color:var(--gray)}
+.ppl{display:grid;grid-template-columns:repeat(3,1fr);gap:4mm}
+.ppl div{background:#fff;border-radius:3mm;padding:3.5mm 4mm;border-left:1.2mm solid var(--red)}
+.ppl span{display:block;font-size:7.8pt;color:var(--red);font-weight:600}
+.ppl b{display:block;font-family:'Anek Bangla';font-weight:700;font-size:11pt;line-height:1.25;margin-top:.6mm}
+.ppl i{display:block;font-style:normal;font-size:7.8pt;color:var(--gray);margin-top:.6mm}
+.nlist{position:absolute;display:flex;flex-direction:column;gap:3mm}
+.nlist div{display:flex;align-items:center;gap:3mm;border:.35mm solid var(--acc);border-radius:8mm;padding:1.4mm 4mm 1.4mm 1.4mm;background:#fff}
+.nlist b{flex:none;width:8mm;height:8mm;border-radius:50%;background:var(--acc);color:#fff;font-family:'Anek Bangla';font-weight:700;font-size:9pt;display:flex;align-items:center;justify-content:center}
+.nlist span{font-size:8.8pt;line-height:1.35;font-weight:500}
+.ibox{position:absolute;display:flex;align-items:center;gap:3mm;border:.35mm solid var(--red);border-radius:8mm;padding:2mm 4mm}
+.ibox span{flex:none;background:var(--red);color:#fff;font-size:7.8pt;font-weight:600;padding:.6mm 2.6mm;border-radius:4mm}
+.ibox b{font-family:'Anek Bangla';font-weight:600;font-size:10pt;line-height:1.25}
+.chips{position:absolute;display:flex;flex-wrap:wrap;gap:2.2mm}
+.chips span{border:.35mm solid var(--red);color:var(--ink);border-radius:5mm;padding:.9mm 3.2mm .7mm;font-size:8.4pt;font-weight:500}
+.tab{position:absolute;background:var(--red);color:#fff;font-family:'Anek Bangla';font-weight:700;font-size:11pt;padding:1.6mm 5mm 1.3mm;border-radius:0 6mm 6mm 0}
+.nv .tab{background:var(--navy)}
+
+/* openers */
+.optitle{font-family:'Anek Bangla';font-weight:800;font-size:48pt;line-height:1.02;color:#fff}
+.opsub{font-family:'Anek Bangla';font-weight:500;font-size:15pt;color:#fff;opacity:.95;margin-top:2mm}
+.bignum{position:absolute;font-family:'Anek Bangla';font-weight:800;font-size:150pt;line-height:1;color:rgba(255,255,255,.14)}
+.bignum.w{color:rgba(255,255,255,.16)}
+.logow{position:absolute;width:26mm;height:26mm;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;padding:2.5mm}
+.logow.big{width:34mm;height:34mm;padding:1.5mm}
+.logow img{width:100%;height:100%;object-fit:contain}
+.olist{position:absolute;display:flex;flex-wrap:wrap;gap:2.2mm;width:166mm}
+.olist span{border:.35mm solid rgba(255,255,255,.85);color:#fff;border-radius:5mm;padding:1mm 3.4mm .8mm;font-size:8.6pt;font-weight:500}
+.cta{position:absolute;background:#fff;color:var(--red);font-family:'Anek Bangla';font-weight:800;font-size:15pt;padding:3mm 7mm 2.6mm;border-radius:8mm}
+
+/* members */
+.mgrid{position:absolute;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4mm}
+.mgrid.one{grid-template-columns:1fr;justify-items:center}
+.mlabel{position:absolute;left:0;font-family:'Anek Bangla';font-weight:700;font-size:9.5pt;color:#fff;background:var(--navy);padding:.8mm 3.4mm .6mm;border-radius:3mm}
+.mem{text-align:center;display:flex;flex-direction:column;align-items:center}
+.mph{width:29mm;height:37mm;border-radius:14.5mm 14.5mm 2.5mm 2.5mm;overflow:hidden;background:#ddd;border-bottom:1.1mm solid var(--red)}
+.mph img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block}
+.mem b{font-family:'Anek Bangla';font-weight:700;font-size:9.6pt;line-height:1.2;margin-top:1.8mm}
+.mem i{font-style:normal;font-size:7.6pt;font-weight:600;color:var(--navy);margin-top:.4mm}
+.mem span{font-size:6.8pt;line-height:1.35;color:var(--gray);margin-top:.4mm;max-width:40mm}
+.mem.big{flex-direction:row;text-align:left;gap:5mm;background:var(--nvpink);border-radius:4mm;padding:3.5mm 8mm 3.5mm 3.5mm}
+.mem.big .mph{width:42mm;height:52mm;border-radius:21mm 21mm 3mm 3mm}
+.mem.big .mtx{display:flex;flex-direction:column;align-items:flex-start}
+.mem.big b{font-size:16pt;margin:0}
+.mem.big i{font-size:10pt}
+.mem.big span{font-size:8.4pt;max-width:none}
+
+/* back cover */
+.bc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5mm;padding:0 18mm}
+.bclogos{display:flex;gap:6mm}
+.bclogos img{width:24mm;height:24mm;object-fit:contain;background:#fff;border-radius:50%}
+.bcorg{text-align:center;font-family:'Anek Bangla';font-weight:600;font-size:10.5pt;line-height:1.5;color:var(--gray)}
+.bcstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;width:150mm;margin-top:3mm}
+.bcstrip figure{margin:0;height:32mm;border-radius:16mm;overflow:hidden;box-shadow:0 0 0 1.2mm #fff}
+.bcstrip img{width:100%;height:100%;object-fit:cover;display:block}
+.bcyear{font-family:'Anek Bangla';font-weight:700;font-size:11pt;color:var(--red);letter-spacing:.04em}
+
+.qt.w{color:#fff}
+.b.lg{font-size:10.4pt;line-height:1.7}
+
+.clab{text-align:center;font-family:'Anek Bangla';font-weight:700;font-size:9.5pt;color:var(--acc)}
